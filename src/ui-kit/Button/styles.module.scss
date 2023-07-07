@@ -1,0 +1,15 @@
+.Button {
+    background-color: var(--button-primary);
+    color: var(--white);
+    border-radius: var(--border-radius-s);
+
+    &-primary {
+        width: 103px;
+        height: 40px;
+    }
+
+    &-name {
+        width: 125px;
+        height: 27px;
+    }
+}
