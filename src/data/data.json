@@ -6,12 +6,16 @@
                 {
                     "title": "Mobile Wireframes",
                     "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoqueetyumjkl nhjnkjnnhyvg gvfdetgbhbnjno yhgty",
-                    "status": false
+                    "status": false,
+                    "date": "02.04.2023",
+                    "priority": "red"
                 },
                 {
                     "title": "Mobile Wireframes",
                     "description": "gvjhbbjgvgfc Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque",
-                    "status": false
+                    "status": false,
+                    "date": "02.04.2023",
+                    "priority": "yellow"
                 }
             ]
         },
@@ -21,12 +25,16 @@
                 {
                     "title": "Landing Page",
                     "description": "gvjhbbjgvgfc",
-                    "status": false
+                    "status": false,
+                    "date": "02.04.2023",
+                    "priority": "yellow"
                 },
                 {
                     "title": "Login Flow",
                     "description": "gvjhbbjgvgfc",
-                    "status": false
+                    "status": false,
+                    "date": "02.04.2023",
+                    "priority": "green"
                 }
             ]
         },
@@ -36,17 +44,23 @@
                 {
                     "title": "Mobile Wireframes",
                     "description": "gvjhbbjgvgfc Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque fvgbjh jnk scc",
-                    "status": false
+                    "status": false,
+                    "date": "02.04.2023",
+                    "priority": "yellow"
                 },
                 {
                     "title": "Mobile Wireframes",
                     "description": "gvjhbbjgvgfc",
-                    "status": false
+                    "status": false,
+                    "date": "02.10.2024",
+                    "priority": "red"
                 },
                 {
                     "title": "Navigation",
                     "description": "gvjhbbjgvgfc",
-                    "status": false
+                    "status": false,
+                    "date": "02.04.2023",
+                    "priority": "red"
                 }
             ]
         },
@@ -56,12 +70,16 @@
                 {
                     "title": "Product Mockups",
                     "description": "qwertyuiop cvbnmk fghjk dvbnm fghjkl dcvbnm xcvbnm rtgyhj vbn jnkev bnkjnefv uiwd cunkdv iwd kvd vjoj dskvnwofn hisdv  wiholms dhwjovmkdwmv kihnod vmd vkoi[l,wdvnc dvwinvdmvk hgyhckwplkm udhcyusd hdivjoev kkjno",
-                    "status": false
+                    "status": false,
+                    "date": "02.04.2023",
+                    "priority": "red"
                 },
                 {
                     "title": "Workshop Ideas",
                     "description": "описание",
-                    "status": false
+                    "status": false,
+                    "date": "02.04.2023",
+                    "priority": "green"
                 }
             ]
         }

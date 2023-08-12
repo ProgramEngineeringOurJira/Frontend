@@ -2,7 +2,7 @@ import React, { FC, PropsWithChildren, useState } from 'react';
 import clsx from 'clsx';
 
 import styles from './styles.module.scss';
-import { Button } from '../Button';
+import { Button } from '../../ui-kit/Button';
 import { useDispatch } from 'react-redux';
 import columnsSlice from '../../redux/features/columns/columnsSlice';
 

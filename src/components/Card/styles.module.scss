@@ -44,12 +44,13 @@
         width: 85px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
     &_time_wrapper {
         width: 65px;
         display: flex;
-        justify-content: space-between;
+        align-items: center;
     }
 
     &_time_date {
