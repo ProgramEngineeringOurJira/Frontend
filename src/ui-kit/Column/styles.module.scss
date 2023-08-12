@@ -1,0 +1,45 @@
+.Column {
+    max-width: 318px;
+    height: 100%;
+    min-width: 265px;
+    padding: 20px;
+
+    background-color: var(--column);
+    border-radius: 5px;
+
+    overflow: auto;
+
+    &_header {
+        margin-bottom: 10px;
+        display: flex;
+
+        // заменить выравнивание по вертикали
+        &_text {
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        &_quantity-wrapper {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            margin-left: 15px;
+            border-radius: 50%;
+
+            background-color: var(--button-round);
+        }
+
+        &_quantity {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-right: -50%;
+            transform: translate(-50%, -50%)
+        }
+
+        &_btn-add {
+            margin-left: auto;
+        }
+    }
+}

@@ -1,15 +1,19 @@
 .Button {
+    border-radius: var(--border-radius-s);
     background-color: var(--button-primary);
     color: var(--white);
-    border-radius: var(--border-radius-s);
-
+    
     &-primary {
         width: 103px;
         height: 40px;
     }
 
-    &-name {
-        width: 125px;
-        height: 27px;
+    &-add {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+
+        background-color: var(--button-round);
+        color: var(--black-primary);
     }
 }

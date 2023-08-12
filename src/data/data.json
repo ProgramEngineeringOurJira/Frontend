@@ -1,0 +1,69 @@
+{
+    "columns": [
+        {
+            "name": "To do",
+            "tasks": [
+                {
+                    "title": "Mobile Wireframes",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoqueetyumjkl nhjnkjnnhyvg gvfdetgbhbnjno yhgty",
+                    "status": false
+                },
+                {
+                    "title": "Mobile Wireframes",
+                    "description": "gvjhbbjgvgfc Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque",
+                    "status": false
+                }
+            ]
+        },
+        {
+            "name": "In Progress",
+            "tasks": [
+                {
+                    "title": "Landing Page",
+                    "description": "gvjhbbjgvgfc",
+                    "status": false
+                },
+                {
+                    "title": "Login Flow",
+                    "description": "gvjhbbjgvgfc",
+                    "status": false
+                }
+            ]
+        },
+        {
+            "name": "In Review",
+            "tasks": [
+                {
+                    "title": "Mobile Wireframes",
+                    "description": "gvjhbbjgvgfc Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque fvgbjh jnk scc",
+                    "status": false
+                },
+                {
+                    "title": "Mobile Wireframes",
+                    "description": "gvjhbbjgvgfc",
+                    "status": false
+                },
+                {
+                    "title": "Navigation",
+                    "description": "gvjhbbjgvgfc",
+                    "status": false
+                }
+            ]
+        },
+        {
+            "name": "Done",
+            "tasks": [
+                {
+                    "title": "Product Mockups",
+                    "description": "qwertyuiop cvbnmk fghjk dvbnm fghjkl dcvbnm xcvbnm rtgyhj vbn jnkev bnkjnefv uiwd cunkdv iwd kvd vjoj dskvnwofn hisdv  wiholms dhwjovmkdwmv kihnod vmd vkoi[l,wdvnc dvwinvdmvk hgyhckwplkm udhcyusd hdivjoev kkjno",
+                    "status": false
+                },
+                {
+                    "title": "Workshop Ideas",
+                    "description": "описание",
+                    "status": false
+                }
+            ]
+        }
+    ]
+}

@@ -1,7 +1,7 @@
 {
   "arrowParens": "always",
   "endOfLine": "auto",
-  "htmlWhitespaceSensitivity": "css",
+  "htmlWhitespaceSensitivity": "strict",
   "printWidth": 120,
   "proseWrap": "preserve",
   "quoteProps": "as-needed",
