@@ -1,10 +1,14 @@
-import React, { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren, ReactNode } from 'react';
 import styles from './styles.module.scss';
+import { Input } from '../Input';
+import { Button } from '../Button';
 
-export const Wrapper: FC<PropsWithChildren<{ children: Element }>> = ({ children }) => {
-    return (
-        <div className={styles.Wrapper}>
-            { children }
-        </div>
-    )
-}
+export const Wrapper: FC<PropsWithChildren<{ children: Element & ReactNode }>> = ({ children }) => {
+  return (
+    <div className={styles.Wrapper}>
+      <Input />
+      <Button text="New Item" type="primary" />
+      {children}
+    </div>
+  );
+};

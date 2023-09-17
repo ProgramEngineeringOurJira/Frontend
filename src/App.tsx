@@ -1,14 +1,17 @@
-import React from 'react';
-
-import './reset.css'
-import './App.css'
+import './reset.css';
+import './App.css';
 import './global-styles/index.scss';
+
 import { Columns } from './components/Columns/Columns';
+import { Header } from './components/Header/Header';
 
 function App() {
   return (
-    <Columns />
-  )
+    <>
+      <Header />
+      <Columns />
+    </>
+  );
 }
 
-export default App
+export default App;

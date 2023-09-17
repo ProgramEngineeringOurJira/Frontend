@@ -1,19 +1,19 @@
 .Button {
-    border-radius: var(--border-radius-s);
-    background-color: var(--button-primary);
-    color: var(--white);
-    
-    &-primary {
-        width: 103px;
-        height: 40px;
-    }
+  border-radius: var(--border-radius-s);
+  background-color: var(--button-primary);
+  color: var(--white);
 
-    &-add {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
+  &-primary {
+    width: 103px;
+    height: 40px;
+  }
 
-        background-color: var(--button-round);
-        color: var(--black-primary);
-    }
+  &-add {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+    background-color: var(--button-round);
+    color: var(--black-primary);
+  }
 }

@@ -1,7 +1,5 @@
-import React, {
+import {
   FC,
-  MouseEvent as ReactMouseEvent,
-  KeyboardEvent as ReactKeyboardEvent,
   MouseEventHandler,
 } from 'react';
 import clsx from 'clsx';

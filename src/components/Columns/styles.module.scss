@@ -1,18 +1,13 @@
 .ColumnsWrapper {
-    width: 1280px;
-    height: 100vh;
-    margin: auto;
-    padding: 40px;
+  height: 100vh;
+  margin: auto;
+  padding: 40px;
+  padding-left: 15%;
+  padding-right: 15%;
 
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 
-    border: 2px solid var(--black-disabled);
-}
-
-@media (min-width: 1170px) {
-    .ColumnsWrapper {
-        max-width: 1170px;
-    }
+  border: 2px solid var(--black-disabled);
 }
