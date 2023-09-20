@@ -1,17 +1,15 @@
+import { FC } from 'react';
+import { useRoutes } from 'react-router-dom';
+
+import { Router as PathRouter } from './utils/Router';
+
 import './reset.css';
 import './App.css';
 import './global-styles/index.scss';
 
-import { Columns } from './components/Columns/Columns';
-import { Header } from './components/Header/Header';
-
-function App() {
+export const App: FC = () => {
+  const routes = useRoutes(PathRouter);
   return (
-    <>
-      <Header />
-      <Columns />
-    </>
+    <>{routes}</>
   );
 }
-
-export default App;
