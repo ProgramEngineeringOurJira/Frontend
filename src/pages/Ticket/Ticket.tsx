@@ -1,5 +1,11 @@
 import { FC } from 'react';
 
+import { PageLayout } from '../../components/PageLayout';
+
 export const Ticket: FC = () => {
-  return <h1>Задача</h1>;
+  return (
+    <PageLayout>
+      <h1>Задача</h1>
+    </PageLayout>
+  );
 };

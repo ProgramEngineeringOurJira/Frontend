@@ -1,0 +1,39 @@
+.Information {
+  padding-left: 40px;
+  padding-right: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 64px;
+  background-color: var(--column);
+
+  &__sprint {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &-name {
+      font-size: 15px;
+      font-weight: 700;
+      margin-top: 5px;
+    }
+  }
+
+  &__members {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .divider {
+      border-left: 2px solid var(--black-disabled);
+      height: 34px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .Information__members-avatars, .divider {
+    display: none;
+  }
+}

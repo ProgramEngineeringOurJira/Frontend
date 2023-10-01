@@ -1,0 +1,11 @@
+.Searchbar {
+  min-width: 16%;
+  height: 40px;
+  padding-left: 20px;
+  border-radius: var(--border-radius-s);
+  border: 1px solid var(--light-gray);
+
+  &::placeholder {
+    color: var(--light-gray);
+  }
+}

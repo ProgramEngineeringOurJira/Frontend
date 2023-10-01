@@ -25,6 +25,7 @@ type Columns = {
 
 export const Columns: FC = () => {
   const columns = useSelector((state: Columns) => state.columns);
+
   return (
     <div className={styles.ColumnsWrapper}>
       {columns.map((column, index) => (
@@ -36,7 +37,7 @@ export const Columns: FC = () => {
               description={task.description}
               date={task.date}
               priority={task.priority}
-            ></Card>
+            />
           ))}
         </Column>
       ))}
