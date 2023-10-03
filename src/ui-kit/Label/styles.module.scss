@@ -1,0 +1,32 @@
+.Label {
+    height: 26px;
+    width: 106px;
+    border-radius: var(--border-radius-s);
+    &_pink {
+        background-color: var(--label-pink);
+    }
+    &_blue {
+        background-color: var(--label-blue);
+    }
+    &_green {
+        background-color: var(--label-green);
+    }
+    &_yellow {
+        background-color: var(--label-yellow);
+    }
+    &_purple {
+        background-color: var(--label-purple);
+    }
+    &_gray {
+        background-color: var(--label-gray);
+    }
+
+    &__text {
+        font-size: 15px;
+        color: var(--white);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 4px 12px;
+    }
+}

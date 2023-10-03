@@ -3,6 +3,7 @@ import clsx from 'clsx';
 
 import { Icon } from '../../ui-kit/Icon';
 import { PriorityTypes } from '../../utils/constants';
+import { Label } from '../../ui-kit/Label/Label';
 
 import styles from './styles.module.scss';
 
@@ -12,9 +13,10 @@ type CardProps = {
   header: string;
   date: Date;
   priority: string;
+  label: string;
 };
 
-export const Card: FC<CardProps> = ({ className, description, header, date, priority }) => {
+export const Card: FC<CardProps> = ({ className, description, header, date, priority, label }) => {
   function getDate(date: Date) {
     const taskDate = new Date(date);
     const options: Intl.DateTimeFormatOptions = {
@@ -34,6 +36,7 @@ export const Card: FC<CardProps> = ({ className, description, header, date, prio
     <div className={clsx(styles.Card, className)}>
       <h3 className={styles.Card__header}>{header}</h3>
       <p className={styles.Card__description}>{description}</p>
+      <Label text={label} />
       <div className={styles.Card__line}></div>
       <div className={styles.Card__bottom}>
         <div className={styles['Card__bottom-icons']}>

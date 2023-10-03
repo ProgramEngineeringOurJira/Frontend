@@ -12,6 +12,7 @@ type Task = {
   status: boolean;
   date: Date;
   priority: string;
+  label: string;
 };
 
 type Column = {
@@ -37,6 +38,7 @@ export const Columns: FC = () => {
               description={task.description}
               date={task.date}
               priority={task.priority}
+              label={task.label}
             />
           ))}
         </Column>
