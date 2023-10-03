@@ -1,0 +1,20 @@
+.Navigation {
+  padding-left: 40px;
+  padding-right: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 68px;
+
+  background-color: var(--header-menu);
+
+  &__container {
+    display: flex;
+    gap: 15px;
+  }
+
+  &__logout {
+    color: var(--white);
+  }
+}

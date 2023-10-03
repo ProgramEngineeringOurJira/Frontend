@@ -32,21 +32,19 @@ export const Column: FC<PropsWithChildren<ColumnProps>> = ({ className, text, ch
 
   return (
     <div className={clsx(styles.Column, className)}>
-      <div className={styles.Column_conteiner}>
-        <div className={styles.Column_header}>
-          <span className={styles.Column_header_text}>{text}</span>
-          <div className={styles['Column_header_quantity-wrapper']}>
-            <div className={styles.Column_header_quantity}>0</div>
-          </div>
-          <Button
-            className={styles['Column_header_btn-add']}
-            text="+"
-            type="add"
-            onClick={() => onSubmit('add')}
-          ></Button>
+      <div className={styles.Column__header}>
+        <span className={styles.Column__header_text}>{text}</span>
+        <div className={styles['Column__header_quantity-wrapper']}>
+          <div className={styles.Column__header_quantity}>0</div>
         </div>
-        <div>{children}</div>
+        <Button
+          className={styles['Column__header_btn-add']}
+          text="+"
+          type="add"
+          onClick={() => onSubmit('add')}
+        ></Button>
       </div>
+      <div className={styles.Column__cards}>{children}</div>
     </div>
   );
 };

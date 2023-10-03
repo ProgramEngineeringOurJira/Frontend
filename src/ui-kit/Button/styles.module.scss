@@ -16,4 +16,23 @@
     background-color: var(--button-round);
     color: var(--black-primary);
   }
+
+  &-header {
+    padding: 0px 10px;
+    width: auto;
+    height: 40px;
+
+    background-color: var(--button-header);
+  }
+
+  &-new-member {
+    padding: 0px 10px;
+    width: auto;
+    height: 40px;
+
+    color: var(--button-primary);
+    font-weight: 500;
+    font-size: 14px;
+    background-color: var(--button-disabled);
+  }
 }

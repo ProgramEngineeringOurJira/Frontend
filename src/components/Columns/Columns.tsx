@@ -12,6 +12,7 @@ type Task = {
   status: boolean;
   date: Date;
   priority: string;
+  label: string;
 };
 
 type Column = {
@@ -25,6 +26,7 @@ type Columns = {
 
 export const Columns: FC = () => {
   const columns = useSelector((state: Columns) => state.columns);
+
   return (
     <div className={styles.ColumnsWrapper}>
       {columns.map((column, index) => (
@@ -36,7 +38,8 @@ export const Columns: FC = () => {
               description={task.description}
               date={task.date}
               priority={task.priority}
-            ></Card>
+              label={task.label}
+            />
           ))}
         </Column>
       ))}

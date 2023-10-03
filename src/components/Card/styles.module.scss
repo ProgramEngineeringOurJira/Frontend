@@ -2,20 +2,21 @@
   padding: 10px;
   margin: 10px 0px;
   background-color: var(--white);
-  border-radius: 5px;
+  border-radius: var(--border-radius-s);
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
 
-  &_header {
+  &__header {
     color: var(--black-primary);
     font-size: 15px;
     font-weight: 500;
   }
 
-  &_description {
+  &__description {
     color: var(--black-primary);
     font-size: 15px;
     font-weight: 400;
     margin-top: 10px;
+    margin-bottom: 10px;
 
     overflow: hidden;
     text-overflow: ellipsis;
@@ -28,18 +29,18 @@
     box-orient: vertical;
   }
 
-  &_line {
+  &__line {
     margin-top: 10px;
     border-bottom: 1px solid var(--column);
   }
 
-  &_bottom {
+  &__bottom {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
   }
 
-  &_bottom_icons {
+  &__bottom-icons {
     width: 85px;
     display: flex;
     justify-content: space-between;
@@ -58,7 +59,7 @@
     font-weight: 500;
   }
 
-  &_participants {
+  &__participants {
     width: 100px;
     background-color: var(--black-disabled);
   }

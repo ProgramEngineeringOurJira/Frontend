@@ -1,5 +1,11 @@
 import { FC } from 'react';
 
+import { PageLayout } from '../../components/PageLayout';
+
 export const Login: FC = () => {
-  return <h1>Login</h1>;
+  return (
+    <PageLayout>
+      <h1>login</h1>
+    </PageLayout>
+  );
 };
