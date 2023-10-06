@@ -19,14 +19,22 @@ export const Button: FC<ButtonProps> = ({ onClick, disabled, className, text, ty
   if (to)
     return (
       <Link to={to}>
-        <button className={clsx(styles.Button, className, styles[`Button-${type}`])} onClick={onClick}>
+        <button
+          className={clsx(styles.Button, className, styles[`Button-${type}`])}
+          onClick={onClick}
+          onMouseDown={(ev) => ev.preventDefault()}
+        >
           {text}
         </button>
       </Link>
     );
   else
     return (
-      <button className={clsx(styles.Button, className, styles[`Button-${type}`])} onClick={onClick}>
+      <button
+        className={clsx(styles.Button, className, styles[`Button-${type}`])}
+        onClick={onClick}
+        onMouseDown={(ev) => ev.preventDefault()}
+      >
         {text}
       </button>
     );
