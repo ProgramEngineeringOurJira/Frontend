@@ -1,0 +1,17 @@
+.Option {
+  position: relative;
+  z-index: 10;
+  padding: 4px 12px;
+  border-bottom: 1px solid var(--light-gray);
+  background-color: var(--white);
+  transition: all .2s linear 0s;
+  cursor: pointer;
+}
+
+.Option:last-child {
+  border-bottom: none;
+}
+
+.Option:hover {
+  background-color: var(--black-disabled);
+}

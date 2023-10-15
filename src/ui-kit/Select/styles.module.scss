@@ -1,0 +1,43 @@
+.Select {
+  &__container {
+    display: inline-block;
+    position: relative;
+    width: 100px;
+    background-color: var(--header-menu);
+    border-radius: var(--border-radius-s);
+  }
+
+  &__text {
+    padding: 4px 12px;
+    color: var(--white);
+    cursor: pointer;
+
+    &::after {
+      content: '';
+      position: absolute;
+      right: 12px;
+      top: 11px;
+      border: 7px solid transparent;
+      border-color: var(--white) transparent transparent transparent;
+    }
+  }
+
+  &__options {
+    position: absolute;
+    width: 100%;
+    border: 1px solid var(--light-gray);
+
+    &-dropdown {
+      &_show {
+        min-height: 50px;
+        opacity: 1;
+        visibility: visible;
+      }
+      &_hide {
+        min-height: 0;
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  }
+}
