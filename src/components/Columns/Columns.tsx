@@ -30,7 +30,7 @@ export const Columns: FC = () => {
   return (
     <div className={styles.ColumnsWrapper}>
       {columns.map((column, index) => (
-        <Column key={index} text={column.name}>
+        <Column key={index} text={column.name} quantity_tasks={column.tasks.length}>
           {column.tasks.map((task, index) => (
             <Card
               key={index}

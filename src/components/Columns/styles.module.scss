@@ -2,10 +2,5 @@
   display: flex;
   justify-content: space-between;
   gap: 15px;
-}
-
-@media screen and (max-width: 768px) {
-  .ColumnsWrapper {
-    overflow-x: scroll;
-  }
+  overflow-x: auto;
 }

@@ -10,6 +10,8 @@
   &__header {
     margin-bottom: 10px;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     // TODO заменить выравнивание по вертикали
     &_text {

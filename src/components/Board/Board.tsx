@@ -1,22 +1,24 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
-import { Input } from '../../ui-kit/Searchbar';
+import { Input } from '../../ui-kit/Input';
 import { Button } from '../../ui-kit/Button';
-import { Modal } from '../Modal';
 import { Columns } from '../Columns';
+import { Modal, useModal } from '../Modal';
 
 import styles from './styles.module.scss';
+import { AddCardModal } from '../AddCardModal';
 
 export const Board: FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isShown, toggle } = useModal();
+
   return (
     <>
       <div className={styles.Board__header}>
-        <Input />
-        <Button text="New Item" type="primary" onClick={() => setIsModalOpen(!isModalOpen)} />
+        <Input placeholder="Search items" type="text" />
+        <Button text="New Item" type="primary" onClick={toggle} />
       </div>
       <Columns />
-      {isModalOpen && <Modal setIsModalOpen={setIsModalOpen} />}
+      <Modal isShown={isShown} hide={toggle} modalContent={<AddCardModal hide={toggle} />} headerText="Add task" />
     </>
   );
 };
