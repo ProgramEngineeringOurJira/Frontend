@@ -1,11 +1,12 @@
 import { FC } from 'react';
 
 import { PageLayout } from '../../components/PageLayout';
+import { LoginModal } from '../../components/LoginModal';
 
 export const Login: FC = () => {
   return (
     <PageLayout>
-      <h1>login</h1>
+      <div><LoginModal /></div>
     </PageLayout>
   );
 };

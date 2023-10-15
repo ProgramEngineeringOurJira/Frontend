@@ -18,12 +18,12 @@ interface Values {
 
 type AddCardModalProps = {
   hide: () => void;
-}
+};
 
 export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState('Задача');
-  const [description, setDescription] = useState('Описание');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [newColIndex, setNewColIndex] = useState(1);
 
   return (
@@ -48,17 +48,22 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
     >
       <Form>
         <div className={styles.AddCardModal}>
-        <FormElementWrapper>
-          <TextForm text="Title" />
-          <Input placeholder="Title" type="text" />
-        </FormElementWrapper>
-        <FormElementWrapper>
-          <TextForm text="Description" />
-          <Input placeholder="Description" type="text" />
-        </FormElementWrapper>
+          <FormElementWrapper>
+            <TextForm text="Title" />
+            <Input placeholder="Title" type="text" value={title} onChange={(value: string) => setTitle(value)} />
+          </FormElementWrapper>
+          <FormElementWrapper>
+            <TextForm text="Description" />
+            <Input
+              placeholder="Description"
+              type="text"
+              value={description}
+              onChange={(value: string) => setDescription(value)}
+            />
+          </FormElementWrapper>
         </div>
         <div className={styles['AddCardModal__button-submit']}>
-          <Button text="Add Task" type='primary' />
+          <Button text="Add Task" type="primary" />
         </div>
       </Form>
     </Formik>
