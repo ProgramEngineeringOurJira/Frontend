@@ -1,0 +1,8 @@
+.ErrorMessage {
+  font-size: 10px;
+  color: var(--error-color);
+
+  &__wrapper {
+    display: block;
+  }
+}

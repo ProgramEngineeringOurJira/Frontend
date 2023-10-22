@@ -1,15 +1,17 @@
 import { FC, useState } from 'react';
-import { Field, Form, Formik, FormikHelpers, useField, useFormik } from 'formik';
+import { ErrorMessage, Field, Form, Formik, FormikHelpers, useField, useFormik } from 'formik';
+import * as Yup from 'yup';
 
-import styles from './styles.module.scss';
 import { FormElementWrapper } from '../../ui-kit/FormElementWrapper';
 import { TextForm } from '../../ui-kit/TextForm';
-import { Input } from '../../ui-kit/Input';
+import { Button } from '../../ui-kit/Button';
+
+import styles from './styles.module.scss';
 
 interface Values {
-  title: string;
-  description: string;
-  type: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 }
 
 type LoginModalProps = {
@@ -17,8 +19,15 @@ type LoginModalProps = {
   type?: string;
 };
 
+const SignupSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email').required('Email is required'),
+  password: Yup.string().required('Password is required'),
+  confirmPassword: Yup.string()
+    .required('Confirm Password is required')
+    .oneOf([Yup.ref('password')], 'Passwords do not match')
+});
+
 export const LoginModal: FC<LoginModalProps> = ({}) => {
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [checkPassword, setCheckPassword] = useState('');
@@ -26,35 +35,33 @@ export const LoginModal: FC<LoginModalProps> = ({}) => {
   return (
     <Formik
       initialValues={{
-        title: '',
-        description: '',
-        type: 'add'
+        email: '',
+        password: '',
+        confirmPassword: ''
       }}
       onSubmit={(values: Values, { setSubmitting }: FormikHelpers<Values>) => {}}
+      validationSchema={SignupSchema}
     >
       <Form>
-        <div>
-          <FormElementWrapper>
-            <TextForm text="Name" />
-            <Input placeholder="Name" type="text" value={name} onChange={(value: string) => setName(value)} />
-          </FormElementWrapper>
+        <div className={styles.LoginModal}>
           <FormElementWrapper>
             <TextForm text="Email" />
-            <Input placeholder="Email" type="text" value={email} onChange={(value: string) => setEmail(value)} />
+            <Field type="text" name="email" className={styles['LoginModal__input']} />
+            <ErrorMessage name="email" component={'div'} className="error" />
           </FormElementWrapper>
           <FormElementWrapper>
             <TextForm text="Password" />
-            <Input placeholder="Password" type="password" value={password} onChange={(value: string) => setPassword(value)} />
+            <Field type="password" name="password" className={styles['LoginModal__input']} />
+            <ErrorMessage name="password" component="div" className="error" />
           </FormElementWrapper>
           <FormElementWrapper>
             <TextForm text="Check password" />
-            <Input
-              placeholder="Check password"
-              type="password"
-              value={checkPassword}
-              onChange={(value: string) => setCheckPassword(value)}
-            />
+            <Field type="password" name="confirmPassword" className={styles['LoginModal__input']} />
+            <ErrorMessage name="confirmPassword" component="div" className="error" />
           </FormElementWrapper>
+        </div>
+        <div className={styles['LoginModal__button-submit']}>
+          <Button text="Sign up" type="primary" />
         </div>
       </Form>
     </Formik>
