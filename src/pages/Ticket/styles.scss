@@ -1,0 +1,117 @@
+.ticket {
+  width: 100%;
+  font-size: 15px;
+}
+
+.bold-title {
+  font-weight: 500;
+}
+
+.blue-text{
+  color: #0013FE;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0px;
+}
+
+.top__projectName {
+  font-size: 24px;
+  font-weight: 1000;
+  color: #666666;
+}
+
+.top__controls {
+  display: flex;
+  gap: 15px;
+}
+
+.ticket-information {
+  background-color: #E6ECF0;
+  padding: 18px;
+}
+
+.ticket-information__blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ticket-header {
+  display: flex;
+  gap: 16px;
+}
+
+/*.ticket-header__photo{
+  height: 64;
+  width: 64;
+}*/
+
+.ticket-header__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.ticket-title {
+  color: #666666;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.ticket-existenceTime {
+  color: #666666;
+}
+
+.ticket-mainInfo {
+  display: flex;
+  column-gap: 300px;
+  row-gap: 8px;
+  flex-flow: row wrap;
+}
+
+.info-block {
+  display: flex;
+  gap: 50px;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.keys {
+  width: 75px;
+}
+
+.horizontal-line {
+  background-color: #CCCCCC;
+  height: 2px;
+}
+
+.subtask {
+  display: flex;
+}
+
+.subtask__title {
+  width: 550px;
+  min-width: 300px;
+}
+
+.subtask__info {
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  column-gap: 30px;
+  row-gap: 3px;
+}
+
+.subtask__info-element {
+  width: 150px;
+}
