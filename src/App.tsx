@@ -15,11 +15,13 @@ import { Auth } from './pages';
 import { LogInProvider } from './shared/context';
 
 export const App: FC = () => {
-  const { isAuth } = useContext(AuthContext);
+  //const { isAuth, token, user } = useContext(AuthContext);
   const routes = useRoutes(PathRouter);
   const queryClient = new QueryClient();
 
   const privateOutlet = (children: ReactElement<any>) => {
+    // TODO use isAuth from context
+    const isAuth = localStorage.getItem('access_token');
     if (!isAuth && window.location.pathname !== paths.login) {
       window.location.pathname = paths.login;
     }
@@ -28,7 +30,7 @@ export const App: FC = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LogInProvider>{privateOutlet(<Provider store={store}>{routes}</Provider>)}</LogInProvider>
+      <LogInProvider>{privateOutlet(<>{routes}</>)}</LogInProvider>
     </QueryClientProvider>
   );
 };

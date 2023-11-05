@@ -4,21 +4,16 @@ import { AxiosError, AxiosResponse } from 'axios';
 
 import HttpService from '../services/main.services';
 
-export type SendRequestReturnT = ReturnType<typeof useSendRequest>;
+export type GetRequestReturnT = ReturnType<typeof useGetRequest>;
 
-export const useSendRequest = (cb: (data?: any) => void, endpoint: string, formData?: boolean) => {
+export const useGetRequest = (cb: (data?: any) => void, endpoint: string) => {
   const [queryResult, setQueryResult] = React.useState<string | null>(null);
 
-  const {
-    isLoading,
-    mutate: sendRequest,
-    isError,
-    isSuccess
-  } = useMutation<AxiosResponse<any> | undefined, AxiosError, any>(
-    async <T>(data: T) => {
+  const { isLoading, mutate, isError, isSuccess } = useMutation<AxiosResponse<any> | undefined, AxiosError, any>(
+    async <T>(data?: T) => {
       setQueryResult(null);
 
-      return await HttpService.post(data, endpoint, formData);
+      return await HttpService.get(endpoint, data);
     },
     {
       onSuccess: (res) => {
@@ -31,5 +26,5 @@ export const useSendRequest = (cb: (data?: any) => void, endpoint: string, formD
     }
   );
 
-  return { queryResult, isLoading, sendRequest, isError, isSuccess };
+  return { queryResult, isLoading, mutate, isError, isSuccess };
 };
