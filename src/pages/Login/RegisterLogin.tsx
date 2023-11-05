@@ -5,11 +5,12 @@ import { LoginModal } from '../../components/LoginModal';
 
 import styles from './styles.module.scss';
 import { Register } from '../../components/Register/Register';
+import { LoginCheck } from '../../components/Login/Login';
 
-export const Login: FC = () => {
+export const RegisterLogin: FC = () => {
   return (
     <PageLayout>
-      <div className={styles.Login}><Register /></div>
+      <div className={styles.Login}><LoginCheck /></div>
     </PageLayout>
   );
 };

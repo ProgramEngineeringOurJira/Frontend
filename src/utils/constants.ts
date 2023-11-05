@@ -13,3 +13,12 @@ export const LabelColors = new Map()
   .set('qa', 'yellow')
   .set('design', 'purple')
   .set('other', 'gray');
+
+export const LC_USER = 'user';
+export const LC_ACCESS_TOKEN = 'accessToken';
+export const LC_REFRESH_TOKEN = 'refreshToken';
+export const LC_EXP_TIME = 'exp';
+
+export const ERROR_401 = 'Request failed with status code 401';
+
+export const MESSAGE_401 = 'Access Denied! Invalid Credentials';
