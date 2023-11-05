@@ -11,8 +11,7 @@ import './App.css';
 import './global-styles/index.scss';
 import { AuthContext } from './shared/context';
 import { paths } from './utils/paths';
-import { Login } from './pages';
-import { RegisterLogin } from './pages/Login/RegisterLogin';
+import { Auth } from './pages';
 import { LogInProvider } from './shared/context';
 
 export const App: FC = () => {
@@ -21,19 +20,15 @@ export const App: FC = () => {
   const queryClient = new QueryClient();
 
   const privateOutlet = (children: ReactElement<any>) => {
-    if (!isAuth && (window.location.pathname !== paths.register || window.location.pathname === paths.login)) {
-      window.location.pathname = paths.register;
+    if (!isAuth && window.location.pathname !== paths.login) {
+      window.location.pathname = paths.login;
     }
-    return !isAuth ? <RegisterLogin /> : children;
+    return !isAuth ? <Auth /> : children;
   };
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LogInProvider>
-      
-      <Provider store={store}>{routes}</Provider>
-      
-      </LogInProvider>
+      <LogInProvider>{privateOutlet(<Provider store={store}>{routes}</Provider>)}</LogInProvider>
     </QueryClientProvider>
   );
 };

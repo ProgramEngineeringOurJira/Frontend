@@ -5,23 +5,20 @@ import { useSendRequest } from '../../hooks/useSendRequest';
 import { paths } from '../../utils/paths';
 import { AuthContext } from '../../shared/context';
 
-const _Login: FC = () => {
+const _Registration: FC = () => {
   const authContext = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const submitCallback = (data: any) => {
-    authContext.setIsAuth(true);
-
-    if (data) {
-      authContext.setAccessToken(data['access_token']);
+  const submitCallback = () => {
+    if (isSuccess) {
+      authContext?.setIsAuth(true);
+      navigate(paths.board);
     }
-
-    navigate(paths.board);
   };
 
-  const { sendRequest, isError, isLoading, queryResult, isSuccess } = useSendRequest(submitCallback, 'login');
+  const { sendRequest, isError, isLoading, queryResult, isSuccess } = useSendRequest(submitCallback, 'register');
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -55,7 +52,7 @@ const _Login: FC = () => {
               value={password}
             ></input>
             <button type="submit">
-              <span>Залогиниться!</span>
+              <span>Зарегаться!</span>
             </button>
           </form>
           {isError && <span>{queryResult}</span>}
@@ -65,4 +62,4 @@ const _Login: FC = () => {
   );
 };
 
-export const Login = memo(_Login);
+export const Registration = memo(_Registration);
