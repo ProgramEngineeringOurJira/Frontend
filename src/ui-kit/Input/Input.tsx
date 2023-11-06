@@ -6,20 +6,21 @@ type InputProps = {
   value: string;
   placeholder?: string;
   type?: string;
-  onChange: (value: string) => void;
+  onChange: (a: any) => void;
 };
 
 export const Input: FC<InputProps> = ({ value, placeholder, type, onChange }) => {
-  const onInputChange = (ev: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    onChange(ev.target.value);
-  };
+  // TODO удалить
+  //const onInputChange = (ev: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  //  onChange(ev.target.value);
+  //};
 
   return (
     <input
       value={value}
       type={type}
       placeholder={placeholder}
-      onChange={onInputChange}
+      onChange={onChange}
       className={styles.Searchbar}
     ></input>
   );

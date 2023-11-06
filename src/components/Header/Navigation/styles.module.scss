@@ -9,6 +9,14 @@
 
   background-color: var(--header-menu);
 
+  &__name {
+    display: block;
+    font-family: Agbalumo;
+    font-weight: 400;
+    font-size: 45px;
+    color: var(--white);
+  }
+
   &__container {
     display: flex;
     gap: 15px;

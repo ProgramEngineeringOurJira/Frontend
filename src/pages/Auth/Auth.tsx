@@ -10,9 +10,13 @@ export const Auth: FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   return (
     <PageLayout>
-      <span>{isLogin ? 'Вход в аккаунт' : 'Регистрация'}</span>
-      <div className={styles.Login}>{isLogin ? <Login /> : <Registration />}</div>
-      <span onClick={() => setIsLogin((prev) => !prev)}>{isLogin ? 'Зарегистрироваться' : 'Войти'}</span>
+      <div className={styles.Auth}>
+        <span className={styles.Auth__title}>{isLogin ? 'Login' : 'Registration'}</span>
+        <div>{isLogin ? <Login /> : <Registration />}</div>
+        <span onClick={() => setIsLogin((prev) => !prev)} className={styles.Auth__switch}>
+          {isLogin ? 'Sign up' : 'Sign in'}
+        </span>
+      </div>
     </PageLayout>
   );
 };

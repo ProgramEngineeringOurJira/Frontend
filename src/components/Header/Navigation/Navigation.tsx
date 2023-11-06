@@ -25,6 +25,7 @@ export const Navigation: FC = () => {
           <Button text="+ New Sprint" type="header" onClick={toggle} />
           <Button text="+ New Project" type="header" to="/createProject" />
         </div>
+        <span className={styles.Navigation__name}>Kristi</span>
         <Button
           className={styles.Navigation__logout}
           to="/login"
