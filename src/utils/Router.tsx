@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom';
 
-import { BoardPage, CreateProject, Login, NotFoundPage, Ticket } from '../pages';
+import { BoardPage, CreateProject, Auth, NotFoundPage, Ticket } from '../pages';
 
 import { paths } from './paths';
 
@@ -11,7 +11,7 @@ export const Router: RouteObject[] = [
   },
   {
     path: paths.login,
-    element: <Login />
+    element: <Auth />
   },
   {
     path: `${paths.sprint}/:id`,
