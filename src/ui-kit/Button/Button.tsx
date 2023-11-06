@@ -13,9 +13,10 @@ export interface ButtonProps {
   text: string;
   type: ButtonType;
   to?: string;
+  typeButton?: 'button' | 'submit' | 'reset';
 }
 
-export const Button: FC<ButtonProps> = ({ onClick, disabled, className, text, type, to }) => {
+export const Button: FC<ButtonProps> = ({ onClick, disabled, className, text, type, to, typeButton }) => {
   if (to)
     return (
       <Link to={to}>
@@ -23,6 +24,7 @@ export const Button: FC<ButtonProps> = ({ onClick, disabled, className, text, ty
           className={clsx(styles.Button, className, styles[`Button-${type}`])}
           onClick={onClick}
           onMouseDown={(ev) => ev.preventDefault()}
+          type={typeButton}
         >
           {text}
         </button>
@@ -34,6 +36,7 @@ export const Button: FC<ButtonProps> = ({ onClick, disabled, className, text, ty
         className={clsx(styles.Button, className, styles[`Button-${type}`])}
         onClick={onClick}
         onMouseDown={(ev) => ev.preventDefault()}
+        type={typeButton}
       >
         {text}
       </button>

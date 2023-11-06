@@ -14,7 +14,7 @@ export const Select: React.FC<{
   const [selectedOption, setSelectedOption] = useState(defaultValue || '');
   const [showDropdown, setShowDropdown] = useState(false);
   const showDropdownHandler = () => setShowDropdown(!showDropdown);
-  const selectPlaceholder = placeholder || 'Choose an option';
+  const selectPlaceholder = placeholder || 'Sprint';
   const selectContainerRef = useRef<HTMLDivElement>(null);
   const clickOutsideHandler = () => setShowDropdown(false);
 

@@ -1,0 +1,25 @@
+.Auth {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  &__title {
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 50px;
+    color: var(--text-auth);
+  }
+
+  &__switch {
+    display: block;
+    cursor: pointer;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 15px;
+    text-decoration: underline;
+  }
+}
