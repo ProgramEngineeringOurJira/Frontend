@@ -1,0 +1,24 @@
+.comment__header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.comment__header-avatar {
+  background: #d9d9d9;
+  border-radius: 5px;
+}
+
+.comment__header-info {
+  height: 24px;
+  width: 100%;
+  border-color: #d9d9d9;
+  border-style: dashed;
+  border-width: 0px 0px 3px 0px;
+}
+
+.comment__content {
+  margin-top: 8px;
+  margin-left: 52px;
+  color: #666666;
+}

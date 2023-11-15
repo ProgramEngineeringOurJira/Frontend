@@ -1,0 +1,33 @@
+.bold-title {
+  font-weight: 500;
+}
+
+.blue-text {
+  color: #0013fe;
+}
+
+.subissue {
+  display: flex;
+}
+
+.subissue__title {
+  width: 550px;
+  min-width: 300px;
+}
+
+.subissue__info {
+  margin-left: 30px;
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  column-gap: 30px;
+  row-gap: 3px;
+}
+
+.subissue__info-element {
+  width: 150px;
+}
+
+.subissue__info-author {
+  width: 250px;
+}
