@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import clsx from 'clsx';
 
 import { Icon } from '../../ui-kit/Icon';
