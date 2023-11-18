@@ -5,3 +5,9 @@ export const validateEmail = (email: string) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 };
+
+export function getElapsedDays(startDate: Date): number {
+  const msInDay = 24 * 60 * 60 * 1000;
+
+  return Math.floor((new Date().getTime() - startDate.getTime()) / msInDay);
+}
