@@ -1,0 +1,26 @@
+.Comment {
+  &__header {
+    display: flex;
+    gap: var(--space-xxs);
+    align-items: center;
+  }
+
+  &__header-avatar {
+    background: var(--light-gray);
+    border-radius: var(--border-radius-s);
+  }
+
+  &__header-info {
+    height: 24px;
+    width: 100%;
+    border-color: var(--light-gray);
+    border-style: dashed;
+    border-width: 0px 0px 3px 0px;
+  }
+
+  &__content {
+    margin-top: 8px;
+    margin-left: 52px;
+    color: var(--text-gray);
+  }
+}
