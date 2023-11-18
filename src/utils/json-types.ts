@@ -1,13 +1,18 @@
+import { LabelTypes, Priority, Role, State } from './constants';
+
 export type Issue = {
   name: string;
   text: string;
-  priority: 'LOW' | 'NORMAL' | 'HIGH' | 'URGRENT';
-  state: string;
+  priority: Priority;
+  state: State;
   id: string;
   creation_date: string;
-  author?: UserAssignedWorkplace;
+  end_date: string;
+  label: LabelTypes;
+  author: UserAssignedWorkplace;
   implementers: UserAssignedWorkplace[];
   comments: Comment[];
+  subissues: Issue[];
 };
 
 export type Workplace = {
@@ -16,7 +21,6 @@ export type Workplace = {
   id: string;
   states: string[];
   sprints: Sprint[];
-  issues: Issue[];
 };
 
 export type Sprint = {
@@ -28,19 +32,21 @@ export type Sprint = {
 };
 
 export type Comment = {
-  name: string;
   text: string;
   files: string[];
   id: string;
   creation_date: string;
-  author?: UserAssignedWorkplace;
+  author: UserAssignedWorkplace;
 };
 
 export type UserAssignedWorkplace = {
   id: string;
-  user: {
-    email: string;
-    id: string;
-  };
-  role: 'ADMIN' | 'MEMBER' | 'GUEST';
+  user: User;
+  role: Role;
+};
+
+export type User = {
+  email: string;
+  name: string;
+  id: string;
 };

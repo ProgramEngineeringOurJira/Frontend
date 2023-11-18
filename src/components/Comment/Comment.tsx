@@ -1,27 +1,11 @@
 import { FC } from 'react';
+import { Comment as CommentType } from '../../utils/json-types';
 
-import styles from './styles.module.scss';
-import { Role } from '../../utils/constants';
 import { getElapsedDays } from '../../utils/helpers';
 
-type Comment = {
-  text: string;
-  files: string[];
-  id: string;
-  creation_date: string;
-  author?: UserAssignedWorkplace;
-};
+import styles from './styles.module.scss';
 
-type UserAssignedWorkplace = {
-  id: string;
-  user: {
-    email: string;
-    id: string;
-  };
-  role: Role;
-};
-
-export const Comment: FC<Comment> = (comment: Comment) => {
+export const Comment: FC<CommentType> = (comment) => {
   return (
     <div className={styles.Comment}>
       <div className={styles.Comment__header}>
@@ -33,8 +17,7 @@ export const Comment: FC<Comment> = (comment: Comment) => {
           className={styles['Comment__header-avatar']}
         />
         <span className={styles['Comment__header-info']}>
-          {comment.author?.user.email ?? 'Unknown user'} commented {getElapsedDays(new Date(comment.creation_date))}{' '}
-          days ago
+          {comment.author.user.name} commented {getElapsedDays(new Date(comment.creation_date))} days ago
         </span>
       </div>
       <div className={styles.Comment__content}>{comment.text}</div>

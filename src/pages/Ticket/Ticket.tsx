@@ -1,46 +1,15 @@
 import { FC } from 'react';
+import { Issue, Comment as CommentType } from '../../utils/json-types';
 import issueJSON from '../../data/issue.json';
 
 import { Header } from '../../components/Header';
 import { PageLayout } from '../../components/PageLayout';
 import { IssueInfo } from '../../components/IssueInfo';
 import { Comment } from '../../components/Comment';
+
 import { Button } from '../../ui-kit/Button';
-import { LabelTypes, Priority, Role, State } from '../../utils/constants';
 
 import styles from './styles.module.scss';
-
-type Issue = {
-  name: string;
-  text: string;
-  priority: Priority;
-  state: State;
-  id: string;
-  creation_date: string;
-  end_date: string;
-  label: LabelTypes;
-  author?: UserAssignedWorkplace;
-  implementers: UserAssignedWorkplace[];
-  comments: Comment[];
-  subissues: Issue[];
-};
-
-type Comment = {
-  text: string;
-  files: string[];
-  id: string;
-  creation_date: string;
-  author?: UserAssignedWorkplace;
-};
-
-type UserAssignedWorkplace = {
-  id: string;
-  user: {
-    email: string;
-    id: string;
-  };
-  role: Role;
-};
 
 export const Ticket: FC = () => {
   const issueJSONobj = JSON.stringify(issueJSON);
@@ -66,7 +35,7 @@ export const Ticket: FC = () => {
               <span>Comments</span>
             </div>
             <div className={styles['Ticket__comments-content']}>
-              {issue.comments.map((comment: Comment) => (
+              {issue.comments.map((comment: CommentType) => (
                 <Comment key={comment.id} {...comment} />
               ))}
             </div>

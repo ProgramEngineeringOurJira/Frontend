@@ -1,38 +1,8 @@
 import { FC } from 'react';
+import clsx from 'clsx';
+import { Issue } from '../../utils/json-types';
 
 import styles from './styles.module.scss';
-import { LabelTypes, Priority, Role, State } from '../../utils/constants';
-import clsx from 'clsx';
-
-type Issue = {
-  name: string;
-  text: string;
-  priority: Priority;
-  state: State;
-  id: string;
-  creation_date: string;
-  end_date: string;
-  label: LabelTypes;
-  author?: UserAssignedWorkplace;
-  implementers: UserAssignedWorkplace[];
-  comments: {
-    text: string;
-    files: string[];
-    id: string;
-    creation_date: string;
-    author?: UserAssignedWorkplace;
-  }[];
-  subissues: Issue[];
-};
-
-type UserAssignedWorkplace = {
-  id: string;
-  user: {
-    email: string;
-    id: string;
-  };
-  role: Role;
-};
 
 export const SubIssue: FC<Issue> = (issue) => {
   return (
@@ -45,7 +15,7 @@ export const SubIssue: FC<Issue> = (issue) => {
         <span className={styles['Subissue__info-element']}>{issue.state}</span>
         <span className={styles['Subissue__info-element']}>{new Date(issue.creation_date).toLocaleDateString()}</span>
         <span className={styles['Subissue__info-element']}>{new Date(issue.end_date).toLocaleDateString()}</span>
-        <span className={styles['Subissue__info-element']}>{issue.author?.user.email ?? 'Unknown user'}</span>
+        <span className={styles['Subissue__info-element']}>{issue.author.user.name}</span>
       </div>
     </div>
   );
