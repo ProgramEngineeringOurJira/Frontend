@@ -1,24 +1,26 @@
-.comment__header {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
+.Comment {
+  &__header {
+    display: flex;
+    gap: var(--space-xxs);
+    align-items: center;
+  }
 
-.comment__header-avatar {
-  background: #d9d9d9;
-  border-radius: 5px;
-}
+  &__header-avatar {
+    background: var(--light-gray);
+    border-radius: var(--border-radius-s);
+  }
 
-.comment__header-info {
-  height: 24px;
-  width: 100%;
-  border-color: #d9d9d9;
-  border-style: dashed;
-  border-width: 0px 0px 3px 0px;
-}
+  &__header-info {
+    height: 24px;
+    width: 100%;
+    border-color: var(--light-gray);
+    border-style: dashed;
+    border-width: 0px 0px 3px 0px;
+  }
 
-.comment__content {
-  margin-top: 8px;
-  margin-left: 52px;
-  color: #666666;
+  &__content {
+    margin-top: 8px;
+    margin-left: 52px;
+    color: var(--text-gray);
+  }
 }

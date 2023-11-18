@@ -1,51 +1,54 @@
 :root {
-    --white: #fff;
-    --black: #000;
-    --column: #E6ECF0;
-    --black-primary: #1D2D35;
-    --black-disabled: #C4C4C4;
-    --header-menu: #0013FE;
-    --light-gray: #D9D9D9;
+  --white: #fff;
+  --black: #000;
+  --column: #e6ecf0;
+  --black-primary: #1d2d35;
+  --black-disabled: #c4c4c4;
+  --header-menu: #0013fe;
+  --light-gray: #d9d9d9;
+  --issue-info: #e6ecf0;
+  --horizontal-line: #cccccc;
 
-    // button colors
-    --button-primary: #0013FE;
-    --button-disabled: #E6ECF0;
-    --button-round: #D5D5D5;
-    --button-header: #76CC8E;
+  // button colors
+  --button-primary: #0013fe;
+  --button-disabled: #e6ecf0;
+  --button-round: #d5d5d5;
+  --button-header: #76cc8e;
 
-    // text colors
-    --text-auth: #0013FE;
+  // text colors
+  --text-auth: #0013fe;
+  --text-gray: #666666;
 
-    // background flags
-    --background-green: #76CC8E;
-    --background-yellow: #FFA500;
-    --background-red: #FF0000;
+  // background flags
+  --background-green: #76cc8e;
+  --background-yellow: #ffa500;
+  --background-red: #ff0000;
 
-    // label colors
-    --label-pink: #FCBAD3;
-    --label-blue: #0013FE;
-    --label-green: #76CC8E;
-    --label-yellow: #FFA500;
-    --label-purple: #AA96DA;
-    --label-gray: #B5B8B1;
+  // label colors
+  --label-pink: #fcbad3;
+  --label-blue: #0013fe;
+  --label-green: #76cc8e;
+  --label-yellow: #ffa500;
+  --label-purple: #aa96da;
+  --label-gray: #b5b8b1;
 
-    // error color
-    --error-color: #FF0000;
+  // error color
+  --error-color: #ff0000;
 
-    // border radiuses
-    --border-radius-s: 5px;
-    --border-radius-m: 12px;
+  // border radiuses
+  --border-radius-s: 5px;
+  --border-radius-m: 12px;
 
-    // spacings
-    --space-xxxxs: 2px;
-    --space-xxxs: 4px;
-    --space-xxs: 8px;
-    --space-xs: 12px;
-    --space-s: 16px;
-    --space-m: 20px;
-    --space-l: 24px;
-    --space-xl: 30px;
-    --space-xxl: 32px;
-    --space-xxxl: 38px;
-    --space-xxxxl: 48px;
+  // spacings
+  --space-xxxxs: 2px;
+  --space-xxxs: 4px;
+  --space-xxs: 8px;
+  --space-xs: 12px;
+  --space-s: 16px;
+  --space-m: 20px;
+  --space-l: 24px;
+  --space-xl: 30px;
+  --space-xxl: 32px;
+  --space-xxxl: 38px;
+  --space-xxxxl: 48px;
 }

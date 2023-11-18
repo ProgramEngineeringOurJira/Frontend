@@ -1,0 +1,54 @@
+.Ticket {
+  width: 100%;
+  font-size: 15px;
+  overflow-y: auto;
+  height: 970px;
+
+  &__blocks {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+
+    &-projectName {
+      font-size: 24px;
+      font-weight: 1000;
+      color: var(--text-gray);
+    }
+
+    &-controls {
+      display: flex;
+      gap: 15px;
+    }
+  }
+
+  &__comments {
+    padding-bottom: 20px;
+
+    &-header {
+      width: 134px;
+      height: 32px;
+      border-style: solid;
+      border-width: 1px 1px 0px 1px;
+      border-radius: 5px 5px 0px 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-content {
+      border-style: solid;
+      border-width: 1px 1px 0px 1px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-s);
+      padding: 12px 18px 0px 18px;
+    }
+  }
+}

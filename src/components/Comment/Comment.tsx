@@ -1,45 +1,43 @@
 import { FC } from 'react';
 
 import styles from './styles.module.scss';
+import { Role } from '../../utils/constants';
+import { getElapsedDays } from '../../utils/helpers';
 
 type Comment = {
   text: string;
   files: string[];
   id: string;
   creation_date: string;
-  author?: {
+  author?: UserAssignedWorkplace;
+};
+
+type UserAssignedWorkplace = {
+  id: string;
+  user: {
+    email: string;
     id: string;
-    user: {
-      email: string;
-      id: string;
-    };
-    role: 'ADMIN' | 'MEMBER' | 'GUEST';
   };
+  role: Role;
 };
 
 export const Comment: FC<Comment> = (comment: Comment) => {
-  function getDayDiff(startDate: Date, endDate: Date): number {
-    const msInDay = 24 * 60 * 60 * 1000;
-
-    return Math.floor((endDate.getTime() - startDate.getTime()) / msInDay);
-  }
-
   return (
-    <div className={styles.comment}>
-      <div className={styles.comment__header}>
+    <div className={styles.Comment}>
+      <div className={styles.Comment__header}>
         <img
           src="https://fikiwiki.com/uploads/posts/2022-02/1644827473_48-fikiwiki-com-p-kartinki-smeshnie-krasivie-i-milie-pro-kot-53.jpg"
           alt="Commentator's avatar"
           height="32"
           width="32"
-          className={styles['comment__header-avatar']}
+          className={styles['Comment__header-avatar']}
         />
-        <span className={styles['comment__header-info']}>
-          {comment.author?.user.email ?? 'Unknown user'} commented{' '}
-          {getDayDiff(new Date(comment.creation_date), new Date())} days ago
+        <span className={styles['Comment__header-info']}>
+          {comment.author?.user.email ?? 'Unknown user'} commented {getElapsedDays(new Date(comment.creation_date))}{' '}
+          days ago
         </span>
       </div>
-      <div className={styles.comment__content}>{comment.text}</div>
+      <div className={styles.Comment__content}>{comment.text}</div>
     </div>
   );
 };
