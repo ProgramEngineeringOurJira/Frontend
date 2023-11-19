@@ -1,43 +1,15 @@
 import { FC } from 'react';
+import { Issue } from '../../utils/json-types';
+
 import { SubIssue } from '../SubIssue';
 
-import styles from './styles.module.scss';
 import { Label } from '../../ui-kit/Label';
-import { LabelTypes, Priority, Role, State } from '../../utils/constants';
 import { getElapsedDays } from '../../utils/helpers';
 import clsx from 'clsx';
 
-type Issue = {
-  name: string;
-  text: string;
-  priority: Priority;
-  state: State;
-  id: string;
-  creation_date: string;
-  end_date: string;
-  label: LabelTypes;
-  author?: UserAssignedWorkplace;
-  implementers: UserAssignedWorkplace[];
-  comments: {
-    text: string;
-    files: string[];
-    id: string;
-    creation_date: string;
-    author?: UserAssignedWorkplace;
-  }[];
-  subissues: Issue[];
-};
+import styles from './styles.module.scss';
 
-type UserAssignedWorkplace = {
-  id: string;
-  user: {
-    email: string;
-    id: string;
-  };
-  role: Role;
-};
-
-export const IssueInfo: FC<Issue> = (issue: Issue) => {
+export const IssueInfo: FC<Issue> = (issue) => {
   return (
     <div className={styles.IssueInfo}>
       <div className={styles.IssueInfo__blocks}>
@@ -52,8 +24,7 @@ export const IssueInfo: FC<Issue> = (issue: Issue) => {
           <div className={styles['IssueInfo__header-info']}>
             <span className={styles['IssueInfo__header-title']}>{issue.name}</span>
             <span className={styles['IssueInfo__header-history']}>
-              Added by {issue.author?.user.email ?? 'Unknown user'} {getElapsedDays(new Date(issue.creation_date))} days
-              ago.
+              Added by {issue.author.user.name} {getElapsedDays(new Date(issue.creation_date))} days ago.
             </span>
           </div>
         </div>
@@ -71,7 +42,7 @@ export const IssueInfo: FC<Issue> = (issue: Issue) => {
                 {issue.implementers.length
                   ? issue.implementers
                       .reduce(function (acc: string, n) {
-                        return acc + n.user.email + ', ';
+                        return acc + n.user.name + ', ';
                       }, '')
                       .slice(0, -2)
                   : 'No implementers'}
