@@ -6,12 +6,16 @@ import { Header } from '../../components/Header';
 import { PageLayout } from '../../components/PageLayout';
 import { IssueInfo } from '../../components/IssueInfo';
 import { Comment } from '../../components/Comment';
+import { Modal, useModal } from '../../components/Modal';
+import { AddCommentModal } from '../../components/AddCommentModal';
 
 import { Button } from '../../ui-kit/Button';
 
 import styles from './styles.module.scss';
 
 export const Ticket: FC = () => {
+  const { isShown, toggle } = useModal();
+
   const issueJSONobj = JSON.stringify(issueJSON);
   const issue: Issue = JSON.parse(issueJSONobj);
 
@@ -26,7 +30,7 @@ export const Ticket: FC = () => {
             </div>
             <div className={styles['Ticket__top-controls']}>
               <Button text="Edit" type="primary" />
-              <Button text="Comment" type="primary" />
+              <Button text="Comment" type="primary" onClick={toggle}/>
             </div>
           </div>
           <IssueInfo {...issue} />
@@ -41,6 +45,7 @@ export const Ticket: FC = () => {
             </div>
           </div>
         </div>
+        <Modal isShown={isShown} hide={toggle} modalContent={<AddCommentModal hide={toggle} />} headerText="Add comment" />
       </PageLayout>
     </div>
   );
