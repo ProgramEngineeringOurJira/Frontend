@@ -12,15 +12,6 @@
                     "date": "02.04.2023",
                     "priority": "red",
                     "label": "backend"
-                },
-                {
-                    "id": "2",
-                    "title": "Mobile Wireframes",
-                    "description": "gvjhbbjgvgfc Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque",
-                    "status": false,
-                    "date": "02.04.2023",
-                    "priority": "yellow",
-                    "label": "frontend"
                 }
             ]
         },

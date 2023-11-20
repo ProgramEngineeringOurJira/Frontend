@@ -9,7 +9,7 @@ const post = async <T>(data: T, endpoint: string, formData?: boolean) => {
 }
 
 const get = async (endpoint: string, data?: any) => {
-  return await axios.get(`v1/${endpoint}/`, data)
+  return await axios.get(`v1/${endpoint}`, data)
 }
 
 const HttpService = {

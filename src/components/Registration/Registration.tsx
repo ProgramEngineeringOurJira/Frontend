@@ -23,7 +23,7 @@ const _Registration: FC = () => {
   const submitCallback = () => {
     if (isSuccess) {
       authContext?.setIsAuth(true);
-      navigate(paths.board);
+      navigate(paths.home);
     }
   };
 

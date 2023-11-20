@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    value: []
+  value: []
 };
 
-const boardSlice = createSlice({
+export const boardSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
@@ -16,4 +16,4 @@ const boardSlice = createSlice({
 
 export const { setBoards } = boardSlice.actions;
 
-export default boardSlice;
+export default boardSlice.reducer;
