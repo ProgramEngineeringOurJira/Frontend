@@ -6,7 +6,7 @@ import { paths } from './paths';
 
 export const Router: RouteObject[] = [
   {
-    path: paths.board,
+    path: paths.home,
     element: <BoardPage />
   },
   {
@@ -14,7 +14,11 @@ export const Router: RouteObject[] = [
     element: <Auth />
   },
   {
-    path: `${paths.sprint}/:id`,
+    path: `${paths.board}/:idBoard`,
+    element: <BoardPage />
+  },
+  {
+    path: `${paths.board}/:idBoard${paths.sprint}/:idSprint`,
     element: <BoardPage />
   },
   {

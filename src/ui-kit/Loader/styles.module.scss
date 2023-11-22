@@ -1,0 +1,43 @@
+.Spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: var(--space-xxs);
+
+  &_text {
+    margin-top: var(--space-xxl);
+  }
+
+  &_icon {
+    width: 56px;
+    height: 56px;
+    display: grid;
+    border: 4.5px solid #0000;
+    border-radius: 50%;
+    border-right-color: var(--button-primary);
+    animation: SPIN 0.8s infinite linear;
+
+    &::before,
+    &::after {
+      content: '';
+      grid-area: 1/1;
+      margin: 2.2px;
+      border: inherit;
+      border-radius: 50%;
+      animation: SPIN 1.6s infinite;
+    }
+
+    &::after {
+      margin: 8.9px;
+      animation-duration: 2.4s;
+    }
+  }
+}
+
+@keyframes SPIN {
+  100% {
+    transform: rotate(1turn);
+  }
+}

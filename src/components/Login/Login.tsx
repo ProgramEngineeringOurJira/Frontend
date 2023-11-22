@@ -26,7 +26,7 @@ const _Login: FC = () => {
       authContext.setAccessToken(data['access_token']);
     }
 
-    navigate(paths.board);
+    navigate(paths.home);
   };
 
   const { sendRequest, isError, isLoading, queryResult, isSuccess } = useSendRequest(submitCallback, 'login');

@@ -6,8 +6,8 @@ const columnsSlice = createSlice({
   initialState: data.columns,
   reducers: {
     addTask: (state, action) => {
-      const { title, status, description, newColIndex, date, priority } = action.payload;
-      const task = { title, description, status, date, priority };
+      const { id, title, status, description, newColIndex, date, priority, label } = action.payload;
+      const task = { id, title, description, status, date, priority , label};
       const column = state.find((col, index) => index === newColIndex);
       if (typeof column !== 'undefined') column.tasks.push(task);
     }
