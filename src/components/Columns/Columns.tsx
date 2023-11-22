@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Draggable, DropResult, Droppable } from 'react-beautiful-dnd';
 
 import { Column } from '../Column';
 import { Card } from '../Card';
@@ -61,39 +61,68 @@ export const Columns: FC<BoardIdProps> = (boardId) => {
     setData(columns)
   }, [columns])
 
-  const onDragEnd = ({ source, destination }: any) => {
-    console.log(source, destination)
+  const onDragEnd = (result: DropResult) => {
+    const { destination, source } = result;
     if (!destination) return;
-    const sourceColIndex = data.findIndex((col) => col.id === source.droppableId);
-    const destColIndex = data.findIndex((col) => col.id === destination.droppableId);
-    const sourceCol = data[sourceColIndex];
-    const destCol = data[destColIndex];
-
-    const sourceColumnId = sourceCol.id;
-    const destColumnId = destCol.id;
-
-    const sourceTasks = [...sourceCol.tasks];
-    const destTasks = [...destCol.tasks];
 
     if (source.droppableId !== destination.droppableId) {
-      const [removed] = sourceTasks.splice(source.index, 1);
-      destTasks.splice(destination.index, 0, removed);
-      data[sourceColIndex].tasks = sourceTasks;
-      data[destColIndex].tasks = destTasks;
+      const sourceColumn = data.find((elem) => elem.id === source.droppableId);
+      const destColumn = data.find((elem) => elem.id === destination.droppableId);
+
+      const sourceItems = [...sourceColumn!.tasks];
+      const destItems = [...destColumn!.tasks];
+
+      const removed = sourceItems[source.index];
+
+      const resultSourceItems = sourceItems.filter((el) => el.id !== removed.id);
+      console.log(source.droppableId)
+      console.log(resultSourceItems)
+      destItems.splice(destination.index, 0, removed); 
+      console.log(destination.index)
+
+      const newData = data.map((column) => {
+        if (column.id === source.droppableId) {
+          return ({
+            ...sourceColumn,
+            tasks: resultSourceItems
+          } as Column)
+        }
+        if (column.id === destination.droppableId) {
+          return ({
+            ...destColumn,
+            tasks: destItems
+          } as Column)
+        }
+        return column;
+      })
+      setData(newData);
+
     } else {
-      const [removed] = destTasks.splice(source.index, 1);
-      destTasks.splice(destination.index, 0, removed);
-      data[destColIndex].tasks = destTasks;
+      const destColumn = data.find((elem) => elem.id === source.droppableId);
+      const destItems = [...destColumn!.tasks];
+      const [removed] = destItems.splice(source.index, 1);
+      destItems.splice(destination.index, 0, removed);
+      const result = data.map((el) => {
+        if (el.id === destination.droppableId) {
+          return ({
+            ...el,
+            tasks: destItems
+          })
+        }
+        return el;
+      });
+
+      setData(result);
     }
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.ColumnsWrapper}>
-        {columns.map((column : Column, index: number) => (
+        {data.map((column : Column, index: number) => (
           <Droppable key={column.id} droppableId={column.id}>
             {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
+                <div ref={provided.innerRef} {...provided.droppableProps}>
                 <Column key={index} text={column.name} quantity_tasks={column.tasks.length}>
                   {column.tasks.map((task, index) => (
                     <Draggable key={task.id} draggableId={task.id} index={index}>
@@ -102,7 +131,7 @@ export const Columns: FC<BoardIdProps> = (boardId) => {
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          style={{ cursor: snapshot.isDragging ? 'grab' : 'pointer' }}
+                          
                         >
                           <Card
                             key={index}
@@ -115,9 +144,11 @@ export const Columns: FC<BoardIdProps> = (boardId) => {
                         </div>
                       )}
                     </Draggable>
+                    
                   ))}
-                  {provided.placeholder}
+                  
                 </Column>
+                {provided.placeholder}
               </div>
             )}
           </Droppable>
