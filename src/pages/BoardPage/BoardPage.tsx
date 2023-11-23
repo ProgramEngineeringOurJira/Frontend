@@ -7,28 +7,27 @@ import { PageLayout } from '../../components/PageLayout';
 import styles from './styles.module.scss';
 import { AuthContext } from '../../shared/context';
 import { useGetRequest } from '../../hooks/useGetRequest';
+import { Loader } from '../../ui-kit/Loader';
 
 export const BoardPage: FC = () => {
   const { setNewUser } = useContext(AuthContext);
 
   const onLoadProfile = (data: any) => {
-    console.log(data)
+    console.log(data);
     setNewUser(data);
-  }
+  };
 
-  const { isLoading, mutate } = useGetRequest(onLoadProfile, 'profile')
+  const { isLoading, mutate } = useGetRequest(onLoadProfile, 'profile');
 
   useEffect(() => {
-    mutate({})
+    mutate({});
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   return (
     <div className={styles.BoardPage}>
       <Header />
-      <PageLayout>
-        <Board />
-      </PageLayout>
+      <PageLayout>{isLoading ? <Loader /> : <Board />}</PageLayout>
     </div>
   );
 };

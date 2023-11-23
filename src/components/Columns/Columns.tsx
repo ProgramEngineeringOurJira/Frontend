@@ -68,17 +68,11 @@ export const Columns: FC<BoardIdProps> = (boardId) => {
     if (source.droppableId !== destination.droppableId) {
       const sourceColumn = data.find((elem) => elem.id === source.droppableId);
       const destColumn = data.find((elem) => elem.id === destination.droppableId);
-
       const sourceItems = [...sourceColumn!.tasks];
       const destItems = [...destColumn!.tasks];
-
       const removed = sourceItems[source.index];
-
       const resultSourceItems = sourceItems.filter((el) => el.id !== removed.id);
-      console.log(source.droppableId)
-      console.log(resultSourceItems)
       destItems.splice(destination.index, 0, removed); 
-      console.log(destination.index)
 
       const newData = data.map((column) => {
         if (column.id === source.droppableId) {

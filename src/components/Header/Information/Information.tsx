@@ -45,7 +45,7 @@ export const Information: FC = () => {
   const [boardsNames, setBoardsNames] = useState<Board[]>([]);
   const [sprintsNames, setSprintsNames] = useState<Sprint[]>([]);
   const navigate = useNavigate();
-  const {idBoard, isSprint} = useParams();
+  const {idBoard, idSprint} = useParams();
 
   // TODO убрать any
   const boards = useSelector((state: any) => state.board.value);
@@ -56,11 +56,21 @@ export const Information: FC = () => {
     dispatch(setBoards(data));
   };
 
+  const onSprintsLoad = (data: any) => {
+    setSprintsNames(data);
+    dispatch(setSprints(data));
+  };
+
   const { mutate } = useGetRequest(onBoardsLoad, 'workplaces');
+  // TODO подставить проект по умолчанию
+  const { mutate: mutateSprints } = useGetRequest(onSprintsLoad, `${activeBoard?._id}/sprints/0/0`);
 
   useEffect(() => {
     mutate({});
   }, []);
+  useEffect(() => {
+    mutateSprints({});
+  }, [activeBoard]);
 
   const updateActiveBoard = (id: string) => {
     const activeBoard = boardsNames.find((board) => board._id === id);
@@ -77,18 +87,6 @@ export const Information: FC = () => {
     navigate(`/board/${activeBoard?._id}/sprint/${id}`);
     setActiveSprint(activeSprint);
   };
-
-  const onSprintsLoad = (data: any) => {
-    setSprintsNames(data);
-    dispatch(setSprints(data));
-  };
-
-  // TODO подставить проект по умолчанию
-  const { mutate: mutateSprints } = useGetRequest(onSprintsLoad, `${activeBoard?._id}/sprints/0/0`);
-
-  useEffect(() => {
-    mutateSprints({});
-  }, [activeBoard]);
 
   useEffect(() => {
     // TODO: fix any

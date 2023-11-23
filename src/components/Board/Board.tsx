@@ -12,6 +12,7 @@ import { useGetRequest } from '../../hooks/useGetRequest';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBoards } from '../../redux/features/boardSlice';
 import { setSprints } from '../../redux/features/sprintSlice';
+import { Loader } from '../../ui-kit/Loader';
 
 type Sprint = {
   id: string;
@@ -60,15 +61,10 @@ export const Board: FC = () => {
   return (
     <>
       <div className={styles.Board__header}>
-        <Input
-          placeholder="Search items"
-          type="text"
-          value={searchValue}
-          onChange={onSearchChange}
-        />
+        <Input placeholder="Search items" type="text" value={searchValue} onChange={onSearchChange} />
         <Button text="New Item" type="primary" onClick={toggle} />
       </div>
-      <Columns boardId={boardId.id} />
+      {isLoading ? <Loader /> : <Columns boardId={boardId.id} />}
       <Modal isShown={isShown} hide={toggle} modalContent={<AddCardModal hide={toggle} />} headerText="Add task" />
     </>
   );
