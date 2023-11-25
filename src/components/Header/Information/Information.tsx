@@ -1,100 +1,79 @@
 import { FC, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router';
 
 import { useGetRequest } from '../../../hooks/useGetRequest';
-import { Button } from '../../../ui-kit/Button';
+import { RootState } from '../../../redux/store';
+import { boardActions } from '../../../redux/features/boardSlice';
+import { sprintsActions } from '../../../redux/features/sprintSlice';
+import { currSprintActions } from '../../../redux/features/currentSprintSlice';
 import { Modal, useModal } from '../../Modal';
+import { Button } from '../../../ui-kit/Button';
 import { Select } from '../../../ui-kit/Select';
 import { Option } from '../../../ui-kit/Select/Option';
+import { Loader } from '../../../ui-kit/Loader';
+import { Sprint, Workplace } from '../../../utils/types';
 
 import styles from './styles.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { setBoards } from '../../../redux/features/boardSlice';
-import { useNavigate, useParams } from 'react-router';
-import { setSprints } from '../../../redux/features/sprintSlice';
-
-type Sprint = {
-  id: string;
-  name?: string;
-  start_date: string;
-  end_date: string;
-  issues: Issue[];
-};
-
-type Issue = {
-  id: string;
-  name: string;
-  text: string;
-  priority: string;
-  state: string;
-};
-
-type Board = {
-  _id: string;
-  name: string;
-  description: string;
-  states: string[];
-  sprints: Sprint[];
-  tasks: Issue[];
-};
 
 export const Information: FC = () => {
-  const [activeBoard, setActiveBoard] = useState<Board>();
+  const [activeBoard, setActiveBoard] = useState<Workplace>();
   const [activeSprint, setActiveSprint] = useState<Sprint | null>();
   const dispatch = useDispatch();
   const { isShown, toggle } = useModal();
-  const [boardsNames, setBoardsNames] = useState<Board[]>([]);
-  const [sprintsNames, setSprintsNames] = useState<Sprint[]>([]);
   const navigate = useNavigate();
-  const {idBoard, idSprint} = useParams();
+  const { idBoard, idSprint } = useParams();
 
-  // TODO убрать any
-  const boards = useSelector((state: any) => state.board.value);
-  const sprints = useSelector((state: any) => state.sprint.value);
+  const boards = useSelector((state: RootState) => state.board.value);
+  const sprints = useSelector((state: RootState) => state.sprint.value);
 
-  const onBoardsLoad = (data: any) => {
-    setBoardsNames(data);
-    dispatch(setBoards(data));
-  };
-
-  const onSprintsLoad = (data: any) => {
-    setSprintsNames(data);
-    dispatch(setSprints(data));
-  };
-
-  const { mutate } = useGetRequest(onBoardsLoad, 'workplaces');
+  const { data: workplacesData, isLoading: isWorkplacesLoading } = useGetRequest('workplaces');
   // TODO подставить проект по умолчанию
-  const { mutate: mutateSprints } = useGetRequest(onSprintsLoad, `${activeBoard?._id}/sprints/0/0`);
+  const { data: sprintsData, isLoading: isSprintsLoading } = useGetRequest(`${activeBoard?.id}/sprints`);
+
+  const { data: currentSprintData, isLoading: isCurrentSprintLoading } = useGetRequest(`${activeBoard?.id}/sprints/${idSprint}`);
 
   useEffect(() => {
-    mutate({});
-  }, []);
+    if (workplacesData && !isWorkplacesLoading) {
+      dispatch(boardActions.setBoards(workplacesData));
+    }
+  }, [workplacesData, isWorkplacesLoading]);
+
   useEffect(() => {
-    mutateSprints({});
-  }, [activeBoard]);
+    if (sprintsData && !isSprintsLoading) {
+      dispatch(sprintsActions.setSprints(sprintsData));
+    }
+  }, [sprintsData, isSprintsLoading]);
+
+  useEffect(() => {
+    if (currentSprintData && !isCurrentSprintLoading) {
+      dispatch(currSprintActions.setSprint(currentSprintData));
+    }
+  }, [currentSprintData, isCurrentSprintLoading, idSprint]);
 
   const updateActiveBoard = (id: string) => {
-    const activeBoard = boardsNames.find((board) => board._id === id);
-    console.log(activeBoard)
-    const navigationString = activeBoard?.sprints && activeBoard?.sprints?.length > 0 ?  `/board/${id}/sprint/${activeBoard?.sprints[0].id}` : `/board/${id}`
+    const activeBoard = boards.find((board) => board.id === id);
+    const navigationString = activeBoard?.sprints && activeBoard?.sprints?.length > 0 ? `/board/${id}/sprint/${activeBoard?.sprints[0].id}` : `/board/${id}`
     navigate(navigationString);
     setActiveBoard(activeBoard);
-    console.log(activeBoard);
     setActiveSprint(activeBoard?.sprints[0] ?? null);
   };
 
   const updateActiveSprint = (id: string) => {
-    const activeSprint = sprintsNames.find((sprint) => sprint.id === id);
-    navigate(`/board/${activeBoard?._id}/sprint/${id}`);
+    const activeSprint = sprints.find((sprint) => sprint.id === id);
+    navigate(`/board/${activeBoard?.id}/sprint/${id}`);
     setActiveSprint(activeSprint);
   };
 
   useEffect(() => {
     // TODO: fix any
-    const activeBoard = boards.find((board: any) => board._id === idBoard);
-    //if (boards.length > 0 && boardId === undefined) {
-    //  navigate(`/board/${boards[boards.length - 1]._id}`);
-    //}
-    setActiveBoard(activeBoard);
+    if (boards.length) {
+      const activeBoard = boards.find((board: Workplace) => board.id === idBoard);
+      //if (boards.length > 0 && boardId === undefined) {
+      //  navigate(`/board/${boards[boards.length - 1]._id}`);
+      //}
+      setActiveBoard(activeBoard);
+    }
   }, [boards, idBoard]);
 
   return (
@@ -102,20 +81,25 @@ export const Information: FC = () => {
       <div className={styles.Information}>
         <div className={styles.Information__sprint}>
           <span className={styles['Information__sprint-name']}>{activeBoard?.name}</span>
-          <Select placeholder={boardsNames[boardsNames.length - 1]?.name}>
-            {boardsNames.map((board) => (
-              <Option value={board.name} onClick={() => updateActiveBoard(board._id)} key={board._id}>
-                {board.name}
-              </Option>
-            ))}
-          </Select>
-          <Select placeholder={sprintsNames[sprintsNames.length - 1]?.name}>
-            {sprintsNames.map((sprint) => (
-              <Option value={sprint.name ?? 'sprint'} onClick={() => updateActiveSprint(sprint.id)} key={sprint.id}>
-                {sprint.name}
-              </Option>
-            ))}
-          </Select>
+          {boards.length > 0 &&
+            <Select placeholder={boards[boards.length - 1]?.name}>
+              {isWorkplacesLoading ? <Loader /> : boards.map((board) => (
+                <Option value={board.name} onClick={() => updateActiveBoard(board.id)} key={board.id}>
+                  {board.name}
+                </Option>
+              ))}
+            </Select>
+          }
+          {
+            sprints.length > 0 &&
+            <Select placeholder={sprints[sprints.length - 1]?.name}>
+              {isSprintsLoading ? <Loader /> : sprints.map((sprint) => (
+                <Option value={sprint.name ?? 'sprint'} onClick={() => updateActiveSprint(sprint.id)} key={sprint.id}>
+                  {sprint.name}
+                </Option>
+              ))}
+            </Select>
+          }
         </div>
         <div className={styles.Information__members}>
           <div className={styles['Information__members-avatars']}></div>

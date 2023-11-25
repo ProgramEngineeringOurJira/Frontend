@@ -11,7 +11,7 @@ type CardProps = {
   className?: string;
   description?: string;
   header: string;
-  date: Date;
+  date: string;
   priority: string;
   label: string;
 };

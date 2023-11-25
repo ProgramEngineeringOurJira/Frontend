@@ -19,7 +19,6 @@ export type Workplace = {
   name: string;
   description?: string;
   id: string;
-  states: string[];
   sprints: Sprint[];
 };
 
@@ -28,6 +27,11 @@ export type Sprint = {
   start_date: string;
   end_date: string;
   id: string;
+  columns: ColumnType[];
+};
+
+export type ColumnType = {
+  name: string;
   issues: Issue[];
 };
 

@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Workplace } from '../../utils/types';
 
-const initialState = {
+interface BoardState {
+  value: Workplace[];
+}
+
+const initialState: BoardState = {
   value: []
 };
 
@@ -14,6 +19,6 @@ export const boardSlice = createSlice({
   }
 });
 
-export const { setBoards } = boardSlice.actions;
+export const boardActions = boardSlice.actions;
 
 export default boardSlice.reducer;

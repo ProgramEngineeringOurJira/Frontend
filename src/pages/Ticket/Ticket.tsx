@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Issue, Comment as CommentType } from '../../utils/json-types';
+import { Issue, Comment as CommentType } from '../../utils/types';
 import issueJSON from '../../data/issue.json';
 
 import { Header } from '../../components/Header';
