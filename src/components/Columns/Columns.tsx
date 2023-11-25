@@ -1,26 +1,16 @@
-import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Draggable, DropResult, Droppable } from 'react-beautiful-dnd';
 
+import { ColumnType } from '../../utils/types';
+import { RootState } from '../../redux/store';
+import { currSprintActions } from '../../redux/features/currentSprintSlice';
 import { Column } from '../Column';
 import { Card } from '../Card';
 
 import styles from './styles.module.scss';
-import { useParams } from 'react-router-dom';
-import { Sprint, ColumnType } from '../../utils/types';
-import { RootState } from '../../redux/store';
-import { currSprintActions } from '../../redux/features/currentSprintSlice';
 
-type BoardIdProps = {
-  boardId: string | undefined;
-};
-
-export const Columns: FC<BoardIdProps> = (boardId) => {
-  const { sprintId } = useParams();
-  const columns = useSelector((state: RootState) => state.columns);
-  const [data, setData] = useState<ColumnType[]>([]);
+export const Columns = () => {
   const dispatch = useDispatch();
-
   const currentSprint = useSelector((state: RootState) => state.currSprint.value);
 
   const onDragEnd = (result: DropResult) => {
@@ -73,7 +63,7 @@ export const Columns: FC<BoardIdProps> = (boardId) => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.ColumnsWrapper}>
-        {currentSprint.columns.length ?
+        {currentSprint?.columns?.length ?
 
           currentSprint.columns.map((column: ColumnType, index: number) => (
             <Droppable key={column.name} droppableId={column.name}>
@@ -82,7 +72,7 @@ export const Columns: FC<BoardIdProps> = (boardId) => {
                   <Column key={index} text={column.name} quantity_tasks={column.issues.length}>
                     {column.issues.map((task, index) => (
                       <Draggable key={task.id} draggableId={task.id} index={index}>
-                        {(provided, snapshot) => (
+                        {(provided) => (
                           <div
                             ref={provided.innerRef}
                             {...provided.draggableProps}

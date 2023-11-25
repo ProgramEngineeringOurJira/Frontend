@@ -7,7 +7,6 @@ import { Modal, useModal } from '../Modal';
 import { AddCardModal } from '../AddCardModal';
 
 import styles from './styles.module.scss';
-import { useParams } from 'react-router-dom';
 
 type Sprint = {
   id: string;
@@ -31,7 +30,6 @@ type Board = {
 export const Board: FC = () => {
   const { isShown, toggle } = useModal();
   const [searchValue, setSearchValue] = useState('');
-  const boardId = useParams();
 
   const onSearchChange = (value: string) => {
     // TODO добавить debounce
@@ -44,7 +42,7 @@ export const Board: FC = () => {
         <Input placeholder="Search items" type="text" value={searchValue} onChange={onSearchChange} />
         <Button text="New Item" type="primary" onClick={toggle} />
       </div>
-      <Columns boardId={boardId.id} />
+      <Columns />
       <Modal isShown={isShown} hide={toggle} modalContent={<AddCardModal hide={toggle} />} headerText="Add task" />
     </>
   );
