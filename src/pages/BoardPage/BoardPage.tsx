@@ -18,7 +18,7 @@ export const BoardPage: FC = () => {
     if (data && !isLoading) {
       setNewUser(data);
     }
-  }, []);
+  }, [isLoading, data]);
 
   return (
     <div className={styles.BoardPage}>
