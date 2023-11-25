@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Draggable, DropResult, Droppable } from 'react-beautiful-dnd';
 
@@ -6,104 +6,59 @@ import { Column } from '../Column';
 import { Card } from '../Card';
 
 import styles from './styles.module.scss';
-
-type Task = {
-  id: string;
-  title: string;
-  description: string;
-  status: boolean;
-  date: Date;
-  priority: string;
-  label: string;
-};
-
-type Column = {
-  id: string;
-  name: string;
-  tasks: Task[];
-};
-
-type Columns = {
-  columns: Column[];
-};
-
-type Sprint = {
-  id: string;
-  collection: string;
-};
-
-type Issue = {
-  id: string;
-  collection: string;
-};
-
-type Board = {
-  _id: string;
-  name: string;
-  description: string;
-  states: string[];
-  sprints: Sprint[];
-  tasks: Issue[];
-};
+import { useParams } from 'react-router-dom';
+import { Sprint, ColumnType } from '../../utils/types';
+import { RootState } from '../../redux/store';
+import { currSprintActions } from '../../redux/features/currentSprintSlice';
 
 type BoardIdProps = {
   boardId: string | undefined;
 };
 
 export const Columns: FC<BoardIdProps> = (boardId) => {
-  const columns = useSelector((state: Columns) => state.columns);
-  const [data, setData] = useState<Column[]>([]);
+  const { sprintId } = useParams();
+  const columns = useSelector((state: RootState) => state.columns);
+  const [data, setData] = useState<ColumnType[]>([]);
   const dispatch = useDispatch();
-  const boards = useSelector((state: any) => state.board.value);
-  const sprints = useSelector((state: any) => state.sprint.value);
 
-  useEffect(() => {
-    setData(columns)
-  }, [columns])
+  const currentSprint = useSelector((state: RootState) => state.currSprint.value);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
     if (!destination) return;
 
     if (source.droppableId !== destination.droppableId) {
-      const sourceColumn = data.find((elem) => elem.id === source.droppableId);
-      const destColumn = data.find((elem) => elem.id === destination.droppableId);
-
-      const sourceItems = [...sourceColumn!.tasks];
-      const destItems = [...destColumn!.tasks];
-
+      const sourceColumn = currentSprint.columns.find((elem: ColumnType) => elem.name === source.droppableId);
+      const destColumn = currentSprint.columns.find((elem: ColumnType) => elem.name === destination.droppableId);
+      const sourceItems = [...sourceColumn!.issues];
+      const destItems = [...destColumn!.issues];
       const removed = sourceItems[source.index];
-
       const resultSourceItems = sourceItems.filter((el) => el.id !== removed.id);
-      console.log(source.droppableId)
-      console.log(resultSourceItems)
-      destItems.splice(destination.index, 0, removed); 
-      console.log(destination.index)
+      destItems.splice(destination.index, 0, removed);
 
-      const newData = data.map((column) => {
-        if (column.id === source.droppableId) {
+      const newData = currentSprint.columns.map((column) => {
+        if (column.name === source.droppableId) {
           return ({
             ...sourceColumn,
             tasks: resultSourceItems
-          } as Column)
+          } as ColumnType)
         }
-        if (column.id === destination.droppableId) {
+        if (column.name === destination.droppableId) {
           return ({
             ...destColumn,
             tasks: destItems
-          } as Column)
+          } as ColumnType)
         }
         return column;
       })
-      setData(newData);
-
+      dispatch(currSprintActions.setSprint(newData));
     } else {
-      const destColumn = data.find((elem) => elem.id === source.droppableId);
-      const destItems = [...destColumn!.tasks];
+      const destColumn = currentSprint.columns.find((elem) => elem.name === source.droppableId);
+      const destItems = [...destColumn!.issues];
       const [removed] = destItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
-      const result = data.map((el) => {
-        if (el.id === destination.droppableId) {
+      const result = currentSprint.columns.map((el) => {
+        if (el.name === destination.droppableId) {
           return ({
             ...el,
             tasks: destItems
@@ -111,48 +66,50 @@ export const Columns: FC<BoardIdProps> = (boardId) => {
         }
         return el;
       });
-
-      setData(result);
+      dispatch(currSprintActions.setSprint(result));
     }
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.ColumnsWrapper}>
-        {data.map((column : Column, index: number) => (
-          <Droppable key={column.id} droppableId={column.id}>
-            {(provided) => (
+        {currentSprint.columns.length ?
+
+          currentSprint.columns.map((column: ColumnType, index: number) => (
+            <Droppable key={column.name} droppableId={column.name}>
+              {(provided) => (
                 <div ref={provided.innerRef} {...provided.droppableProps}>
-                <Column key={index} text={column.name} quantity_tasks={column.tasks.length}>
-                  {column.tasks.map((task, index) => (
-                    <Draggable key={task.id} draggableId={task.id} index={index}>
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          
-                        >
-                          <Card
-                            key={index}
-                            header={task.title}
-                            description={task.description}
-                            date={task.date}
-                            priority={task.priority}
-                            label={task.label}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                    
-                  ))}
-                  
-                </Column>
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        ))}
+                  <Column key={index} text={column.name} quantity_tasks={column.issues.length}>
+                    {column.issues.map((task, index) => (
+                      <Draggable key={task.id} draggableId={task.id} index={index}>
+                        {(provided, snapshot) => (
+                          <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+
+                          >
+                            <Card
+                              key={index}
+                              header={task.name}
+                              description={task.text}
+                              date={task.end_date}
+                              priority={task.priority}
+                              label={task.label}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+
+                    ))}
+
+                  </Column>
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          ))
+          : <div>Нет задач</div>}
       </div>
     </DragDropContext>
   );

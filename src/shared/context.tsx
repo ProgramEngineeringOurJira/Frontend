@@ -16,7 +16,7 @@ import {
     setNewUser: (user: UserT) => void;
   };
   
-  type UserT = {
+  export type UserT = {
     email: string;
     password: string;
   };

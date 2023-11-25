@@ -1,6 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Sprint } from '../../utils/types';
 
-const initialState = {
+interface SprintState {
+  value: Sprint[];
+}
+
+const initialState: SprintState = {
   value: []
 };
 
@@ -14,6 +19,6 @@ export const sprintSlice = createSlice({
   }
 });
 
-export const { setSprints } = sprintSlice.actions;
+export const sprintsActions = sprintSlice.actions;
 
 export default sprintSlice.reducer;

@@ -1,7 +1,7 @@
 import { FC, ReactElement, useContext } from 'react';
 import { useRoutes } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query';
 
 import { Router as PathRouter } from './utils/Router';
 import { store } from './redux/store';

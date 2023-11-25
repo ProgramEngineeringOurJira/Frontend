@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Issue } from '../../utils/json-types';
+import { Issue } from '../../utils/types';
 
 import { SubIssue } from '../SubIssue';
 
