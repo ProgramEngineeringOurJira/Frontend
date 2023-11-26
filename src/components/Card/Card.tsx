@@ -7,6 +7,7 @@ import { PriorityTypess } from '../../utils/constants';
 import { Label } from '../../ui-kit/Label/Label';
 
 import styles from './styles.module.scss';
+import { formatDate, formatDateForCard } from '../../utils/helpers';
 
 type CardProps = {
   id: string;
@@ -16,10 +17,19 @@ type CardProps = {
   date: string;
   priority: string;
   label: string;
+  documentsCount?: number;
 };
 
-export const Card: FC<CardProps> = ({ id, className, description, header, date, priority, label }) => {
-
+export const Card: FC<CardProps> = ({
+  id,
+  className,
+  description,
+  header,
+  date,
+  priority,
+  label,
+  documentsCount = 0
+}) => {
   function getIconName(priority: string) {
     if (priority === PriorityTypess.HIGHT) return 'flag_red';
     if (priority === PriorityTypess.MEDIUM) return 'flag_yellow';
@@ -35,13 +45,19 @@ export const Card: FC<CardProps> = ({ id, className, description, header, date, 
         <div className={styles.Card__line} />
         <div className={styles.Card__bottom}>
           <div className={styles['Card__bottom-icons']}>
+
+            <div className={styles.Card__bottom_documentsWrapper}>
+              <Icon iconName="paper_clip" color={documentsCount > 0 ? '#1D2D35' : '#C4C4C4'} />
+              {documentsCount > 0 && <span className={styles.Card__bottom_documentsCount}>{documentsCount}</span>}
+            </div>
+
             <Icon iconName={getIconName(priority)} />
-            {
-              //<div className={styles.Card_time_wrapper}>
-              //<Icon className={styles.Card_time_clock_icon} iconName={'clock'} />
-              //<div className={styles.Card_time_date}>{getDate(date)}</div>
-              //</div>
-            }
+
+            <div className={styles.Card_time_wrapper}>
+              <Icon className={styles.Card_time_clock_icon} iconName={'clock'} />
+              <div className={styles.Card_time_date}>{formatDateForCard(date)}</div>
+            </div>
+
           </div>
           <div className={styles.Card__participants}></div>
         </div>

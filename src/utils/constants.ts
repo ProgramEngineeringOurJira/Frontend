@@ -49,7 +49,7 @@ export enum Role {
   GUEST = 'GUEST'
 }
 
-type VES = 'HIGHT' | 'NORMAL' | 'LOW' | 'URGRENT';
+type VES = 'HIGH' | 'NORMAL' | 'LOW' | 'URGRENT';
 type Colors = 'red' | 'yellow' | 'green' | 'red';
 
 // TODO удалить
@@ -63,7 +63,7 @@ export enum State {
 }
 
 export const priorityTypes: Record<VES, Colors> = {
-  HIGHT: 'red',
+  HIGH: 'red',
   NORMAL: 'yellow',
   LOW: 'green',
   URGRENT: 'red'

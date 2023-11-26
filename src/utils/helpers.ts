@@ -11,3 +11,15 @@ export function getElapsedDays(startDate: Date): number {
 
   return Math.floor((new Date().getTime() - startDate.getTime()) / msInDay);
 }
+
+export function formatDate(date: string) {
+  const newDate = new Date(date);
+  return newDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+export function formatDateForCard(date: string) {
+  const formatCurrentDate = formatDate(date);
+  const month = formatCurrentDate.substring(0, 3);
+  const day = formatCurrentDate.split(',')[0].slice(-2);
+  return `${month} ${day}`;
+}
