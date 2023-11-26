@@ -8,6 +8,25 @@ import { AddCardModal } from '../AddCardModal';
 
 import styles from './styles.module.scss';
 
+type Sprint = {
+  id: string;
+  collection: string;
+};
+
+type Issue = {
+  id: string;
+  collection: string;
+};
+
+type Board = {
+  _id: string;
+  name: string;
+  description: string;
+  states: string[];
+  sprints: Sprint[];
+  tasks: Issue[];
+};
+
 export const Board: FC = () => {
   const { isShown, toggle } = useModal();
   const [searchValue, setSearchValue] = useState('');
@@ -20,12 +39,7 @@ export const Board: FC = () => {
   return (
     <>
       <div className={styles.Board__header}>
-        <Input
-          placeholder="Search items"
-          type="text"
-          value={searchValue}
-          onChange={onSearchChange}
-        />
+        <Input placeholder="Search items" type="text" value={searchValue} onChange={onSearchChange} />
         <Button text="New Item" type="primary" onClick={toggle} />
       </div>
       <Columns />

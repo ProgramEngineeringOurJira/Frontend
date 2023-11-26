@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import clsx from 'clsx';
-import { Issue } from '../../utils/json-types';
+import { Issue } from '../../utils/types';
 
 import styles from './styles.module.scss';
 

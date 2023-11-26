@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Comment as CommentType } from '../../utils/json-types';
+import { Comment as CommentType } from '../../utils/types';
 
 import { getElapsedDays } from '../../utils/helpers';
 

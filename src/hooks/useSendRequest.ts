@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 
 import HttpService from '../services/main.services';
@@ -10,17 +10,21 @@ export const useSendRequest = (cb: (data?: any) => void, endpoint: string, formD
   const [queryResult, setQueryResult] = React.useState<string | null>(null);
 
   const {
-    isLoading,
+    isPending,
     mutate: sendRequest,
     isError,
     isSuccess
   } = useMutation<AxiosResponse<any> | undefined, AxiosError, any>(
-    async <T>(data: T) => {
-      setQueryResult(null);
-
-      return await HttpService.post(data, endpoint, formData);
-    },
+    
     {
+      mutationFn: async(data) => {
+        
+          setQueryResult(null);
+    
+          return await HttpService.post(data, endpoint, formData);
+        
+      },
+
       onSuccess: (res) => {
         setQueryResult(res!.data);
         cb(res!.data);
@@ -31,5 +35,5 @@ export const useSendRequest = (cb: (data?: any) => void, endpoint: string, formD
     }
   );
 
-  return { queryResult, isLoading, sendRequest, isError, isSuccess };
+  return { queryResult, isLoading: isPending, sendRequest, isError, isSuccess };
 };

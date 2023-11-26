@@ -1,30 +1,26 @@
 {
     "columns": [
         {
+            "id": "1",
             "name": "Backlog",
             "tasks": [
                 {
+                    "id": "1",
                     "title": "Mobile Wireframes",
                     "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoqueetyumjkl nhjnkjnnhyvg gvfdetgbhbnjno yhgty",
                     "status": false,
                     "date": "02.04.2023",
                     "priority": "red",
                     "label": "backend"
-                },
-                {
-                    "title": "Mobile Wireframes",
-                    "description": "gvjhbbjgvgfc Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque",
-                    "status": false,
-                    "date": "02.04.2023",
-                    "priority": "yellow",
-                    "label": "frontend"
                 }
             ]
         },
         {
+            "id": "2",
             "name": "To do",
             "tasks": [
                 {
+                    "id": "3",
                     "title": "Mobile Wireframes",
                     "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoqueetyumjkl nhjnkjnnhyvg gvfdetgbhbnjno yhgty",
                     "status": false,
@@ -33,6 +29,7 @@
                     "label": "frontend"
                 },
                 {
+                    "id": "4",
                     "title": "Mobile Wireframes",
                     "description": "gvjhbbjgvgfc Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque",
                     "status": false,
@@ -43,9 +40,11 @@
             ]
         },
         {
+            "id": "3",
             "name": "In Progress",
             "tasks": [
                 {
+                    "id": "5",
                     "title": "Landing Page",
                     "description": "gvjhbbjgvgfc",
                     "status": false,
@@ -54,6 +53,7 @@
                     "label": "design"
                 },
                 {
+                    "id": "6",
                     "title": "Login Flow",
                     "description": "gvjhbbjgvgfc",
                     "status": false,
@@ -64,9 +64,11 @@
             ]
         },
         {
+            "id": "4",
             "name": "In Review",
             "tasks": [
                 {
+                    "id": "7",
                     "title": "Mobile Wireframes",
                     "description": "gvjhbbjgvgfc Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque fvgbjh jnk scc",
                     "status": false,
@@ -75,6 +77,7 @@
                     "label": "devops"
                 },
                 {
+                    "id": "11a",
                     "title": "Mobile Wireframes",
                     "description": "gvjhbbjgvgfc",
                     "status": false,
@@ -83,6 +86,7 @@
                     "label": "other"
                 },
                 {
+                    "id": "k8",
                     "title": "Navigation",
                     "description": "gvjhbbjgvgfc",
                     "status": false,
@@ -93,9 +97,11 @@
             ]
         },
         {
+            "id": "iji5",
             "name": "QA",
             "tasks": [
                 {
+                    "id": "19",
                     "title": "Product Mockups",
                     "description": "qwertyuiop cvbnmk fghjk dvbnm fghjkl dcvbnm xcvbnm rtgyhj vbn jnkev bnkjnefv uiwd cunkdv iwd kvd vjoj dskvnwofn hisdv  wiholms dhwjovmkdwmv kihnod vmd vkoi[l,wdvnc dvwinvdmvk hgyhckwplkm udhcyusd hdivjoev kkjno",
                     "status": false,
@@ -104,6 +110,7 @@
                     "label": "qa"
                 },
                 {
+                    "id": "20",
                     "title": "Workshop Ideas",
                     "description": "описание",
                     "status": false,
@@ -114,9 +121,11 @@
             ]
         },
         {
+            "id": "6",
             "name": "Done",
             "tasks": [
                 {
+                    "id": "17",
                     "title": "Product Mockups",
                     "description": "qwertyuiop cvbnmk fghjk dvbnm fghjkl dcvbnm xcvbnm rtgyhj vbn jnkev bnkjnefv uiwd cunkdv iwd kvd vjoj dskvnwofn hisdv  wiholms dhwjovmkdwmv kihnod vmd vkoi[l,wdvnc dvwinvdmvk hgyhckwplkm udhcyusd hdivjoev kkjno",
                     "status": false,
@@ -125,6 +134,7 @@
                     "label": "other"
                 },
                 {
+                    "id": "16",
                     "title": "Workshop Ideas",
                     "description": "описание",
                     "status": false,

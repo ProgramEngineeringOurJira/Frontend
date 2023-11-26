@@ -8,6 +8,7 @@ import { Button } from '../../ui-kit/Button';
 import { FormElementWrapper } from '../../ui-kit/FormElementWrapper';
 import { TextForm } from '../../ui-kit/TextForm';
 import { Input } from '../../ui-kit/Input';
+import { Loader } from '../../ui-kit/Loader';
 import { validateEmail } from '../../utils/helpers';
 
 import styles from './styles.module.scss';
@@ -26,10 +27,10 @@ const _Login: FC = () => {
       authContext.setAccessToken(data['access_token']);
     }
 
-    navigate(paths.board);
+    navigate(paths.home);
   };
 
-  const { sendRequest, isError, isLoading, queryResult, isSuccess } = useSendRequest(submitCallback, 'login');
+  const { sendRequest, isError, isLoading, queryResult } = useSendRequest(submitCallback, 'login');
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -52,7 +53,7 @@ const _Login: FC = () => {
   return (
     <>
       {isLoading ? (
-        <span>Загрузка...</span>
+        <Loader />
       ) : (
         <>
           <form onSubmit={onSubmit} className={styles.LoginForm}>

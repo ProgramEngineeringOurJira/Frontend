@@ -1,5 +1,6 @@
 export const paths = {
-  board: '/',
+  home: '/',
+  board: '/board',
   sprint: '/sprint',
   login: '/login',
   createProject: '/createProject',
