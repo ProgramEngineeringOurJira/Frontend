@@ -91,6 +91,7 @@ export const Columns = () => {
                           >
                             <Card
                               key={index}
+                              id={task.id}
                               header={task.name}
                               description={task.text}
                               date={task.end_date}
