@@ -1,8 +1,8 @@
-import { FC, useRef } from 'react';
+import { FC } from 'react';
 import clsx from 'clsx';
 
 import { Icon } from '../../ui-kit/Icon';
-import { PriorityTypes } from '../../utils/constants';
+import { PriorityTypess } from '../../utils/constants';
 import { Label } from '../../ui-kit/Label/Label';
 
 import styles from './styles.module.scss';
@@ -17,18 +17,10 @@ type CardProps = {
 };
 
 export const Card: FC<CardProps> = ({ className, description, header, date, priority, label }) => {
-  function getDate(date: Date) {
-    const taskDate = new Date(date);
-    const options: Intl.DateTimeFormatOptions = {
-      day: 'numeric',
-      month: 'numeric'
-    };
-    return taskDate.toLocaleDateString('en-US', options);
-  }
 
   function getIconName(priority: string) {
-    if (priority === PriorityTypes.HIGHT) return 'flag_red';
-    if (priority === PriorityTypes.MEDIUM) return 'flag_yellow';
+    if (priority === PriorityTypess.HIGHT) return 'flag_red';
+    if (priority === PriorityTypess.MEDIUM) return 'flag_yellow';
     return 'flag_green';
   }
 

@@ -2,13 +2,12 @@
   &__container {
     display: inline-block;
     position: relative;
-    width: 100px;
     background-color: var(--header-menu);
     border-radius: var(--border-radius-s);
   }
 
   &__text {
-    padding: 4px 12px;
+    padding: 4px 30px 4px 10px;
     color: var(--white);
     cursor: pointer;
 
