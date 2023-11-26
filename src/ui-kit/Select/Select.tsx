@@ -10,7 +10,8 @@ export const Select: React.FC<{
   children: ReactNode | ReactNode[];
   defaultValue?: string;
   placeholder?: string;
-}> = ({ children, defaultValue, placeholder }) => {
+  className?: string;
+}> = ({ children, defaultValue, placeholder, className }) => {
   const [selectedOption, setSelectedOption] = useState(defaultValue || '');
   const [showDropdown, setShowDropdown] = useState(false);
   const showDropdownHandler = () => setShowDropdown(!showDropdown);
@@ -27,7 +28,7 @@ export const Select: React.FC<{
 
   return (
     <SelectContext.Provider value={{ selectedOption, changeSelectedOption: updateSelectedOption }}>
-      <div className={styles.Select__container} ref={selectContainerRef}>
+      <div className={clsx(styles.Select__container, className)} ref={selectContainerRef}>
         <div className={styles.Select__text} onClick={showDropdownHandler}>
           {selectedOption.length > 0 ? selectedOption : selectPlaceholder}
         </div>
