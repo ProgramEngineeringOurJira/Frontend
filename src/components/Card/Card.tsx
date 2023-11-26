@@ -2,7 +2,7 @@ import { FC } from 'react';
 import clsx from 'clsx';
 
 import { Icon } from '../../ui-kit/Icon';
-import { PriorityTypes } from '../../utils/constants';
+import { PriorityTypess } from '../../utils/constants';
 import { Label } from '../../ui-kit/Label/Label';
 
 import styles from './styles.module.scss';
@@ -19,8 +19,8 @@ type CardProps = {
 export const Card: FC<CardProps> = ({ className, description, header, date, priority, label }) => {
 
   function getIconName(priority: string) {
-    if (priority === PriorityTypes.HIGHT) return 'flag_red';
-    if (priority === PriorityTypes.MEDIUM) return 'flag_yellow';
+    if (priority === PriorityTypess.HIGHT) return 'flag_red';
+    if (priority === PriorityTypess.MEDIUM) return 'flag_yellow';
     return 'flag_green';
   }
 
