@@ -1,4 +1,4 @@
-import { FC, FormEvent,useContext, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useSendRequest } from '../../hooks/useSendRequest';
@@ -10,24 +10,15 @@ import { FormElementWrapper } from '../../ui-kit/FormElementWrapper';
 import { TextForm } from '../../ui-kit/TextForm';
 import { Input } from '../../ui-kit/Input';
 
-import { AuthContext } from '../../shared/context';
-
 import styles from './styles.module.scss';
 
 export const CreateProject: FC = () => {
-  const authContext = useContext(AuthContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [validationError, setValidationError] = useState('');
   const navigate = useNavigate();
 
   const submitCallback = (data: any) => {
-    // authContext.setIsAuth(true);
-
-    // if (data) {
-    //   authContext.setAccessToken(data['access_token']);
-    // }
-
     navigate(paths.home);
   };
 
@@ -66,8 +57,7 @@ export const CreateProject: FC = () => {
                   setName(e.target.value);
                 }}
               />
-            </FormElementWrapper> 
-            
+            </FormElementWrapper>
             <FormElementWrapper>
               <TextForm text="Description" />
               <Input
