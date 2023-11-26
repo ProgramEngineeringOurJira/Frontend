@@ -14,16 +14,17 @@ export interface IconProps {
   //iconSize?: IconSizes;
   className?: string;
   //stroke?: IconSizes;
+  color?: string;
 }
 
-export const Icon: FC<IconProps> = ({ iconName, className }): JSX.Element | null => {
+export const Icon: FC<IconProps> = ({ iconName, className, color }): JSX.Element | null => {
   const Glyph = icons[iconName];
   return (
     <Glyph
       className={clsx([className, styles.Icon])}
-      //color={color}
-      //width={size}
-      //height={size}
+      color={color}
+    //width={size}
+    //height={size}
     />
   );
 };
