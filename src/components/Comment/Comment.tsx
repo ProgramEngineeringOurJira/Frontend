@@ -33,7 +33,13 @@ export const Comment: FC<CommentProps> = ({ comment, editCommentId, onEditCommen
   const putRequest = usePutRequest(putComment, `${idBoard}/comments/${comment.id}`);
 
   const onEdit = () => {
-    putRequest.sendRequest(text);
+    const commentData = {
+      text: text
+    };
+    if (text.length > 0) {
+      putRequest.sendRequest(commentData);
+      onEditCommentCallback(null);
+    }
   };
 
   const isEditing: boolean = editCommentId === comment.id;
@@ -73,11 +79,12 @@ export const Comment: FC<CommentProps> = ({ comment, editCommentId, onEditCommen
                   setText(e.target.value);
                 }}
               ></Input>
-              <Button text="Save" type="primary" onClick={onEdit} />
+              {text && <Button text="Save" type="primary" onClick={onEdit} />} 
               <Button
                 text="Cancel"
                 type="primary"
                 onClick={() => {
+                  setText(comment.text);
                   onEditCommentCallback(null);
                 }}
               />
