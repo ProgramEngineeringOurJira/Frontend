@@ -37,8 +37,6 @@ export const CreateProject: FC = () => {
       setDescription('');
     } else {
       setValidationError('Oooops, something went wrong!');
-      setName('');
-      setDescription('');
     }
   };
 
