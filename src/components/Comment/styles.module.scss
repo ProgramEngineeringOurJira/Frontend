@@ -21,6 +21,17 @@
   &__content {
     margin-top: 8px;
     margin-left: 52px;
-    color: var(--text-gray);
+
+    display: flex;
+    justify-content: space-between;
+
+    &-flex {
+      display: flex;
+      gap: 15px;
+    }
+
+    &-text {
+      color: var(--text-gray);
+    }
   }
 }

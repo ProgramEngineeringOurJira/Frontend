@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Issue, Comment as CommentType } from '../../utils/types';
 import issueJSON from '../../data/issue.json';
 
@@ -15,6 +15,7 @@ import styles from './styles.module.scss';
 
 export const Ticket: FC = () => {
   const { isShown, toggle } = useModal();
+  const [editCommentId, setEditCommentId] = useState<string | null>(null);
 
   const issueJSONobj = JSON.stringify(issueJSON);
   const issue: Issue = JSON.parse(issueJSONobj);
@@ -30,7 +31,7 @@ export const Ticket: FC = () => {
             </div>
             <div className={styles['Ticket__top-controls']}>
               <Button text="Edit" type="primary" />
-              <Button text="Comment" type="primary" onClick={toggle}/>
+              <Button text="Add comment" type="primary" onClick={toggle} />
             </div>
           </div>
           <IssueInfo {...issue} />
@@ -40,12 +41,22 @@ export const Ticket: FC = () => {
             </div>
             <div className={styles['Ticket__comments-content']}>
               {issue.comments.map((comment: CommentType) => (
-                <Comment key={comment.id} {...comment} />
+                <Comment
+                  key={comment.id}
+                  comment={comment}
+                  editCommentId={editCommentId}
+                  onEditCommentCallback={setEditCommentId}
+                />
               ))}
             </div>
           </div>
         </div>
-        <Modal isShown={isShown} hide={toggle} modalContent={<AddCommentModal hide={toggle} />} headerText="Add comment" />
+        <Modal
+          isShown={isShown}
+          hide={toggle}
+          modalContent={<AddCommentModal hide={toggle} />}
+          headerText="Add comment"
+        />
       </PageLayout>
     </div>
   );
