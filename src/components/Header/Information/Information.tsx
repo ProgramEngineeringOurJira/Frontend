@@ -73,14 +73,9 @@ export const Information: FC = () => {
     navigate(`/board/${activeBoard?.id}/sprint/${id}`);
   };
 
-  const submitCallback = () => {
-    if (isSuccess) {
-      authContext?.setIsAuth(true);
-      navigate(paths.home);
-    }
-  };
+  const submitCallback = () => { };
 
-  const { sendRequest, isError, isLoading, queryResult, isSuccess } = useSendRequest(submitCallback, `workplaces/${activeBoard?.id}/invite`);
+  const { sendRequest, isError, queryResult } = useSendRequest(submitCallback, `workplaces/${activeBoard?.id}/invite`);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -150,20 +145,24 @@ export const Information: FC = () => {
           <Button text="+ New Member" type="new-member" onClick={toggle} />
         </div>
       </div>
-      <Modal isShown={isShown} hide={toggle} modalContent={
-        <form onSubmit={onSubmit} className={styles.RegistrationForm}>
-        <FormElementWrapper>
-          <TextForm text="Email" />
-          <Input
-            type="text"
-            value={email}
-            onChange={(e: any) => {
-              setEmail(e.target.value);
-            }}
-          />
-        </FormElementWrapper>
-        <Button text="Invite" type="primary" typeButton="submit" />
+      <Modal isShown={isShown} hide={toggle} headerText='Invite new member' modalContent={
+        <>
+          <form onSubmit={onSubmit} className={styles.InviteForm}>
+            <FormElementWrapper>
+              <TextForm text="Email" />
+              <Input
+                type="text"
+                value={email}
+                onChange={(e: any) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </FormElementWrapper>
+            <Button text="Invite" type="primary" typeButton="submit" />
           </form>
+          {isError && <span>{queryResult}</span>}
+          {validationError && <span className={styles.error}>{validationError}</span>}
+        </>
       } />
     </>
   );
