@@ -63,8 +63,6 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
       setValidationError('Oooops, something went wrong!');
     }
 
-    sendRequest(issueData);
-
     const newData = currSprint.columns.map((column) => {
       if (column.name === issueData.state) {
         return {
@@ -130,7 +128,6 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
               ))}
             </Select>
           </FormElementWrapper>
-
         </div>
         <div className={styles['AddCardModal__button-submit']}>
           <Button text="Add Task" type="primary" />
