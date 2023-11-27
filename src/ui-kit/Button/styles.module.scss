@@ -17,6 +17,12 @@
     color: var(--black-primary);
   }
 
+  &-delete {
+    height: 40px;
+    padding: 0px 15px;
+    background-color: var(--button-red);
+  }
+
   &-header {
     padding: 0px 10px;
     width: auto;
