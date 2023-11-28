@@ -74,21 +74,21 @@ export const IssueInfo: FC<Issue> = (issue) => {
         <div className={styles.IssueInfo__horizontalLine}></div>
         <div className={styles['flex-column']}>
           <span className={styles['bold-title']}>Subtasks</span>
-          {issue.subissues.length ? (
+          {/* {issue.subissues.length ? (
             issue.subissues
               .filter((issue: Issue) => issue.state !== 'Done')
               .map((issue: Issue) => <SubIssue key={issue.id} {...issue} />)
           ) : (
             <span>There are no subissues</span>
-          )}
+          )} */}
         </div>
-        <div className="flex-column">
+        {/* <div className="flex-column">
           {issue.subissues
             .filter((issue: Issue) => issue.state === 'Done')
             .map((issue: Issue) => (
               <SubIssue key={issue.id} {...issue} />
             ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );

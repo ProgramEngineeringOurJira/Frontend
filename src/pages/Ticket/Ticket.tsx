@@ -1,7 +1,11 @@
-import { FC, useState } from 'react';
-import { Issue, Comment as CommentType } from '../../utils/types';
-import issueJSON from '../../data/issue.json';
+import { FC, useEffect, useState } from 'react';
+import { Comment as CommentType } from '../../utils/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 
+import { useGetRequest } from '../../hooks/useGetRequest';
+import { RootState } from '../../redux/store';
+import { ticketActions } from '../../redux/features/ticketSlice';
 import { Header } from '../../components/Header';
 import { PageLayout } from '../../components/PageLayout';
 import { IssueInfo } from '../../components/IssueInfo';
@@ -17,8 +21,18 @@ export const Ticket: FC = () => {
   const { isShown, toggle } = useModal();
   const [editedCommentId, setEditedCommentId] = useState<string | null>(null);
 
-  const issueJSONobj = JSON.stringify(issueJSON);
-  const issue: Issue = JSON.parse(issueJSONobj);
+  const { idBoard, idTicket } = useParams();
+  const dispatch = useDispatch();
+
+  const issue = useSelector((state: RootState) => state.ticket.value);
+
+  const { data: issueData, isLoading: isIssueLoading } = useGetRequest(`${idBoard}/issues/${idTicket}`);
+
+  useEffect(() => {
+    if (issueData && !isIssueLoading) {
+      dispatch(ticketActions.setTicket(issueData));
+    }
+  }, [issueData, isIssueLoading]);
 
   return (
     <div className={styles.Ticket}>
