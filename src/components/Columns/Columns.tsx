@@ -97,6 +97,8 @@ export const Columns = () => {
                               date={task.end_date}
                               priority={task.priority}
                               label={task.label}
+                              documentsCount={task.files?.length}
+                              implementers={task.implementers}
                             />
                           </div>
                         )}
