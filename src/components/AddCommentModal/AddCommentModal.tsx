@@ -16,14 +16,14 @@ type AddCommentModalProps = {
 export const AddCommentModal: FC<AddCommentModalProps> = ({ hide }) => {
   const [validationError, setValidationError] = useState('');
   const [text, setText] = useState('');
-  const { idBoard, idIssue } = useParams();
+  const { idBoard, idTicket } = useParams();
 
   const postComment = (data: any) => {
     console.log(data);
     hide();
   };
 
-  const { sendRequest, isError } = useSendRequest(postComment, `${idBoard}/issues/${idIssue}/comments`);
+  const { sendRequest, isError } = useSendRequest(postComment, `${idBoard}/issues/${idTicket}/comments`);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

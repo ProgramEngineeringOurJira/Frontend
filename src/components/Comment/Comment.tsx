@@ -37,7 +37,7 @@ export const Comment: FC<CommentProps> = ({ comment, editedCommentId, onSetEdite
 
   const putRequest = usePutRequest(putComment, `${idBoard}/comments/${comment.id}`);
 
-  const onEditButtonClicked = () => {
+  const onSaveButtonClicked = () => {
     const commentData = {
       text: text
     };
@@ -89,7 +89,7 @@ export const Comment: FC<CommentProps> = ({ comment, editedCommentId, onSetEdite
                   setText(e.target.value);
                 }}
               ></Input>
-              {text && <Button text="Save" type="primary" onClick={onEditButtonClicked} />}
+              {text && <Button text="Save" type="primary" onClick={onSaveButtonClicked} />}
               <Button text="Cancel" type="primary" onClick={onCancelButtonClicked} />
             </>
           )}
