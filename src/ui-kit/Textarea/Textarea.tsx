@@ -11,8 +11,12 @@ type TextareaProps = {
 
 export const Textarea: FC<TextareaProps> = ({ value, rows, placeholder, onChange }) => {
   return (
-    <textarea rows={rows ? rows : 5} placeholder={placeholder} onChange={onChange} className={styles.Textarea}>
-      {value}
-    </textarea>
+    <textarea
+      rows={rows ? rows : 5}
+      placeholder={placeholder}
+      onChange={onChange}
+      className={styles.Textarea}
+      value={value}
+    ></textarea>
   );
 };

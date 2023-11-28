@@ -1,11 +1,11 @@
 import { FC } from 'react';
 import { Issue } from '../../utils/types';
+import clsx from 'clsx';
 
 import { SubIssue } from '../SubIssue';
 
 import { Label } from '../../ui-kit/Label';
 import { getElapsedDays } from '../../utils/helpers';
-import clsx from 'clsx';
 
 import styles from './styles.module.scss';
 

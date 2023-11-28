@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { useParams } from 'react-router';
+import clsx from 'clsx';
 
 import { useDeleteRequest } from '../../hooks/useDeleteRequest';
 import { usePutRequest } from '../../hooks/usePutRequest';
@@ -12,18 +13,22 @@ import styles from './styles.module.scss';
 
 type CommentProps = {
   comment: CommentType;
-  editCommentId: string | null;
-  onEditCommentCallback: (value: string | null) => void;
+  editedCommentId: string | null;
+  onSetEditedCommentCallback: (value: string | null) => void;
 };
 
-export const Comment: FC<CommentProps> = ({ comment, editCommentId, onEditCommentCallback }) => {
+export const Comment: FC<CommentProps> = ({ comment, editedCommentId, onSetEditedCommentCallback }) => {
   const { idBoard } = useParams();
   const [text, setText] = useState(comment.text);
+  const [isVisible, setIsVisible] = useState(true);
 
   const deleteRequest = useDeleteRequest(`${idBoard}/comments/${comment.id}`);
 
-  const onDelete = () => {
+  const onDeleteButtonClicked = () => {
     deleteRequest.sendRequest(null);
+    if (!deleteRequest.isError) {
+    }
+    setIsVisible(false);
   };
 
   const putComment = (data: any) => {
@@ -32,20 +37,30 @@ export const Comment: FC<CommentProps> = ({ comment, editCommentId, onEditCommen
 
   const putRequest = usePutRequest(putComment, `${idBoard}/comments/${comment.id}`);
 
-  const onEdit = () => {
+  const onEditButtonClicked = () => {
     const commentData = {
       text: text
     };
     if (text.length > 0) {
       putRequest.sendRequest(commentData);
-      onEditCommentCallback(null);
+      onSetEditedCommentCallback(null);
     }
   };
 
-  const isEditing: boolean = editCommentId === comment.id;
+  const onClickedComment = () => {
+    setText(comment.text);
+    onSetEditedCommentCallback(comment.id);
+  };
+
+  const onCancelButtonClicked = () => {
+    setText(comment.text);
+    onSetEditedCommentCallback(null);
+  };
+
+  const isEditing: boolean = editedCommentId === comment.id;
 
   return (
-    <div className={styles.Comment}>
+    <div className={clsx(styles.Comment, !isVisible ? styles.deleted : '')}>
       <div className={styles.Comment__header}>
         <img
           src="https://fikiwiki.com/uploads/posts/2022-02/1644827473_48-fikiwiki-com-p-kartinki-smeshnie-krasivie-i-milie-pro-kot-53.jpg"
@@ -61,13 +76,8 @@ export const Comment: FC<CommentProps> = ({ comment, editCommentId, onEditCommen
       <div className={styles.Comment__content}>
         <div className={styles['Comment__content-flex']}>
           {!isEditing ? (
-            <div
-              className={styles['Comment__content-text']}
-              onClick={() => {
-                onEditCommentCallback(comment.id);
-              }}
-            >
-              {text}
+            <div className={styles['Comment__content-text']} onClick={onClickedComment}>
+              {isEditing ? text : comment.text}
             </div>
           ) : (
             <>
@@ -79,20 +89,13 @@ export const Comment: FC<CommentProps> = ({ comment, editCommentId, onEditCommen
                   setText(e.target.value);
                 }}
               ></Input>
-              {text && <Button text="Save" type="primary" onClick={onEdit} />} 
-              <Button
-                text="Cancel"
-                type="primary"
-                onClick={() => {
-                  setText(comment.text);
-                  onEditCommentCallback(null);
-                }}
-              />
+              {text && <Button text="Save" type="primary" onClick={onEditButtonClicked} />}
+              <Button text="Cancel" type="primary" onClick={onCancelButtonClicked} />
             </>
           )}
         </div>
 
-        <Button text="Delete" type="delete" onClick={onDelete} />
+        <Button text="Delete" type="delete" onClick={onDeleteButtonClicked} />
       </div>
     </div>
   );

@@ -46,14 +46,14 @@ export const AddCommentModal: FC<AddCommentModalProps> = ({ hide }) => {
         <div className={styles.AddCommentModal}>
           <FormElementWrapper>
             <TextForm text="Comment" />
-            <Textarea placeholder="Comment" value={text} onChange={(value: string) => setText(value)} />
+            <Textarea placeholder="Comment" value={text} onChange={(e: any) => setText(e.target.value)} />
           </FormElementWrapper>
         </div>
         <div className={styles['AddCommentModal__button-submit']}>
           <Button text="Add Comment" type="primary" />
         </div>
       </form>
-      {isError && <span className={styles.error}>Invalid data format</span>}
+      {isError && !validationError && <span className={styles.error}>Invalid data format</span>}
       {validationError && <span className={styles.error}>{validationError}</span>}
     </>
   );

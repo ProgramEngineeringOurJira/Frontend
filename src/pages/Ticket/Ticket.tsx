@@ -15,7 +15,7 @@ import styles from './styles.module.scss';
 
 export const Ticket: FC = () => {
   const { isShown, toggle } = useModal();
-  const [editCommentId, setEditCommentId] = useState<string | null>(null);
+  const [editedCommentId, setEditedCommentId] = useState<string | null>(null);
 
   const issueJSONobj = JSON.stringify(issueJSON);
   const issue: Issue = JSON.parse(issueJSONobj);
@@ -44,8 +44,8 @@ export const Ticket: FC = () => {
                 <Comment
                   key={comment.id}
                   comment={comment}
-                  editCommentId={editCommentId}
-                  onEditCommentCallback={setEditCommentId}
+                  editedCommentId={editedCommentId}
+                  onSetEditedCommentCallback={setEditedCommentId}
                 />
               ))}
             </div>
