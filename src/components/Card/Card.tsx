@@ -1,15 +1,16 @@
 import { FC } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import { Icon } from '../../ui-kit/Icon';
-import { PriorityTypess, priorityTypes } from '../../utils/constants';
+import { priorityTypes } from '../../utils/constants';
 import { Label } from '../../ui-kit/Label/Label';
 import { formatDateForCard } from '../../utils/helpers';
 import { UserAssignedWorkplace } from '../../utils/types';
+import { paths } from '../../utils/paths';
 
 import styles from './styles.module.scss';
-import { flag } from '../../ui-kit/Icon/assets';
 
 type CardProps = {
   id: string;
@@ -34,6 +35,8 @@ export const Card: FC<CardProps> = ({
   documentsCount = 0,
   implementers
 }) => {
+  const { idBoard } = useParams();
+
   function getIconName(priority: string) {
     if (priority === priorityTypes.HIGH || priority === priorityTypes.URGRENT) {
       return '#ff0000';
@@ -43,7 +46,7 @@ export const Card: FC<CardProps> = ({
   }
 
   return (
-    <Link to={`/ticket/${id}`}>
+    <Link to={`${paths.board}/${idBoard}${paths.ticket}/${id}`}>
       <div className={clsx(styles.Card, className)}>
         <h3 className={styles.Card__header}>{header}</h3>
         <p className={styles.Card__description}>{description}</p>

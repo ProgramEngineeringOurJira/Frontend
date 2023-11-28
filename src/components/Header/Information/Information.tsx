@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 
@@ -13,15 +13,22 @@ import { Select } from '../../../ui-kit/Select';
 import { Option } from '../../../ui-kit/Select/Option';
 import { Loader } from '../../../ui-kit/Loader';
 import { Workplace } from '../../../utils/types';
+import { useSendRequest } from '../../../hooks/useSendRequest';
+import { TextForm } from '../../../ui-kit/TextForm';
+import { Input } from '../../../ui-kit/Input';
+import { FormElementWrapper } from '../../../ui-kit/FormElementWrapper';
+import { validateEmail } from '../../../utils/helpers';
 
 import styles from './styles.module.scss';
 
 export const Information: FC = () => {
   const [activeBoard, setActiveBoard] = useState<Workplace>();
   const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
   const { isShown, toggle } = useModal();
   const navigate = useNavigate();
   const { idBoard, idSprint } = useParams();
+  const [validationError, setValidationError] = useState('');
 
   const boards = useSelector((state: RootState) => state.board.value);
   const sprints = useSelector((state: RootState) => state.sprint.value);
@@ -64,6 +71,29 @@ export const Information: FC = () => {
 
   const updateActiveSprint = (id: string) => {
     navigate(`/board/${activeBoard?.id}/sprint/${id}`);
+  };
+
+  const submitCallback = () => { };
+
+  const { sendRequest, isError, queryResult } = useSendRequest(submitCallback, `workplaces/${activeBoard?.id}/invite`);
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const sendObject = {
+      email: email,
+    };
+
+    if (
+      email.length > 0 &&
+      validateEmail(email)
+    ) {
+      sendRequest(sendObject);
+      setValidationError('');
+      setEmail('');
+    } else {
+      setValidationError('Oooops, something went wrong!');
+      setEmail('');
+    }
   };
 
   useEffect(() => {
@@ -115,7 +145,25 @@ export const Information: FC = () => {
           <Button text="+ New Member" type="new-member" onClick={toggle} />
         </div>
       </div>
-      <Modal isShown={isShown} hide={toggle} modalContent={<span>Hi there</span>} />
+      <Modal isShown={isShown} hide={toggle} headerText='Invite new member' modalContent={
+        <>
+          <form onSubmit={onSubmit} className={styles.InviteForm}>
+            <FormElementWrapper>
+              <TextForm text="Email" />
+              <Input
+                type="text"
+                value={email}
+                onChange={(e: any) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </FormElementWrapper>
+            <Button text="Invite" type="primary" typeButton="submit" />
+          </form>
+          {isError && <span>{queryResult}</span>}
+          {validationError && <span className={styles.error}>{validationError}</span>}
+        </>
+      } />
     </>
   );
 };
