@@ -10,6 +10,7 @@ export type Issue = {
   end_date: string;
   label: LabelTypes;
   author: UserAssignedWorkplace;
+  files: string[];
   implementers: UserAssignedWorkplace[];
   comments: Comment[];
   subissues: Issue[];

@@ -50,7 +50,7 @@ export enum Role {
 }
 
 type VES = 'HIGH' | 'NORMAL' | 'LOW' | 'URGRENT';
-type Colors = 'red' | 'yellow' | 'green' | 'red';
+type VES_API = 'HIGH' | 'NORMAL' | 'LOW' | 'URGRENT';
 
 // TODO удалить
 export enum State {
@@ -62,11 +62,11 @@ export enum State {
   Done = 'Done'
 }
 
-export const priorityTypes: Record<VES, Colors> = {
-  HIGH: 'red',
-  NORMAL: 'yellow',
-  LOW: 'green',
-  URGRENT: 'red'
+export const priorityTypes: Record<VES, VES_API> = {
+  HIGH: 'HIGH',
+  NORMAL: 'NORMAL',
+  LOW: 'LOW',
+  URGRENT: 'URGRENT'
 };
 
 type StateLabels = 'BACKLOG' | 'TODO' | 'INPROGRESS' | 'INREVIEW' | 'QA' | 'DONE';
