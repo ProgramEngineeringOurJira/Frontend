@@ -67,7 +67,7 @@ export const Comment: FC<CommentProps> = ({ comment, editedCommentId, onSetEdite
     onSetEditedCommentCallback(null);
   };
 
-  const isEditing: boolean = 'id' in comment && editedCommentId === comment.id;
+  const isEditing: boolean = editedCommentId === comment.id;
 
   return (
     <div className={clsx(styles.Comment, !isVisible ? styles.deleted : '')}>
@@ -105,7 +105,7 @@ export const Comment: FC<CommentProps> = ({ comment, editedCommentId, onSetEdite
           )}
         </div>
 
-        {'id' in comment && <Button text="Delete" type="delete" onClick={onDeleteButtonClicked} />}
+        {<Button text="Delete" type="delete" onClick={onDeleteButtonClicked} />}
       </div>
     </div>
   );

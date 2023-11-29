@@ -25,14 +25,9 @@ export const AddCommentModal: FC<AddCommentModalProps> = ({ hide }) => {
 
   const postComment = (data: any) => {
     console.log(data);
-    hide();
-  };
 
-  const { sendRequest, isError } = useSendRequest(postComment, `${idBoard}/issues/${idTicket}/comments`);
-
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const commentData = {
+    const commentRenderedData = {
+      id: data.id,
       text: text,
       creation_date: new Date().getTime(),
       author: {
@@ -41,14 +36,25 @@ export const AddCommentModal: FC<AddCommentModalProps> = ({ hide }) => {
         }
       }
     };
+    const newComments = [...issue.comments, commentRenderedData];
+    dispatch(ticketActions.setTicket({ ...issue, comments: newComments }));
+
+    hide();
+  };
+
+  const { sendRequest, isError } = useSendRequest(postComment, `${idBoard}/issues/${idTicket}/comments`);
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const commentData = {
+      text: text
+    };
 
     if (text.length > 0) {
       sendRequest(commentData);
       setValidationError('');
-      setText('');
-
-      const newComments = [...issue.comments, commentData];
-      dispatch(ticketActions.setTicket({ ...issue, comments: newComments }));
+      // setText('');
     } else {
       setValidationError('Comment text must be non-empty');
     }
