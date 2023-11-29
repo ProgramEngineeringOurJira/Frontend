@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
 
-export type ButtonType = 'primary' | 'add' | 'header' | 'new-member';
+export type ButtonType = 'primary' | 'add' | 'delete' | 'header' | 'new-member';
 
 export interface ButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined;

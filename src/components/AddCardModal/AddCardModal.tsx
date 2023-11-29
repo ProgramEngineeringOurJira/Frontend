@@ -86,11 +86,20 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
       setPriority('');
       setState('');
       setLabel('');
+
+      const newData = currSprint.columns.map((column) => {
+        if (column.name === issueData.state) {
+          return {
+            ...column,
+            issues: [...column.issues, issueData]
+          } as ColumnType;
+        }
+        return column;
+      });
+      dispatch(currSprintActions.setSprint({ ...currSprint, columns: newData }));
     } else {
       setValidationError('Oooops, something went wrong!');
     }
-
-    sendRequest(issueData);
   };
 
   return (

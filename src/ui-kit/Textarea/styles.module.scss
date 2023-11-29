@@ -1,0 +1,10 @@
+.Textarea {
+  min-width: 16%;
+  padding: 15px;
+  border-radius: var(--border-radius-s);
+  border: 1px solid var(--light-gray);
+
+  &::placeholder {
+    color: var(--light-gray);
+  }
+}
