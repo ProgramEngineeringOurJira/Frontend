@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import clsx from 'clsx';
 
@@ -21,14 +21,23 @@ export const Comment: FC<CommentProps> = ({ comment, editedCommentId, onSetEdite
   const { idBoard } = useParams();
   const [text, setText] = useState(comment.text);
   const [isVisible, setIsVisible] = useState(true);
+  const [isSaveButtonClicked, setIsSaveButtonClicked] = useState(false);
+
+  useEffect(() => {
+    if (isSaveButtonClicked) {
+      setIsSaveButtonClicked(false);
+    } else {
+      setText(comment.text);
+    }
+  }, [editedCommentId]);
 
   const deleteRequest = useDeleteRequest(`${idBoard}/comments/${comment.id}`);
 
   const onDeleteButtonClicked = () => {
     deleteRequest.sendRequest(null);
-    if (!deleteRequest.isError) {
+    if (comment.id) {
+      setIsVisible(false);
     }
-    setIsVisible(false);
   };
 
   const putComment = (data: any) => {
@@ -44,6 +53,7 @@ export const Comment: FC<CommentProps> = ({ comment, editedCommentId, onSetEdite
     if (text.length > 0) {
       putRequest.sendRequest(commentData);
       onSetEditedCommentCallback(null);
+      setIsSaveButtonClicked(true);
     }
   };
 
@@ -57,7 +67,7 @@ export const Comment: FC<CommentProps> = ({ comment, editedCommentId, onSetEdite
     onSetEditedCommentCallback(null);
   };
 
-  const isEditing: boolean = editedCommentId === comment.id;
+  const isEditing: boolean = 'id' in comment && editedCommentId === comment.id;
 
   return (
     <div className={clsx(styles.Comment, !isVisible ? styles.deleted : '')}>
@@ -77,7 +87,7 @@ export const Comment: FC<CommentProps> = ({ comment, editedCommentId, onSetEdite
         <div className={styles['Comment__content-flex']}>
           {!isEditing ? (
             <div className={styles['Comment__content-text']} onClick={onClickedComment}>
-              {isEditing ? text : comment.text}
+              {text}
             </div>
           ) : (
             <>
@@ -95,7 +105,7 @@ export const Comment: FC<CommentProps> = ({ comment, editedCommentId, onSetEdite
           )}
         </div>
 
-        <Button text="Delete" type="delete" onClick={onDeleteButtonClicked} />
+        {'id' in comment && <Button text="Delete" type="delete" onClick={onDeleteButtonClicked} />}
       </div>
     </div>
   );

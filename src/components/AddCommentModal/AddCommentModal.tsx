@@ -1,7 +1,10 @@
 import { FC, FormEvent, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
 import { useSendRequest } from '../../hooks/useSendRequest';
+import { RootState } from '../../redux/store';
+import { ticketActions } from '../../redux/features/ticketSlice';
 import { TextForm } from '../../ui-kit/TextForm';
 import { FormElementWrapper } from '../../ui-kit/FormElementWrapper';
 import { Textarea } from '../../ui-kit/Textarea';
@@ -14,9 +17,11 @@ type AddCommentModalProps = {
 };
 
 export const AddCommentModal: FC<AddCommentModalProps> = ({ hide }) => {
+  const dispatch = useDispatch();
   const [validationError, setValidationError] = useState('');
   const [text, setText] = useState('');
   const { idBoard, idTicket } = useParams();
+  const issue = useSelector((state: RootState) => state.ticket.value);
 
   const postComment = (data: any) => {
     console.log(data);
@@ -28,13 +33,22 @@ export const AddCommentModal: FC<AddCommentModalProps> = ({ hide }) => {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const commentData = {
-      text: text
+      text: text,
+      creation_date: new Date().getTime(),
+      author: {
+        user: {
+          name: 'You'
+        }
+      }
     };
 
     if (text.length > 0) {
       sendRequest(commentData);
       setValidationError('');
       setText('');
+
+      const newComments = [...issue.comments, commentData];
+      dispatch(ticketActions.setTicket({ ...issue, comments: newComments }));
     } else {
       setValidationError('Comment text must be non-empty');
     }
