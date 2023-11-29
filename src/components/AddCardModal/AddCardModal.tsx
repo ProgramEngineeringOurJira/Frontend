@@ -31,13 +31,40 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
   const [label, setLabel] = useState('');
   const { idBoard, idSprint } = useParams();
   const currSprint = useSelector((state: RootState) => state.currSprint.value);
+  const [id, setId] = useState('');
 
   const postIssue = (data: any) => {
     console.log(data);
+    setId(data.id);
+    console.log('CHECK', sendRequest, queryResult);
+
+    const issueData = {
+      name: name,
+      text: text,
+      priority: priority,
+      state: state,
+      label: label,
+      sprint_id: idSprint,
+      implementers: []
+    };
+
+    const newData = currSprint.columns.map((column) => {
+      if (column.name === issueData.state) {
+        return {
+          ...column,
+          issues: [...column.issues, { ...issueData, id: data.id }]
+        } as ColumnType;
+      }
+      return column;
+    });
+    console.log(newData);
+    console.log(id);
+    dispatch(currSprintActions.setSprint({ ...currSprint, columns: newData }));
+
     hide();
   };
 
-  const { sendRequest, isError, isLoading } = useSendRequest(postIssue, `${idBoard}/issues`);
+  const { sendRequest, isError, isLoading, queryResult } = useSendRequest(postIssue, `${idBoard}/issues`);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -64,17 +91,6 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
     }
 
     sendRequest(issueData);
-
-    const newData = currSprint.columns.map((column) => {
-      if (column.name === issueData.state) {
-        return {
-          ...column,
-          issues: [...column.issues, issueData]
-        } as ColumnType;
-      }
-      return column;
-    });
-    dispatch(currSprintActions.setSprint({ ...currSprint, columns: newData }));
   };
 
   return (
@@ -130,7 +146,6 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
               ))}
             </Select>
           </FormElementWrapper>
-
         </div>
         <div className={styles['AddCardModal__button-submit']}>
           <Button text="Add Task" type="primary" />
