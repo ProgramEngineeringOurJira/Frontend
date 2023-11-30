@@ -1,10 +1,11 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 
+import { usePutRequest } from '../../hooks/usePutRequest';
 import { Icon } from '../../ui-kit/Icon';
-import { priorityTypes } from '../../utils/constants';
+import { priorityTypes, State } from '../../utils/constants';
 import { Label } from '../../ui-kit/Label/Label';
 import { formatDateForCard } from '../../utils/helpers';
 import { UserAssignedWorkplace } from '../../utils/types';
@@ -20,6 +21,9 @@ type CardProps = {
   date: string;
   priority: string;
   label: string;
+  state: State;
+  draggedIssue: { id: string | null; state: State | null };
+  onSetDraggedIssueCallback: (value: { id: string | null; state: State | null }) => void;
   documentsCount?: number;
   implementers: UserAssignedWorkplace[];
 };
@@ -32,6 +36,9 @@ export const Card: FC<CardProps> = ({
   date,
   priority,
   label,
+  state,
+  draggedIssue,
+  onSetDraggedIssueCallback,
   documentsCount = 0,
   implementers
 }) => {
@@ -44,6 +51,29 @@ export const Card: FC<CardProps> = ({
       return '#ffa500';
     } else return '#76cc8e';
   }
+
+  const putIssue = (data: any) => {
+    console.log(data);
+  };
+
+  const { sendRequest } = usePutRequest(putIssue, `${idBoard}/issues/${draggedIssue.id}`);
+
+  useEffect(() => {
+    onDragged();
+  }, [draggedIssue])
+
+  const onDragged = () => {
+    if (draggedIssue.id == id && draggedIssue.state != null && draggedIssue.state != state) {
+      const issueData = {
+        state: draggedIssue.state
+      };
+      sendRequest(issueData);
+      onSetDraggedIssueCallback({
+        id: null,
+        state: null
+      });
+    }
+  };
 
   return (
     <Link to={`${paths.board}/${idBoard}${paths.ticket}/${id}`}>

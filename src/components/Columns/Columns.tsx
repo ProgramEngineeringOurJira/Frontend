@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Draggable, DropResult, Droppable } from 'react-beautiful-dnd';
 
-import { ColumnType } from '../../utils/types';
+import { ColumnType, Issue } from '../../utils/types';
 import { RootState } from '../../redux/store';
 import { currSprintActions } from '../../redux/features/currentSprintSlice';
 import { Column } from '../Column';
@@ -9,11 +9,17 @@ import { Card } from '../Card';
 
 import styles from './styles.module.scss';
 import { useEffect, useState } from 'react';
+import { State } from '../../utils/constants';
 
 export const Columns = () => {
   const dispatch = useDispatch();
   const currentSprint = useSelector((state: RootState) => state.currSprint.value);
   const [currentSprintState, setCurrentSprintState] = useState(currentSprint);
+
+  const [draggedIssue, setDraggedIssue] = useState<{ id: string | null; state: State | null }>({
+    id: null,
+    state: null
+  });
 
   useEffect(() => {
     setCurrentSprintState(currentSprint);
@@ -37,21 +43,26 @@ export const Columns = () => {
 
       const newData = currentSprintState.columns.map((column) => {
         if (column.name === source.droppableId) {
-          return ({
+          return {
             ...sourceColumn,
             issues: resultSourceItems
-          } as ColumnType)
+          } as ColumnType;
         }
         if (column.name === destination.droppableId) {
-          return ({
+          return {
             ...destColumn,
             issues: destItems
-          } as ColumnType)
+          } as ColumnType;
         }
         return column;
-      })
+      });
 
       dispatch(currSprintActions.setSprint({ ...currentSprintState, columns: newData }));
+
+      if (destColumn) {
+        const editedIssue = destItems[destination.index];
+        setDraggedIssue({ id: editedIssue.id, state: destColumn.name });
+      }
     } else {
       const destColumn = currentSprintState.columns.find((elem) => elem.name === source.droppableId);
       const destItems = [...destColumn!.issues];
@@ -59,10 +70,10 @@ export const Columns = () => {
       destItems.splice(destination.index, 0, removed);
       const result = currentSprintState.columns.map((el) => {
         if (el.name === destination.droppableId) {
-          return ({
+          return {
             ...el,
             issues: destItems
-          })
+          };
         }
         return el;
       });
@@ -73,8 +84,7 @@ export const Columns = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.ColumnsWrapper}>
-        {currentSprintState.columns?.length ?
-
+        {currentSprintState.columns?.length ? (
           currentSprintState.columns.map((column: ColumnType, index: number) => (
             <Droppable key={column.name} droppableId={column.name}>
               {(provided) => (
@@ -83,12 +93,7 @@ export const Columns = () => {
                     {column.issues.map((task, index) => (
                       <Draggable key={task.id} draggableId={task.id} index={index}>
                         {(provided) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-
-                          >
+                          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                             <Card
                               key={index}
                               id={task.id}
@@ -97,22 +102,25 @@ export const Columns = () => {
                               date={task.end_date}
                               priority={task.priority}
                               label={task.label}
+                              state={task.state}
+                              draggedIssue={draggedIssue}
+                              onSetDraggedIssueCallback={setDraggedIssue}
                               documentsCount={task.files?.length}
                               implementers={task.implementers}
                             />
                           </div>
                         )}
                       </Draggable>
-
                     ))}
-
                   </Column>
                   {provided.placeholder}
                 </div>
               )}
             </Droppable>
           ))
-          : <div>Нет задач</div>}
+        ) : (
+          <div>Нет задач</div>
+        )}
       </div>
     </DragDropContext>
   );

@@ -5,10 +5,10 @@ export type Issue = {
   text: string;
   priority: Priority;
   state: State;
+  label: LabelTypes;
+  end_date: string;
   id: string;
   creation_date: string;
-  end_date: string;
-  label: LabelTypes;
   author: UserAssignedWorkplace;
   files: string[];
   implementers: UserAssignedWorkplace[];
@@ -32,7 +32,7 @@ export type Sprint = {
 };
 
 export type ColumnType = {
-  name: string;
+  name: State;
   issues: Issue[];
 };
 
