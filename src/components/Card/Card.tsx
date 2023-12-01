@@ -42,7 +42,7 @@ export const Card: FC<CardProps> = ({
   documentsCount = 0,
   implementers
 }) => {
-  const { idBoard } = useParams();
+  const { idBoard, idSprint } = useParams();
 
   function getIconName(priority: string) {
     if (priority === priorityTypes.HIGH || priority === priorityTypes.URGRENT) {
@@ -60,7 +60,7 @@ export const Card: FC<CardProps> = ({
 
   useEffect(() => {
     onDragged();
-  }, [draggedIssue])
+  }, [draggedIssue]);
 
   const onDragged = () => {
     if (draggedIssue.id == id && draggedIssue.state != null && draggedIssue.state != state) {
@@ -76,7 +76,7 @@ export const Card: FC<CardProps> = ({
   };
 
   return (
-    <Link to={`${paths.board}/${idBoard}${paths.ticket}/${id}`}>
+    <Link to={`${paths.board}/${idBoard}${paths.sprint}/${idSprint}${paths.ticket}/${id}`}>
       <div className={clsx(styles.Card, className)}>
         <h3 className={styles.Card__header}>{header}</h3>
         <p className={styles.Card__description}>{description}</p>
