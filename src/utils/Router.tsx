@@ -26,7 +26,7 @@ export const Router: RouteObject[] = [
     element: <CreateProject />
   },
   {
-    path: `${paths.board}/:idBoard${paths.ticket}/:idTicket`,
+    path: `${paths.board}/:idBoard${paths.sprint}/:idSprint${paths.ticket}/:idTicket`,
     element: <Ticket />
   },
   {

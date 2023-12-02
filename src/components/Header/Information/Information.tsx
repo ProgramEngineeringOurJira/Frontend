@@ -18,6 +18,7 @@ import { TextForm } from '../../../ui-kit/TextForm';
 import { Input } from '../../../ui-kit/Input';
 import { FormElementWrapper } from '../../../ui-kit/FormElementWrapper';
 import { validateEmail } from '../../../utils/helpers';
+import { paths } from '../../../utils/paths';
 
 import styles from './styles.module.scss';
 
@@ -27,7 +28,7 @@ export const Information: FC = () => {
   const [email, setEmail] = useState('');
   const { isShown, toggle } = useModal();
   const navigate = useNavigate();
-  const { idBoard, idSprint } = useParams();
+  const { idBoard, idSprint, idTicket } = useParams();
   const [validationError, setValidationError] = useState('');
 
   const boards = useSelector((state: RootState) => state.board.value);
@@ -73,20 +74,17 @@ export const Information: FC = () => {
     navigate(`/board/${activeBoard?.id}/sprint/${id}`);
   };
 
-  const submitCallback = () => { };
+  const submitCallback = () => {};
 
   const { sendRequest, isError, queryResult } = useSendRequest(submitCallback, `workplaces/${activeBoard?.id}/invite`);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const sendObject = {
-      email: email,
+      email: email
     };
 
-    if (
-      email.length > 0 &&
-      validateEmail(email)
-    ) {
+    if (email.length > 0 && validateEmail(email)) {
       sendRequest(sendObject);
       setValidationError('');
       setEmail('');
@@ -112,7 +110,7 @@ export const Information: FC = () => {
       <div className={styles.Information}>
         <div className={styles.Information__sprint}>
           <span className={styles['Information__sprint-name']}>{activeBoard?.name}</span>
-          {boards.length > 0 && (
+          {boards.length > 0 && !idTicket && (
             <Select placeholder={boards[boards.length - 1]?.name}>
               {isWorkplacesLoading ? (
                 <Loader />
@@ -125,7 +123,7 @@ export const Information: FC = () => {
               )}
             </Select>
           )}
-          {sprints.length > 0 && (
+          {sprints.length > 0 && !idTicket && (
             <Select placeholder={sprints[sprints.length - 1]?.name}>
               {isSprintsLoading ? (
                 <Loader />
@@ -138,6 +136,15 @@ export const Information: FC = () => {
               )}
             </Select>
           )}
+          {idTicket && (
+            <Button
+              text="Back to sprint"
+              type="primary"
+              onClick={() => {
+                navigate(`${paths.board}/${idBoard}${paths.sprint}/${idSprint}`);
+              }}
+            />
+          )}
         </div>
         <div className={styles.Information__members}>
           <div className={styles['Information__members-avatars']}></div>
@@ -145,25 +152,30 @@ export const Information: FC = () => {
           <Button text="+ New Member" type="new-member" onClick={toggle} />
         </div>
       </div>
-      <Modal isShown={isShown} hide={toggle} headerText='Invite new member' modalContent={
-        <>
-          <form onSubmit={onSubmit} className={styles.InviteForm}>
-            <FormElementWrapper>
-              <TextForm text="Email" />
-              <Input
-                type="text"
-                value={email}
-                onChange={(e: any) => {
-                  setEmail(e.target.value);
-                }}
-              />
-            </FormElementWrapper>
-            <Button text="Invite" type="primary" typeButton="submit" />
-          </form>
-          {isError && <span>{queryResult}</span>}
-          {validationError && <span className={styles.error}>{validationError}</span>}
-        </>
-      } />
+      <Modal
+        isShown={isShown}
+        hide={toggle}
+        headerText="Invite new member"
+        modalContent={
+          <>
+            <form onSubmit={onSubmit} className={styles.InviteForm}>
+              <FormElementWrapper>
+                <TextForm text="Email" />
+                <Input
+                  type="text"
+                  value={email}
+                  onChange={(e: any) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </FormElementWrapper>
+              <Button text="Invite" type="primary" typeButton="submit" />
+            </form>
+            {isError && <span>{queryResult}</span>}
+            {validationError && <span className={styles.error}>{validationError}</span>}
+          </>
+        }
+      />
     </>
   );
 };
