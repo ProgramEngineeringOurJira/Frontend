@@ -22,6 +22,7 @@ import { validateEmail } from '../../../utils/helpers';
 import { paths } from '../../../utils/paths';
 
 import styles from './styles.module.scss';
+import { NameTag } from '../../../ui-kit/NameTag';
 
 type InformationProps = {
   isVisible?: boolean;
@@ -139,6 +140,14 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
                 ))
               )}
             </Select>
+          )}
+          {!idTicket && (
+            <div className={styles['Information__sprint-tags']}>
+              <NameTag text={'texttttttttt'} />
+              <NameTag text={'text'} />
+              <NameTag text={'text'} />
+              <NameTag text={'text'} />
+            </div>
           )}
           {idTicket && (
             <Button
