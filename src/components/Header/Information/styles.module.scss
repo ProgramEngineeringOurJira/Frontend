@@ -19,6 +19,13 @@
       margin-top: 5px;
       white-space: nowrap;
     }
+
+    &-tags {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: 25px;
+    }
   }
 
   &__members {
