@@ -1,6 +1,7 @@
 import { FC, useEffect, useState, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
+import clsx from 'clsx';
 
 import { useGetRequest } from '../../../hooks/useGetRequest';
 import { RootState } from '../../../redux/store';
@@ -21,7 +22,11 @@ import { validateEmail } from '../../../utils/helpers';
 
 import styles from './styles.module.scss';
 
-export const Information: FC = () => {
+type InformationProps = {
+  isVisible?: boolean;
+};
+
+export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   const [activeBoard, setActiveBoard] = useState<Workplace>();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -73,20 +78,17 @@ export const Information: FC = () => {
     navigate(`/board/${activeBoard?.id}/sprint/${id}`);
   };
 
-  const submitCallback = () => { };
+  const submitCallback = () => {};
 
   const { sendRequest, isError, queryResult } = useSendRequest(submitCallback, `workplaces/${activeBoard?.id}/invite`);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const sendObject = {
-      email: email,
+      email: email
     };
 
-    if (
-      email.length > 0 &&
-      validateEmail(email)
-    ) {
+    if (email.length > 0 && validateEmail(email)) {
       sendRequest(sendObject);
       setValidationError('');
       setEmail('');
@@ -109,7 +111,7 @@ export const Information: FC = () => {
 
   return (
     <>
-      <div className={styles.Information}>
+      <div className={clsx(styles.Information, !isVisible ? styles.hide : '')}>
         <div className={styles.Information__sprint}>
           <span className={styles['Information__sprint-name']}>{activeBoard?.name}</span>
           {boards.length > 0 && (
@@ -145,25 +147,30 @@ export const Information: FC = () => {
           <Button text="+ New Member" type="new-member" onClick={toggle} />
         </div>
       </div>
-      <Modal isShown={isShown} hide={toggle} headerText='Invite new member' modalContent={
-        <>
-          <form onSubmit={onSubmit} className={styles.InviteForm}>
-            <FormElementWrapper>
-              <TextForm text="Email" />
-              <Input
-                type="text"
-                value={email}
-                onChange={(e: any) => {
-                  setEmail(e.target.value);
-                }}
-              />
-            </FormElementWrapper>
-            <Button text="Invite" type="primary" typeButton="submit" />
-          </form>
-          {isError && <span>{queryResult}</span>}
-          {validationError && <span className={styles.error}>{validationError}</span>}
-        </>
-      } />
+      <Modal
+        isShown={isShown}
+        hide={toggle}
+        headerText="Invite new member"
+        modalContent={
+          <>
+            <form onSubmit={onSubmit} className={styles.InviteForm}>
+              <FormElementWrapper>
+                <TextForm text="Email" />
+                <Input
+                  type="text"
+                  value={email}
+                  onChange={(e: any) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </FormElementWrapper>
+              <Button text="Invite" type="primary" typeButton="submit" />
+            </form>
+            {isError && <span>{queryResult}</span>}
+            {validationError && <span className={styles.error}>{validationError}</span>}
+          </>
+        }
+      />
     </>
   );
 };
