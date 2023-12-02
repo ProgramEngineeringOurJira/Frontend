@@ -100,7 +100,6 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   };
 
   useEffect(() => {
-    // TODO: fix any
     if (boards.length) {
       const activeBoard = boards.find((board: Workplace) => board.id === idBoard);
       //if (boards.length > 0 && boardId === undefined) {
@@ -129,7 +128,7 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
             </Select>
           )}
           {sprints.length > 0 && !idTicket && (
-            <Select placeholder={sprints[sprints.length - 1]?.name}>
+            <Select placeholder={sprints[sprints.length - 1]?.name ?? 'sprint'}>
               {isSprintsLoading ? (
                 <Loader />
               ) : (
