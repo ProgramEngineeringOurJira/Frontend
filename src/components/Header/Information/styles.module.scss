@@ -42,7 +42,12 @@
 }
 
 @media screen and (max-width: 768px) {
-  .Information__members-avatars, .divider {
+  .Information__members-avatars,
+  .divider {
     display: none;
   }
+}
+
+.hide {
+  display: none;
 }

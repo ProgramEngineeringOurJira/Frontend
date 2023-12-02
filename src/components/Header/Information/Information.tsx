@@ -1,6 +1,7 @@
 import { FC, useEffect, useState, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
+import clsx from 'clsx';
 
 import { useGetRequest } from '../../../hooks/useGetRequest';
 import { RootState } from '../../../redux/store';
@@ -22,7 +23,11 @@ import { paths } from '../../../utils/paths';
 
 import styles from './styles.module.scss';
 
-export const Information: FC = () => {
+type InformationProps = {
+  isVisible?: boolean;
+};
+
+export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   const [activeBoard, setActiveBoard] = useState<Workplace>();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -107,7 +112,7 @@ export const Information: FC = () => {
 
   return (
     <>
-      <div className={styles.Information}>
+      <div className={clsx(styles.Information, !isVisible ? styles.hide : '')}>
         <div className={styles.Information__sprint}>
           <span className={styles['Information__sprint-name']}>{activeBoard?.name}</span>
           {boards.length > 0 && !idTicket && (

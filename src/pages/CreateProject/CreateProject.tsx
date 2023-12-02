@@ -11,6 +11,7 @@ import { TextForm } from '../../ui-kit/TextForm';
 import { Input } from '../../ui-kit/Input';
 
 import styles from './styles.module.scss';
+import { Textarea } from '../../ui-kit/Textarea';
 
 export const CreateProject: FC = () => {
   const [name, setName] = useState('');
@@ -19,10 +20,11 @@ export const CreateProject: FC = () => {
   const navigate = useNavigate();
 
   const submitCallback = (data: any) => {
+    console.log(data);
     navigate(paths.home);
   };
 
-  const { sendRequest, isError, isLoading, queryResult, isSuccess } = useSendRequest(submitCallback, 'workplace');
+  const { sendRequest, isError, queryResult } = useSendRequest(submitCallback, 'workplace');
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -42,14 +44,16 @@ export const CreateProject: FC = () => {
 
   return (
     <div>
-      <Header />
+      <Header isInformationVisible={false} />
       <PageLayout>
         <>
           <form onSubmit={onSubmit} className={styles.CreateProject}>
+            <span className={styles['CreateProject__title']}>Create new project</span>
             <FormElementWrapper>
               <TextForm text="Name" />
               <Input
                 type="text"
+                placeholder="Name"
                 value={name}
                 onChange={(e: any) => {
                   setName(e.target.value);
@@ -58,18 +62,16 @@ export const CreateProject: FC = () => {
             </FormElementWrapper>
             <FormElementWrapper>
               <TextForm text="Description" />
-              <Input
-                type="text"
+              <Textarea
+                placeholder="Description"
                 value={description}
-                onChange={(e: any) => {
-                  setDescription(e.target.value);
-                }}
+                onChange={(e: any) => setDescription(e.target.value)}
               />
             </FormElementWrapper>
             <Button text="Create Project" type="primary" typeButton="submit" />
+            {isError && <span className={styles.error}>{queryResult}</span>}
+            {validationError && <span className={styles.error}>{validationError}</span>}
           </form>
-          {isError && <span>{queryResult}</span>}
-          {validationError && <span className={styles.error}>{validationError}</span>}
         </>
       </PageLayout>
     </div>

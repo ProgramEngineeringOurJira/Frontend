@@ -4,11 +4,15 @@ import styles from './styles.module.scss';
 import { Information } from './Information/Information';
 import { Navigation } from './Navigation';
 
-export const Header: FC = () => {
+type HeaderProps = {
+  isInformationVisible?: boolean;
+};
+
+export const Header: FC<HeaderProps> = ({ isInformationVisible = true }) => {
   return (
     <>
       <Navigation />
-      <Information />
+      {isInformationVisible ? <Information /> : <Information isVisible={false} />}
     </>
   );
 };
