@@ -24,8 +24,6 @@ export const AddCommentModal: FC<AddCommentModalProps> = ({ hide }) => {
   const issue = useSelector((state: RootState) => state.ticket.value);
 
   const postComment = (data: any) => {
-    console.log(data);
-
     const commentRenderedData = {
       id: data.id,
       text: text,

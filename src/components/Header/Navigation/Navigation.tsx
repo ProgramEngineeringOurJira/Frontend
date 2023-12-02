@@ -2,6 +2,7 @@ import { FC, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from '../../../ui-kit/Button';
+import { AddSprintModal } from '../../AddSprintModal';
 import { Modal, useModal } from '../../Modal';
 import { AuthContext } from '../../../shared/context';
 import { paths } from '../../../utils/paths';
@@ -31,10 +32,15 @@ export const Navigation: FC = () => {
           to="/login"
           onClick={onExitClick}
           text={`Logout ${user?.email.split('@')[0]}`}
-          type='primary'
+          type="primary"
         />
       </div>
-      <Modal isShown={isShown} hide={toggle} modalContent={<span>Hi there</span>} />
+      <Modal
+        isShown={isShown}
+        hide={toggle}
+        modalContent={<AddSprintModal hide={toggle} />}
+        headerText="Add new sprint"
+      />
     </>
   );
 };
