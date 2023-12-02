@@ -31,7 +31,7 @@ export const Navigation: FC = () => {
           className={styles.Navigation__logout}
           to="/login"
           onClick={onExitClick}
-          text={`Logout ${user?.email.split('@')[0]}`}
+          text={`Logout ${user?.name}`}
           type="primary"
         />
       </div>

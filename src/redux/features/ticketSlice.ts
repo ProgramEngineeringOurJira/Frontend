@@ -27,7 +27,8 @@ const initialState: TicketState = {
     },
     implementers: [],
     comments: [],
-    subissues: []
+    subissues: [],
+    files: []
   }
 };
 
