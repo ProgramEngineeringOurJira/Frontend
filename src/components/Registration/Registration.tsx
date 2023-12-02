@@ -16,6 +16,7 @@ const _Registration: FC = () => {
   const authContext = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [validationError, setValidationError] = useState('');
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const _Registration: FC = () => {
     event.preventDefault();
     const sendObject = {
       email: email,
+      name: name,
       password: password
     };
 
@@ -46,11 +48,13 @@ const _Registration: FC = () => {
       sendRequest(sendObject);
       setValidationError('');
       setEmail('');
+      setName('');
       setPassword('');
       setConfirmPassword('');
     } else {
       setValidationError('Oooops, something went wrong!');
       setEmail('');
+      setName('');
       setPassword('');
       setConfirmPassword('');
     }
@@ -70,6 +74,17 @@ const _Registration: FC = () => {
                 value={email}
                 onChange={(e: any) => {
                   setEmail(e.target.value);
+                }}
+              />
+            </FormElementWrapper>
+
+            <FormElementWrapper>
+              <TextForm text="Name" />
+              <Input
+                type="text"
+                value={name}
+                onChange={(e: any) => {
+                  setName(e.target.value);
                 }}
               />
             </FormElementWrapper>
