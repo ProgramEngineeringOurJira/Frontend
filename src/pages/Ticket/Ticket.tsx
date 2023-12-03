@@ -20,8 +20,8 @@ import { IconButton } from '../../ui-kit/IconButton';
 import styles from './styles.module.scss';
 
 export const Ticket: FC = () => {
-  const { isShown:isShownFile, toggle:toggleFile } = useModal();
-  const { isShown:isShownComment,toggle: toggleComment } = useModal();
+  const { isShown: isShownFile, toggle: toggleFile } = useModal();
+  const { isShown: isShownComment, toggle: toggleComment } = useModal();
   const [editedCommentId, setEditedCommentId] = useState<string | null>(null);
 
   const { idBoard, idTicket } = useParams();
@@ -49,7 +49,7 @@ export const Ticket: FC = () => {
             <div className={styles['Ticket__top-controls']}>
               <Button text="Edit" type="primary" />
               <Button text="Add comment" type="primary" onClick={toggleComment} />
-              <IconButton text="" type="icon" iconPath="paper_clip" iconColor={'#FFFFFF'} onClick={toggleFile}/>
+              <IconButton text="" type="icon" iconPath="paper_clip" iconColor={'#FFFFFF'} onClick={toggleFile} />
             </div>
           </div>
           <IssueInfo {...issue} />

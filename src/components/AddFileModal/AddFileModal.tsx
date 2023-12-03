@@ -6,11 +6,8 @@ import { useSendRequest } from '../../hooks/useSendRequest';
 import { usePutRequest } from '../../hooks/usePutRequest';
 import { RootState } from '../../redux/store';
 import { ticketActions } from '../../redux/features/ticketSlice';
-import { TextForm } from '../../ui-kit/TextForm';
 import { FormElementWrapper } from '../../ui-kit/FormElementWrapper';
-import { Textarea } from '../../ui-kit/Textarea';
 import { Button } from '../../ui-kit/Button';
-import { Input } from '../../ui-kit/Input';
 import { InputFile } from '../../ui-kit/InputFile';
 
 import styles from './styles.module.scss';
@@ -19,7 +16,7 @@ type AddFileModalProps = {
   hide: () => void;
 };
 
-export const AddFileModal: FC<AddFileModalProps> = ({ hide }) => {  
+export const AddFileModal: FC<AddFileModalProps> = ({ hide }) => {
   const dispatch = useDispatch();
   const [validationError, setValidationError] = useState('');
   const [fileName, setFileName] = useState('');
@@ -27,37 +24,35 @@ export const AddFileModal: FC<AddFileModalProps> = ({ hide }) => {
   const { idBoard, idTicket } = useParams();
   const issue = useSelector((state: RootState) => state.ticket.value);
 
-  const { sendRequest: sendPutRequest, isError: isPutError } = usePutRequest(()=>{},`${idBoard}/issues/${idTicket}`);
+  const { sendRequest: sendPutRequest, isError: isPutError } = usePutRequest(() => {}, `${idBoard}/issues/${idTicket}`);
   const postFile = (data: any) => {
     const newFiles = [...issue.files, data.url];
     const addFileDate = {
       files: newFiles
-    }
+    };
     sendPutRequest(addFileDate);
-    dispatch(ticketActions.setTicket({ ...issue, files: newFiles }));    
+    dispatch(ticketActions.setTicket({ ...issue, files: newFiles }));
     hide();
   };
-  
-  const { sendRequest, isError } = useSendRequest(postFile, `workplaces/${idBoard}/file`,true);
+
+  const { sendRequest, isError } = useSendRequest(postFile, `workplaces/${idBoard}/file`, true);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    
-    if(file != null){
-        const formData: FormData = new FormData();
-        formData.append('file_to_upload', file, file.name); 
-        sendRequest(formData);
-        setValidationError('');
+    if (file != null) {
+      const formData: FormData = new FormData();
+      formData.append('file_to_upload', file, file.name);
+      sendRequest(formData);
+      setValidationError('');
     } else {
       setValidationError('No files pinned.');
     }
-    
   };
-  const onChange = ( e:any ) => {
+  const onChange = (e: any) => {
     setFileName(e.target.value);
-    var file = (e.target).files[0];
-    setFile(file); 
+    var file = e.target.files[0];
+    setFile(file);
   };
 
   return (
@@ -65,8 +60,8 @@ export const AddFileModal: FC<AddFileModalProps> = ({ hide }) => {
       <form onSubmit={onSubmit}>
         <div className={styles.AddFileModal}>
           <FormElementWrapper>
-            <InputFile type = "file" onChange={onChange}/>
-          </FormElementWrapper> 
+            <InputFile type="file" onChange={onChange} />
+          </FormElementWrapper>
         </div>
         <div className={styles['AddFileModal__button-submit']}>
           <Button text="Add File" type="primary" />

@@ -15,11 +15,21 @@ export interface IconButtonProps {
   type: ButtonType;
   to?: string;
   typeButton?: 'button' | 'submit' | 'reset';
-  iconPath:string;
-  iconColor:string;
+  iconPath: string;
+  iconColor: string;
 }
 
-export const IconButton: FC<IconButtonProps> = ({ onClick, disabled, className, text, type, to, typeButton,iconPath,iconColor }) => {
+export const IconButton: FC<IconButtonProps> = ({
+  onClick,
+  disabled,
+  className,
+  text,
+  type,
+  to,
+  typeButton,
+  iconPath,
+  iconColor
+}) => {
   if (to)
     return (
       <Link to={to}>
