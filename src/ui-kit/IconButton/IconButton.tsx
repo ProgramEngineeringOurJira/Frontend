@@ -15,7 +15,7 @@ export interface IconButtonProps {
   type: ButtonType;
   to?: string;
   typeButton?: 'button' | 'submit' | 'reset';
-  iconpath:string;
+  iconPath:string;
   iconColor:string;
 }
 

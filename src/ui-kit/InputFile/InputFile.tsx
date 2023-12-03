@@ -6,8 +6,6 @@ type InputProps = {
   onChange: (a: any) => void;
 };
 
-export const InputFile: FC<InputProps> = ({ value, placeholder, onChange }) => {
-  return (
-    <input type="file" onChange={onChange} className={styles.InputFile}></input>
-  );
+export const InputFile: FC<InputProps> = ({ onChange }) => {
+  return <input type="file" onChange={onChange} className={styles.InputFile}></input>;
 };
