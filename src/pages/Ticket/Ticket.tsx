@@ -12,13 +12,16 @@ import { IssueInfo } from '../../components/IssueInfo';
 import { Comment } from '../../components/Comment';
 import { Modal, useModal } from '../../components/Modal';
 import { AddCommentModal } from '../../components/AddCommentModal';
+import { AddFileModal } from '../../components/AddFileModal';
 
 import { Button } from '../../ui-kit/Button';
+import { IconButton } from '../../ui-kit/IconButton';
 
 import styles from './styles.module.scss';
 
 export const Ticket: FC = () => {
-  const { isShown, toggle } = useModal();
+  const { isShown:isShownFile, toggle:toggleFile } = useModal();
+  const { isShown:isShownComment,toggle: toggleComment } = useModal();
   const [editedCommentId, setEditedCommentId] = useState<string | null>(null);
 
   const { idBoard, idTicket } = useParams();
@@ -45,7 +48,8 @@ export const Ticket: FC = () => {
             </div>
             <div className={styles['Ticket__top-controls']}>
               <Button text="Edit" type="primary" />
-              <Button text="Add comment" type="primary" onClick={toggle} />
+              <Button text="Add comment" type="primary" onClick={toggleComment} />
+              <IconButton text="" type="icon" iconPath="paper_clip" iconColor={'#FFFFFF'} onClick={toggleFile}/>
             </div>
           </div>
           <IssueInfo {...issue} />
@@ -66,10 +70,16 @@ export const Ticket: FC = () => {
           </div>
         </div>
         <Modal
-          isShown={isShown}
-          hide={toggle}
-          modalContent={<AddCommentModal hide={toggle} />}
+          isShown={isShownComment}
+          hide={toggleComment}
+          modalContent={<AddCommentModal hide={toggleComment} />}
           headerText="Add comment"
+        />
+        <Modal
+          isShown={isShownFile}
+          hide={toggleFile}
+          modalContent={<AddFileModal hide={toggleFile} />}
+          headerText="Add file"
         />
       </PageLayout>
     </div>
