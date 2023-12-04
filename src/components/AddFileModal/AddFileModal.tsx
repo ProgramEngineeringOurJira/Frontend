@@ -19,7 +19,6 @@ type AddFileModalProps = {
 export const AddFileModal: FC<AddFileModalProps> = ({ hide }) => {
   const dispatch = useDispatch();
   const [validationError, setValidationError] = useState('');
-  const [fileName, setFileName] = useState('');
   const [file, setFile] = useState<File>();
   const { idBoard, idTicket } = useParams();
   const issue = useSelector((state: RootState) => state.ticket.value);
@@ -50,7 +49,6 @@ export const AddFileModal: FC<AddFileModalProps> = ({ hide }) => {
     }
   };
   const onChange = (e: any) => {
-    setFileName(e.target.value);
     var file = e.target.files[0];
     setFile(file);
   };

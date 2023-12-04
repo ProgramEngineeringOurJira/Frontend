@@ -3,6 +3,7 @@ import { Comment as CommentType } from '../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 
+import { FileComponent } from '../../components/FileComponent';
 import { useGetRequest } from '../../hooks/useGetRequest';
 import { RootState } from '../../redux/store';
 import { ticketActions } from '../../redux/features/ticketSlice';
@@ -53,6 +54,16 @@ export const Ticket: FC = () => {
             </div>
           </div>
           <IssueInfo {...issue} />
+          <div className={styles.Ticket__files}>
+            <div className={styles['Ticket__files-header']}>
+              <span>Files</span>
+            </div>
+            <div className={styles['Ticket__files-content']}>
+              {issue.files.map((file: string) => (
+                <FileComponent file={file} />
+              ))}
+            </div>
+          </div>
           <div className={styles.Ticket__comments}>
             <div className={styles['Ticket__comments-header']}>
               <span>Comments</span>
