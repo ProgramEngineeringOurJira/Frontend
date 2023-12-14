@@ -15,11 +15,11 @@ export const NotFoundPage: FC = () => {
 
   return (
     <div>
-      <Header isInformationVisible={false} />
+      <Header isInformationVisible={false} isCreateSprintVisible={false} />
       <PageLayout>
         <div className={styles.NotFoundPage}>
           <div className={styles.NotFoundPage__text}>Oops... Page not found.</div>
-          <Button text={'Back to Homepage'} type="primary" to={paths.home}/>
+          <Button text={'Back to Homepage'} type="primary" to={paths.home} />
         </div>
       </PageLayout>
     </div>
