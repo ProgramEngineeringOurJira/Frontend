@@ -19,7 +19,7 @@ export const NotFoundPage: FC = () => {
       <PageLayout>
         <div className={styles.NotFoundPage}>
           <div className={styles.NotFoundPage__text}>Oops... Page not found.</div>
-          <Button text={'Back to Homepage'} type="primary" onClick={backToHome} />
+          <Button text={'Back to Homepage'} type="primary" to={paths.home}/>
         </div>
       </PageLayout>
     </div>

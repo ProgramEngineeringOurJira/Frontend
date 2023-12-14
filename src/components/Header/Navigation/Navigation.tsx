@@ -28,7 +28,7 @@ export const Navigation: FC = () => {
       <div className={styles.Navigation}>
         <div className={styles.Navigation__container}>
           <Button text="+ New Sprint" type="header" onClick={toggle} />
-          <Button text="+ New Project" type="header" to="/createProject" />
+          <Button text="+ New Project" type="header" to={paths.createProject} />
         </div>
         <div className={styles.Navigation__name} onClick={onKristiClick}>Kristi</div>
         <Button
