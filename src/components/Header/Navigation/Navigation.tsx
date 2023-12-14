@@ -19,6 +19,10 @@ export const Navigation: FC = () => {
     navigate(paths.login);
   };
 
+  const onKristiClick = ()=>{
+    navigate(paths.home);
+  };
+
   return (
     <>
       <div className={styles.Navigation}>
@@ -26,7 +30,7 @@ export const Navigation: FC = () => {
           <Button text="+ New Sprint" type="header" onClick={toggle} />
           <Button text="+ New Project" type="header" to="/createProject" />
         </div>
-        <span className={styles.Navigation__name}>Kristi</span>
+        <div className={styles.Navigation__name} onClick={onKristiClick}>Kristi</div>
         <Button
           className={styles.Navigation__logout}
           to="/login"
