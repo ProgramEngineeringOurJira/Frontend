@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Draggable, DropResult, Droppable } from 'react-beautiful-dnd';
 
@@ -11,7 +12,11 @@ import styles from './styles.module.scss';
 import { useEffect, useState } from 'react';
 import { State } from '../../utils/constants';
 
-export const Columns = () => {
+type ColumnsProps = {
+  searchValue: string;
+};
+
+export const Columns: FC<ColumnsProps> = ({ searchValue }) => {
   const dispatch = useDispatch();
   const currentSprint = useSelector((state: RootState) => state.currSprint.value);
   const [currentSprintState, setCurrentSprintState] = useState(currentSprint);
@@ -27,6 +32,17 @@ export const Columns = () => {
     //location.reload();
     console.log(currentSprintState);
   }, [currentSprint.columns]);
+
+  // useEffect(() => {
+  //   setCurrentSprintState(currentSprint);
+  //   const newData = currentSprintState.columns.map((column) => {
+  //     return {
+  //       ...column,
+  //       issues: column.issues.filter((issue) => issue.name.includes(searchValue))
+  //     }
+  //   });
+  //   dispatch(currSprintActions.setSprint({ ...currentSprintState, columns: newData }));
+  // }, [searchValue]);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
@@ -105,6 +121,7 @@ export const Columns = () => {
                               state={task.state}
                               draggedIssue={draggedIssue}
                               onSetDraggedIssueCallback={setDraggedIssue}
+                              isVisible={task.name.toLowerCase().includes(searchValue.toLowerCase())}
                               documentsCount={task.files?.length}
                               implementers={task.implementers}
                             />

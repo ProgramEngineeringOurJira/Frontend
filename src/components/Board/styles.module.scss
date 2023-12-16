@@ -8,5 +8,10 @@
     align-items: center;
     padding-top: 18px;
     padding-bottom: 18px;
+
+    &-search {
+      display: flex;
+      gap: var(--space-m);
+    }
   }
 }

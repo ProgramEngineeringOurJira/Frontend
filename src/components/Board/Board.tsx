@@ -29,20 +29,36 @@ type Board = {
 
 export const Board: FC = () => {
   const { isShown, toggle } = useModal();
-  const [searchValue, setSearchValue] = useState('');
+  const [inputValue, setInputValue] = useState(''); // строка введённая в компоненте input
+  const [searchValue, setSearchValue] = useState(''); // строка, по которой происходит фильрация задач (компонентов Card)
 
-  const onSearchChange = (value: string) => {
+  const onInputChange = (e: any) => {
     // TODO добавить debounce
-    setSearchValue(value);
+    setInputValue(e.target.value);
+  };
+
+  const onSearchButtonClicked = () => {
+    // при клике на кнопку поиска
+    setSearchValue(inputValue); // фильурем задачи
+  };
+
+  const onCancelButtonClicked = () => {
+    // при клике на кнопку отмены
+    setInputValue(''); // меняем значение в input
+    setSearchValue(''); // сбрасываем фильтрацию
   };
 
   return (
     <>
       <div className={styles.Board__header}>
-        <Input placeholder="Search items" type="text" value={searchValue} onChange={onSearchChange} />
+        <div className={styles['Board__header-search']}>
+          <Input placeholder="Search items" type="text" value={inputValue} onChange={onInputChange} />
+          <Button text="Search" type="primary" onClick={onSearchButtonClicked} />
+          <Button text="Cancel" type="primary" onClick={onCancelButtonClicked} />
+        </div>
         <Button text="New Item" type="primary" onClick={toggle} />
       </div>
-      <Columns />
+      <Columns searchValue={searchValue} />
       <Modal isShown={isShown} hide={toggle} modalContent={<AddCardModal hide={toggle} />} headerText="Add task" />
     </>
   );

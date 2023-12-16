@@ -26,6 +26,7 @@ type CardProps = {
   onSetDraggedIssueCallback: (value: { id: string | null; state: State | null }) => void;
   documentsCount?: number;
   implementers: UserAssignedWorkplace[];
+  isVisible: boolean;
 };
 
 export const Card: FC<CardProps> = ({
@@ -39,6 +40,7 @@ export const Card: FC<CardProps> = ({
   state,
   draggedIssue,
   onSetDraggedIssueCallback,
+  isVisible,
   documentsCount = 0,
   implementers
 }) => {
@@ -77,7 +79,7 @@ export const Card: FC<CardProps> = ({
 
   return (
     <Link to={`${paths.board}/${idBoard}${paths.sprint}/${idSprint}${paths.ticket}/${id}`}>
-      <div className={clsx(styles.Card, className)}>
+      <div className={clsx(styles.Card, className, !isVisible ? styles.hide : '')}>
         <h3 className={styles.Card__header}>{header}</h3>
         <p className={styles.Card__description}>{description}</p>
         <Label text={label} />
