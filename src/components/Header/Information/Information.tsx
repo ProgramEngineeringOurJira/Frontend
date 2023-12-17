@@ -24,6 +24,7 @@ import { paths } from '../../../utils/paths';
 import styles from './styles.module.scss';
 import { NameTag } from '../../../ui-kit/NameTag';
 import { usersActions } from '../../../redux/features/usersSlice';
+import { Avatar } from '../../../ui-kit/Avatar';
 
 type InformationProps = {
   isVisible?: boolean;
@@ -41,7 +42,7 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
 
   const boards = useSelector((state: RootState) => state.board.value);
   const sprints = useSelector((state: RootState) => state.sprint.value);
-  const users = useSelector((state: RootState) => state.users.value);
+  const workplaceUsers = useSelector((state: RootState) => state.users.value);
 
   const { data: workplacesData, isLoading: isWorkplacesLoading } = useGetRequest('workplaces');
   const { data: sprintsData, isLoading: isSprintsLoading } = useGetRequest(`${activeBoard?.id}/sprints`);
@@ -51,6 +52,8 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   const { data: workplaceUsersData, isLoading: isWorkplaceUsersLoading } = useGetRequest(
     `workplaces/${activeBoard?.id}/users`
   );
+
+  // const { data: users, isLoading: isUsersLoading } = useGetRequest(`workplaces/${idBoard}/users`);
 
   useEffect(() => {
     if (workplacesData && !isWorkplacesLoading) {
@@ -73,6 +76,7 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   useEffect(() => {
     if (workplaceUsersData && !isWorkplaceUsersLoading) {
       dispatch(usersActions.setUsers(workplaceUsersData));
+      console.log(workplaceUsersData);
     }
   }, [workplaceUsersData, isWorkplaceUsersLoading]);
 
@@ -150,14 +154,15 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
           )}
           {!idTicket && !isWorkplaceUsersLoading && (
             <div className={styles['Information__sprint-tags']}>
-              {users?.map((user) => (
+              {workplaceUsers.users?.map((workplaceUser) => (
                 <NameTag
-                  text={user.user.name}
+                  key={workplaceUser.id}
+                  text={workplaceUser.user.name}
                   onClick={() => {
-                    setActiveUser(user);
-                    dispatch(usersActions.setUsers({ ...users, activeUser: user }));
+                    setActiveUser(workplaceUser);
+                    dispatch(usersActions.setUsers({ ...workplaceUsers, activeUser: workplaceUser }));
                   }}
-                  active={activeUser === user}
+                  active={activeUser === workplaceUser}
                 />
               ))}
             </div>
@@ -173,7 +178,13 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
           )}
         </div>
         <div className={styles.Information__members}>
-          <div className={styles['Information__members-avatars']}></div>
+          {!idTicket && !isWorkplaceUsersLoading && (
+            <div className={styles['Information__members-avatars']}>
+              {workplaceUsers.users?.map((workplaceUser) => (
+                <Avatar key={workplaceUser.id} avatarUrl={workplaceUser.user.avatar_url}></Avatar>
+              ))}
+            </div>
+          )}
           <div className={styles.divider} />
           <Button text="+ New Member" type="new-member" onClick={toggle} />
         </div>
