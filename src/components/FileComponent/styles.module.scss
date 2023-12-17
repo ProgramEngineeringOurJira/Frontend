@@ -1,0 +1,44 @@
+.FileComponent {
+  width: 240px;
+  border-style: solid;
+  border-width: 1px 1px 1px 1px;
+  border-radius: 5px 5px 5px 5px;
+  display: flex;
+  &__header {
+    display: flex;
+    gap: var(--space-xxs);
+    align-items: left;
+    width: 200px;
+    cursor: pointer;
+    &-container {
+      width: 200px;
+      &-text {
+        height: 20px;
+        width: 180px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+    &-avatar {
+      height: 40px;
+      width: 40px;
+      background: var(--light-gray);
+      border-radius: var(--border-radius-s);
+    }
+  }
+
+  &__delete {
+    padding-left: 0;
+    margin-left: 0;
+    border-radius: var(--border-radius-s);
+  }
+}
+
+.deleted {
+  display: none;
+}
+
+
+.hidden {
+  display: none;
+}

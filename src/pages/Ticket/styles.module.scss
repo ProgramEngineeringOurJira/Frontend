@@ -51,4 +51,29 @@
       padding: 12px 18px 0px 18px;
     }
   }
+  &__files {
+    padding-bottom: 10px;
+
+    &-header {
+      width: 134px;
+      height: 32px;
+      border-style: solid;
+      border-width: 1px 1px 0px 1px;
+      border-radius: 5px 5px 0px 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-content {
+      border-style: solid;
+      border-width: 1px 1px 1px 1px;
+      overflow-x: auto;
+      display: flex;
+      flex-direction: row;
+      gap: var(--space-s);
+      padding: 12px 18px 12px 18px;
+      border-radius: 0px 0px 5px 5px;
+    }
+  }
 }

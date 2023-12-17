@@ -1,0 +1,58 @@
+.Button {
+  border-radius: var(--border-radius-s);
+  background-color: var(--button-primary);
+  color: var(--white);
+
+  &-primary {
+    height: 40px;
+    padding: 0px 15px;
+  }
+
+  &-add {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+    background-color: var(--button-round);
+    color: var(--black-primary);
+  }
+
+  &-delete {
+    height: 40px;
+    padding: 0px 15px;
+    background-color: var(--button-red);
+  }
+
+  &-header {
+    padding: 0px 10px;
+    width: auto;
+    height: 40px;
+
+    background-color: var(--button-header);
+  }
+
+  &-new-member {
+    padding: 0px 10px;
+    width: auto;
+    height: 40px;
+
+    color: var(--button-primary);
+    font-weight: 500;
+    font-size: 14px;
+    background-color: var(--button-disabled);
+  }
+
+  &-icon {
+    // background-color: white;
+    // border: none;
+    // color: white;
+    padding: 0px 10px;
+    width: 40px;
+    height: 40px;
+
+    // color: var(--button-primary);
+    font-weight: 500;
+    font-size: 14px;
+    // background-color: var(--button-disabled);
+  }
+}
