@@ -13,7 +13,7 @@ import { Button } from '../../../ui-kit/Button';
 import { Select } from '../../../ui-kit/Select';
 import { Option } from '../../../ui-kit/Select/Option';
 import { Loader } from '../../../ui-kit/Loader';
-import { UserAssignedWorkplace, Workplace } from '../../../utils/types';
+import { Workplace } from '../../../utils/types';
 import { useSendRequest } from '../../../hooks/useSendRequest';
 import { TextForm } from '../../../ui-kit/TextForm';
 import { Input } from '../../../ui-kit/Input';
@@ -42,7 +42,6 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   const boards = useSelector((state: RootState) => state.board.value);
   const sprints = useSelector((state: RootState) => state.sprint.value);
   const users = useSelector((state: RootState) => state.users.value);
-  const currSprint = useSelector((state: RootState) => state.currSprint);
 
   const { data: workplacesData, isLoading: isWorkplacesLoading } = useGetRequest('workplaces');
   const { data: sprintsData, isLoading: isSprintsLoading } = useGetRequest(`${activeBoard?.id}/sprints`);
@@ -159,7 +158,6 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
                   dispatch(usersActions.setUsers({ ...users, activeUserName: '' }));
                 }}
               />
-              <span>{users.activeUserName}</span>
               {users?.users?.map((user) => (
                 <NameTag
                   text={user.user.name}

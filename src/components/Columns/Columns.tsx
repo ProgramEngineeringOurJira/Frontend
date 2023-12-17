@@ -34,17 +34,6 @@ export const Columns: FC<ColumnsProps> = ({ searchValue }) => {
     console.log(currentSprintState);
   }, [currentSprint.columns]);
 
-  // useEffect(() => {
-  //   setCurrentSprintState(currentSprint);
-  //   const newData = currentSprintState.columns.map((column) => {
-  //     return {
-  //       ...column,
-  //       issues: column.issues.filter((issue) => issue.name.includes(searchValue))
-  //     }
-  //   });
-  //   dispatch(currSprintActions.setSprint({ ...currentSprintState, columns: newData }));
-  // }, [searchValue]);
-
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
     if (!destination) return;
@@ -107,32 +96,33 @@ export const Columns: FC<ColumnsProps> = ({ searchValue }) => {
               {(provided) => (
                 <div ref={provided.innerRef} {...provided.droppableProps}>
                   <Column key={index} text={column.name} quantity_tasks={column.issues.length}>
-                    {column.issues.map(
-                      (task, index) =>
-                        task.implementers.map((el) => el.user.name === users.activeUserName) && (
-                          <Draggable key={task.id} draggableId={task.id} index={index}>
-                            {(provided) => (
-                              <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                <Card
-                                  key={index}
-                                  id={task.id}
-                                  header={task.name}
-                                  description={task.text}
-                                  date={task.end_date}
-                                  priority={task.priority}
-                                  label={task.label}
-                                  state={task.state}
-                                  draggedIssue={draggedIssue}
-                                  onSetDraggedIssueCallback={setDraggedIssue}
-                                  isVisible={task.name.toLowerCase().includes(searchValue.toLowerCase())}
-                                  documentsCount={task.files?.length}
-                                  implementers={task.implementers}
-                                />
-                              </div>
-                            )}
-                          </Draggable>
-                        )
-                    )}
+                    {column.issues.map((task, index) => (
+                      <Draggable key={task.id} draggableId={task.id} index={index}>
+                        {(provided) => (
+                          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                            <Card
+                              key={index}
+                              id={task.id}
+                              header={task.name}
+                              description={task.text}
+                              date={task.end_date}
+                              priority={task.priority}
+                              label={task.label}
+                              state={task.state}
+                              draggedIssue={draggedIssue}
+                              onSetDraggedIssueCallback={setDraggedIssue}
+                              isVisible={
+                                task.name.toLowerCase().includes(searchValue.toLowerCase()) &&
+                                (!!task?.implementers.filter((el) => el.user.name === users.activeUserName).length ||
+                                  users.activeUserName === '')
+                              }
+                              documentsCount={task.files?.length}
+                              implementers={task.implementers}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
                   </Column>
                   {provided.placeholder}
                 </div>

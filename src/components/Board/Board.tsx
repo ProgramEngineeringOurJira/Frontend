@@ -8,25 +8,6 @@ import { AddCardModal } from '../AddCardModal';
 
 import styles from './styles.module.scss';
 
-type Sprint = {
-  id: string;
-  collection: string;
-};
-
-type Issue = {
-  id: string;
-  collection: string;
-};
-
-type Board = {
-  _id: string;
-  name: string;
-  description: string;
-  states: string[];
-  sprints: Sprint[];
-  tasks: Issue[];
-};
-
 export const Board: FC = () => {
   const { isShown, toggle } = useModal();
   const [inputValue, setInputValue] = useState(''); // строка введённая в компоненте input
