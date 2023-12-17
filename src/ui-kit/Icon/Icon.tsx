@@ -7,24 +7,14 @@ import styles from './styles.module.scss';
 
 export type IconName = keyof typeof icons;
 
-export type IconSizes = 'small' | 'medium' | 'big';
-
 export interface IconProps {
   iconName: IconName;
-  //iconSize?: IconSizes;
+  iconSize?: number;
   className?: string;
-  //stroke?: IconSizes;
   color?: string;
 }
 
-export const Icon: FC<IconProps> = ({ iconName, className, color }): JSX.Element | null => {
+export const Icon: FC<IconProps> = ({ iconName, className, color, iconSize }): JSX.Element | null => {
   const Glyph = icons[iconName];
-  return (
-    <Glyph
-      className={clsx([className, styles.Icon])}
-      color={color}
-    //width={size}
-    //height={size}
-    />
-  );
+  return <Glyph className={clsx([className, styles.Icon])} color={color} width={iconSize} height={iconSize} />;
 };
