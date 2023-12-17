@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Draggable, DropResult, Droppable } from 'react-beautiful-dnd';
 
-import { ColumnType, Issue } from '../../utils/types';
+import { ColumnType } from '../../utils/types';
 import { RootState } from '../../redux/store';
 import { currSprintActions } from '../../redux/features/currentSprintSlice';
 import { Column } from '../Column';

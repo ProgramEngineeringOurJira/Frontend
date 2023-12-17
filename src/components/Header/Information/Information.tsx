@@ -13,7 +13,7 @@ import { Button } from '../../../ui-kit/Button';
 import { Select } from '../../../ui-kit/Select';
 import { Option } from '../../../ui-kit/Select/Option';
 import { Loader } from '../../../ui-kit/Loader';
-import { Workplace } from '../../../utils/types';
+import { UserAssignedWorkplace, Workplace } from '../../../utils/types';
 import { useSendRequest } from '../../../hooks/useSendRequest';
 import { TextForm } from '../../../ui-kit/TextForm';
 import { Input } from '../../../ui-kit/Input';
@@ -23,6 +23,7 @@ import { paths } from '../../../utils/paths';
 
 import styles from './styles.module.scss';
 import { NameTag } from '../../../ui-kit/NameTag';
+import { usersActions } from '../../../redux/features/usersSlice';
 
 type InformationProps = {
   isVisible?: boolean;
@@ -36,16 +37,19 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   const navigate = useNavigate();
   const { idBoard, idSprint, idTicket } = useParams();
   const [validationError, setValidationError] = useState('');
+  const [activeUser, setActiveUser] = useState<UserAssignedWorkplace>();
 
   const boards = useSelector((state: RootState) => state.board.value);
   const sprints = useSelector((state: RootState) => state.sprint.value);
+  const users = useSelector((state: RootState) => state.users.value);
 
   const { data: workplacesData, isLoading: isWorkplacesLoading } = useGetRequest('workplaces');
-  // TODO подставить проект по умолчанию
   const { data: sprintsData, isLoading: isSprintsLoading } = useGetRequest(`${activeBoard?.id}/sprints`);
-
   const { data: currentSprintData, isLoading: isCurrentSprintLoading } = useGetRequest(
     `${activeBoard?.id}/sprints/${idSprint}`
+  );
+  const { data: workplaceUsersData, isLoading: isWorkplaceUsersLoading } = useGetRequest(
+    `workplaces/${activeBoard?.id}/users`
   );
 
   useEffect(() => {
@@ -65,6 +69,12 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
       dispatch(currSprintActions.setSprint(currentSprintData));
     }
   }, [currentSprintData, isCurrentSprintLoading, idSprint]);
+
+  useEffect(() => {
+    if (workplaceUsersData && !isWorkplaceUsersLoading) {
+      dispatch(usersActions.setUsers(workplaceUsersData));
+    }
+  }, [workplaceUsersData, isWorkplaceUsersLoading]);
 
   const updateActiveBoard = (id: string) => {
     const activeBoard = boards.find((board) => board.id === id);
@@ -103,9 +113,6 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   useEffect(() => {
     if (boards.length) {
       const activeBoard = boards.find((board: Workplace) => board.id === idBoard);
-      //if (boards.length > 0 && boardId === undefined) {
-      //  navigate(`/board/${boards[boards.length - 1]._id}`);
-      //}
       setActiveBoard(activeBoard);
     }
   }, [boards, idBoard]);
@@ -141,12 +148,18 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
               )}
             </Select>
           )}
-          {!idTicket && (
+          {!idTicket && !isWorkplaceUsersLoading && (
             <div className={styles['Information__sprint-tags']}>
-              <NameTag text={'texttttttttt'} />
-              <NameTag text={'text'} />
-              <NameTag text={'text'} />
-              <NameTag text={'text'} />
+              {users?.map((user) => (
+                <NameTag
+                  text={user.user.name}
+                  onClick={() => {
+                    setActiveUser(user);
+                    dispatch(usersActions.setUsers({ ...users, activeUser: user }));
+                  }}
+                  active={activeUser === user}
+                />
+              ))}
             </div>
           )}
           {idTicket && (

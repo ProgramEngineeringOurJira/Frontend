@@ -1,16 +1,17 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import clsx from 'clsx';
 
 import styles from './styles.module.scss';
 
 type NameTagProps = {
   text: string;
+  active: boolean;
+  onClick: () => void;
 };
 
-export const NameTag: FC<NameTagProps> = ({ text }) => {
-  const [clicked, setClicked] = useState(false);
+export const NameTag: FC<NameTagProps> = ({ text, active, onClick }) => {
   return (
-    <div onClick={() => setClicked(!clicked)} className={clsx(styles.NameTag, clicked ? styles.NameTagClicked : '')}>
+    <div onClick={onClick} className={clsx(styles.NameTag, active ? styles.NameTagClicked : '')}>
       <span className={styles.NameTagText}>{text}</span>
     </div>
   );
