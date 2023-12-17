@@ -11,7 +11,15 @@
 
     &-search {
       display: flex;
+      align-items: center;
       gap: var(--space-m);
     }
   }
+}
+
+.calendar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }

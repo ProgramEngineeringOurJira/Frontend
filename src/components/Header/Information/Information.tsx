@@ -24,6 +24,8 @@ import { paths } from '../../../utils/paths';
 import styles from './styles.module.scss';
 import { NameTag } from '../../../ui-kit/NameTag';
 import { usersActions } from '../../../redux/features/usersSlice';
+import { Avatar } from '../../../ui-kit/Avatar';
+import { MoreUsersAvatar } from '../../../ui-kit/MoreUsersAvatar';
 
 type InformationProps = {
   isVisible?: boolean;
@@ -38,10 +40,11 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   const { idBoard, idSprint, idTicket } = useParams();
   const [validationError, setValidationError] = useState('');
   const [activeUserTag, setActiveUserTag] = useState<string>('');
+  const shownUserAvatarsNumber = 4;
 
   const boards = useSelector((state: RootState) => state.board.value);
   const sprints = useSelector((state: RootState) => state.sprint.value);
-  const users = useSelector((state: RootState) => state.users.value);
+  const workplaceUsers = useSelector((state: RootState) => state.users.value);
 
   const { data: workplacesData, isLoading: isWorkplacesLoading } = useGetRequest('workplaces');
   const { data: sprintsData, isLoading: isSprintsLoading } = useGetRequest(`${activeBoard?.id}/sprints`);
@@ -72,7 +75,7 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
 
   useEffect(() => {
     if (workplaceUsersData && !isWorkplaceUsersLoading) {
-      dispatch(usersActions.setUsers({ users: workplaceUsersData, activeUser: undefined }));
+      dispatch(usersActions.setUsers({ users: workplaceUsersData, activeUserName: '' }));
     }
   }, [workplaceUsersData, isWorkplaceUsersLoading]);
 
@@ -152,20 +155,21 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
             <div className={styles['Information__sprint-tags']}>
               <NameTag
                 text="All"
-                active={users.activeUserName === ''}
+                active={workplaceUsers.activeUserName === ''}
                 onClick={() => {
                   setActiveUserTag('');
-                  dispatch(usersActions.setUsers({ ...users, activeUserName: '' }));
+                  dispatch(usersActions.setUsers({ ...workplaceUsers, activeUserName: '' }));
                 }}
               />
-              {users?.users?.map((user) => (
+              {workplaceUsers.users?.map((workplaceUser) => (
                 <NameTag
-                  text={user.user.name}
+                  key={workplaceUser.id}
+                  text={workplaceUser.user.name}
                   onClick={() => {
-                    setActiveUserTag(user.user.name);
-                    dispatch(usersActions.setUsers({ ...users, activeUserName: user.user.name }));
+                    setActiveUserTag(workplaceUser.user.name);
+                    dispatch(usersActions.setUsers({ ...workplaceUsers, activeUserName: workplaceUser.user.name }));
                   }}
-                  active={user.user.name === activeUserTag}
+                  active={workplaceUser.user.name === activeUserTag}
                 />
               ))}
             </div>
@@ -181,7 +185,18 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
           )}
         </div>
         <div className={styles.Information__members}>
-          <div className={styles['Information__members-avatars']}></div>
+          {!idTicket && !isWorkplaceUsersLoading && (
+            <div className={styles['Information__members-avatars']}>
+              {workplaceUsers.users
+                ?.slice(0, shownUserAvatarsNumber)
+                .map((workplaceUser) => (
+                  <Avatar key={workplaceUser.id} avatarUrl={workplaceUser.user.avatar_url}></Avatar>
+                ))}
+              {workplaceUsers.users?.length > shownUserAvatarsNumber && (
+                <MoreUsersAvatar usersNumber={workplaceUsers.users.length - shownUserAvatarsNumber}></MoreUsersAvatar>
+              )}
+            </div>
+          )}
           <div className={styles.divider} />
           <Button text="+ New Member" type="new-member" onClick={toggle} />
         </div>
