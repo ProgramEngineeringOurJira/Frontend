@@ -37,15 +37,14 @@ export const Board: FC = () => {
     <>
       <div className={styles.Board__header}>
         <div className={styles['Board__header-search']}>
-          <div>
-            <Input placeholder="Search items" type="text" value={inputValue} onChange={onInputChange} />
-            <Button text="Search" type="primary" onClick={onSearchButtonClicked} />
-            <Button text="Cancel" type="primary" onClick={onCancelButtonClicked} />
-          </div>
-
+          <Input placeholder="Search items" type="text" value={inputValue} onChange={onInputChange} />
+          <Button text="Search" type="primary" onClick={onSearchButtonClicked} />
+          <Button text="Cancel" type="primary" onClick={onCancelButtonClicked} />
           <div className={styles.calendar}>
             <Icon iconName="calendar" iconSize={25} />
-            <span>{`${sprint.start_date.split('T')[0]} - ${sprint.end_date.split('T')[0]}`}</span>
+            <span>
+              {sprint.start_date.split('T')[0]} - {sprint.end_date.split('T')[0]}
+            </span>
           </div>
         </div>
         <Button text="New Item" type="primary" onClick={toggle} />

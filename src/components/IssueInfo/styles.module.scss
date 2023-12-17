@@ -12,10 +12,6 @@
     display: flex;
     gap: 16px;
 
-    &-avatar {
-      border-radius: var(--border-radius-s);
-    }
-
     &-info {
       display: flex;
       flex-direction: column;

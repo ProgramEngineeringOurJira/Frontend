@@ -12,7 +12,7 @@ export const Avatar: FC<AvatarProps> = ({ avatarUrl, width = 34 }) => {
   return (
     <img
       src={avatarUrl ? endpoint + `/v1${avatarUrl}` : 'https://www.studiodigiustosas.it/images/profilo.jpg'}
-      alt="User avatar"
+      alt="User's avatar"
       height={width}
       width={width}
       className={styles.Avatar}

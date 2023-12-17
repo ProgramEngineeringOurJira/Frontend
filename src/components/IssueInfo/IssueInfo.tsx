@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { SubIssue } from '../SubIssue';
 
 import { Label } from '../../ui-kit/Label';
+import { Avatar } from '../../ui-kit/Avatar';
 import { getElapsedDays } from '../../utils/helpers';
 
 import styles from './styles.module.scss';
@@ -14,13 +15,7 @@ export const IssueInfo: FC<Issue> = (issue) => {
     <div className={styles.IssueInfo}>
       <div className={styles.IssueInfo__blocks}>
         <div className={styles.IssueInfo__header}>
-          <img
-            src="https://fikiwiki.com/uploads/posts/2022-02/1644827473_48-fikiwiki-com-p-kartinki-smeshnie-krasivie-i-milie-pro-kot-53.jpg"
-            alt="Responsible for the ticket"
-            height="56"
-            width="56"
-            className={styles['IssueInfo__header-avatar']}
-          />
+          <Avatar avatarUrl={issue.author.user.avatar_url} width={56}></Avatar>
           <div className={styles['IssueInfo__header-info']}>
             <span className={styles['IssueInfo__header-title']}>{issue.name}</span>
             <span className={styles['IssueInfo__header-history']}>

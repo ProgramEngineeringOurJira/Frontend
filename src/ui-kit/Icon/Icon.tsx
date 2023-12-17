@@ -16,5 +16,5 @@ export interface IconProps {
 
 export const Icon: FC<IconProps> = ({ iconName, className, color, iconSize }): JSX.Element | null => {
   const Glyph = icons[iconName];
-  return <Glyph className={clsx([className, styles.Icon])} color={color} width={iconSize} height={iconSize} />;
+  return <Glyph className={clsx([className, styles.Icon])} color={color} width={iconSize ?? 15} height={iconSize} />;
 };
