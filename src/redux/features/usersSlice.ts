@@ -2,13 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { UserAssignedWorkplace } from '../../utils/types';
 
 interface UsersState {
-  value: UserAssignedWorkplace[];
-  activeUser?: UserAssignedWorkplace;
+  value: { users: UserAssignedWorkplace[]; activeUserName: string };
 }
 
 const initialState: UsersState = {
-  value: [],
-  activeUser: undefined
+  value: {
+    users: [],
+    activeUserName: ''
+  }
 };
 
 export const usersSlice = createSlice({

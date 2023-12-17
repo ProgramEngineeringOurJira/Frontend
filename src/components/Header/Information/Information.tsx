@@ -37,11 +37,12 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   const navigate = useNavigate();
   const { idBoard, idSprint, idTicket } = useParams();
   const [validationError, setValidationError] = useState('');
-  const [activeUser, setActiveUser] = useState<UserAssignedWorkplace>();
+  const [activeUserTag, setActiveUserTag] = useState<string>('');
 
   const boards = useSelector((state: RootState) => state.board.value);
   const sprints = useSelector((state: RootState) => state.sprint.value);
   const users = useSelector((state: RootState) => state.users.value);
+  const currSprint = useSelector((state: RootState) => state.currSprint);
 
   const { data: workplacesData, isLoading: isWorkplacesLoading } = useGetRequest('workplaces');
   const { data: sprintsData, isLoading: isSprintsLoading } = useGetRequest(`${activeBoard?.id}/sprints`);
@@ -72,7 +73,7 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
 
   useEffect(() => {
     if (workplaceUsersData && !isWorkplaceUsersLoading) {
-      dispatch(usersActions.setUsers(workplaceUsersData));
+      dispatch(usersActions.setUsers({ users: workplaceUsersData, activeUser: undefined }));
     }
   }, [workplaceUsersData, isWorkplaceUsersLoading]);
 
@@ -150,14 +151,23 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
           )}
           {!idTicket && !isWorkplaceUsersLoading && (
             <div className={styles['Information__sprint-tags']}>
-              {users?.map((user) => (
+              <NameTag
+                text="All"
+                active={users.activeUserName === ''}
+                onClick={() => {
+                  setActiveUserTag('');
+                  dispatch(usersActions.setUsers({ ...users, activeUserName: '' }));
+                }}
+              />
+              <span>{users.activeUserName}</span>
+              {users?.users?.map((user) => (
                 <NameTag
                   text={user.user.name}
                   onClick={() => {
-                    setActiveUser(user);
-                    dispatch(usersActions.setUsers({ ...users, activeUser: user }));
+                    setActiveUserTag(user.user.name);
+                    dispatch(usersActions.setUsers({ ...users, activeUserName: user.user.name }));
                   }}
-                  active={activeUser === user}
+                  active={user.user.name === activeUserTag}
                 />
               ))}
             </div>
