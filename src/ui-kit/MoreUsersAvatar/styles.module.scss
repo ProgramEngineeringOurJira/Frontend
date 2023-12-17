@@ -1,0 +1,15 @@
+.MoreUsersAvatar {
+  height: 34px;
+  width: 34px;
+  background-color: var(--avatars-gray);
+  border-radius: 50%;
+  border: solid 2px var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__text {
+    font-size: 12px;
+    font-weight: 500;
+  }
+}

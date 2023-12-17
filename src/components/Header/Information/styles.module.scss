@@ -33,6 +33,11 @@
     align-items: center;
     gap: 16px;
 
+    &-avatars {
+      display: flex;
+      gap: var(--space-xxxs);
+    }
+
     .divider {
       border-left: 2px solid var(--black-disabled);
       height: 34px;

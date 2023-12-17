@@ -25,6 +25,7 @@ import styles from './styles.module.scss';
 import { NameTag } from '../../../ui-kit/NameTag';
 import { usersActions } from '../../../redux/features/usersSlice';
 import { Avatar } from '../../../ui-kit/Avatar';
+import { MoreUsersAvatar } from '../../../ui-kit/MoreUsersAvatar';
 
 type InformationProps = {
   isVisible?: boolean;
@@ -39,6 +40,7 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   const { idBoard, idSprint, idTicket } = useParams();
   const [validationError, setValidationError] = useState('');
   const [activeUser, setActiveUser] = useState<UserAssignedWorkplace>();
+  const shownUserAvatarsNumber = 4;
 
   const boards = useSelector((state: RootState) => state.board.value);
   const sprints = useSelector((state: RootState) => state.sprint.value);
@@ -180,9 +182,14 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
         <div className={styles.Information__members}>
           {!idTicket && !isWorkplaceUsersLoading && (
             <div className={styles['Information__members-avatars']}>
-              {workplaceUsers.users?.map((workplaceUser) => (
-                <Avatar key={workplaceUser.id} avatarUrl={workplaceUser.user.avatar_url}></Avatar>
-              ))}
+              {workplaceUsers.users
+                ?.slice(0, shownUserAvatarsNumber)
+                .map((workplaceUser) => (
+                  <Avatar key={workplaceUser.id} avatarUrl={workplaceUser.user.avatar_url}></Avatar>
+                ))}
+              {workplaceUsers.users?.length > shownUserAvatarsNumber && (
+                <MoreUsersAvatar usersNumber={workplaceUsers.users.length - shownUserAvatarsNumber}></MoreUsersAvatar>
+              )}
             </div>
           )}
           <div className={styles.divider} />
