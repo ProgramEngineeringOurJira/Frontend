@@ -13,7 +13,7 @@ import { Button } from '../../../ui-kit/Button';
 import { Select } from '../../../ui-kit/Select';
 import { Option } from '../../../ui-kit/Select/Option';
 import { Loader } from '../../../ui-kit/Loader';
-import { UserAssignedWorkplace, Workplace } from '../../../utils/types';
+import { Workplace } from '../../../utils/types';
 import { useSendRequest } from '../../../hooks/useSendRequest';
 import { TextForm } from '../../../ui-kit/TextForm';
 import { Input } from '../../../ui-kit/Input';
@@ -39,7 +39,7 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   const navigate = useNavigate();
   const { idBoard, idSprint, idTicket } = useParams();
   const [validationError, setValidationError] = useState('');
-  const [activeUser, setActiveUser] = useState<UserAssignedWorkplace>();
+  const [activeUserTag, setActiveUserTag] = useState<string>('');
   const shownUserAvatarsNumber = 4;
 
   const boards = useSelector((state: RootState) => state.board.value);
@@ -54,8 +54,6 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   const { data: workplaceUsersData, isLoading: isWorkplaceUsersLoading } = useGetRequest(
     `workplaces/${activeBoard?.id}/users`
   );
-
-  // const { data: users, isLoading: isUsersLoading } = useGetRequest(`workplaces/${idBoard}/users`);
 
   useEffect(() => {
     if (workplacesData && !isWorkplacesLoading) {
@@ -77,8 +75,7 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
 
   useEffect(() => {
     if (workplaceUsersData && !isWorkplaceUsersLoading) {
-      dispatch(usersActions.setUsers(workplaceUsersData));
-      console.log(workplaceUsersData);
+      dispatch(usersActions.setUsers({ users: workplaceUsersData, activeUserName: '' }));
     }
   }, [workplaceUsersData, isWorkplaceUsersLoading]);
 
@@ -156,15 +153,23 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
           )}
           {!idTicket && !isWorkplaceUsersLoading && (
             <div className={styles['Information__sprint-tags']}>
+              <NameTag
+                text="All"
+                active={workplaceUsers.activeUserName === ''}
+                onClick={() => {
+                  setActiveUserTag('');
+                  dispatch(usersActions.setUsers({ ...workplaceUsers, activeUserName: '' }));
+                }}
+              />
               {workplaceUsers.users?.map((workplaceUser) => (
                 <NameTag
                   key={workplaceUser.id}
                   text={workplaceUser.user.name}
                   onClick={() => {
-                    setActiveUser(workplaceUser);
-                    dispatch(usersActions.setUsers({ ...workplaceUsers, activeUser: workplaceUser }));
+                    setActiveUserTag(workplaceUser.user.name);
+                    dispatch(usersActions.setUsers({ ...workplaceUsers, activeUserName: workplaceUser.user.name }));
                   }}
-                  active={activeUser === workplaceUser}
+                  active={workplaceUser.user.name === activeUserTag}
                 />
               ))}
             </div>

@@ -19,6 +19,7 @@ type ColumnsProps = {
 export const Columns: FC<ColumnsProps> = ({ searchValue }) => {
   const dispatch = useDispatch();
   const currentSprint = useSelector((state: RootState) => state.currSprint.value);
+  const users = useSelector((state: RootState) => state.users.value);
   const [currentSprintState, setCurrentSprintState] = useState(currentSprint);
 
   const [draggedIssue, setDraggedIssue] = useState<{ id: string | null; state: State | null }>({
@@ -32,17 +33,6 @@ export const Columns: FC<ColumnsProps> = ({ searchValue }) => {
     //location.reload();
     console.log(currentSprintState);
   }, [currentSprint.columns]);
-
-  // useEffect(() => {
-  //   setCurrentSprintState(currentSprint);
-  //   const newData = currentSprintState.columns.map((column) => {
-  //     return {
-  //       ...column,
-  //       issues: column.issues.filter((issue) => issue.name.includes(searchValue))
-  //     }
-  //   });
-  //   dispatch(currSprintActions.setSprint({ ...currentSprintState, columns: newData }));
-  // }, [searchValue]);
 
   const onDragEnd = (result: DropResult) => {
     const { destination, source } = result;
@@ -121,7 +111,11 @@ export const Columns: FC<ColumnsProps> = ({ searchValue }) => {
                               state={task.state}
                               draggedIssue={draggedIssue}
                               onSetDraggedIssueCallback={setDraggedIssue}
-                              isVisible={task.name.toLowerCase().includes(searchValue.toLowerCase())}
+                              isVisible={
+                                task.name.toLowerCase().includes(searchValue.toLowerCase()) &&
+                                (!!task?.implementers.filter((el) => el.user.name === users.activeUserName).length ||
+                                  users.activeUserName === '')
+                              }
                               documentsCount={task.files?.length}
                               implementers={task.implementers}
                             />
