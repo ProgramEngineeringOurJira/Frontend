@@ -102,13 +102,7 @@ export const Columns: FC<ColumnsProps> = ({ searchValue }) => {
                           <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                             <Card
                               key={index}
-                              id={task.id}
-                              header={task.name}
-                              description={task.text}
-                              date={task.end_date}
-                              priority={task.priority}
-                              label={task.label}
-                              state={task.state}
+                              issue={task}
                               draggedIssue={draggedIssue}
                               onSetDraggedIssueCallback={setDraggedIssue}
                               isVisible={
@@ -116,8 +110,6 @@ export const Columns: FC<ColumnsProps> = ({ searchValue }) => {
                                 (!!task?.implementers.filter((el) => el.user.name === users.activeUserName).length ||
                                   users.activeUserName === '')
                               }
-                              documentsCount={task.files?.length}
-                              implementers={task.implementers}
                             />
                           </div>
                         )}

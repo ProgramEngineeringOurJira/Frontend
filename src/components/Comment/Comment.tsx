@@ -6,6 +6,7 @@ import { useDeleteRequest } from '../../hooks/useDeleteRequest';
 import { usePutRequest } from '../../hooks/usePutRequest';
 import { Button } from '../../ui-kit/Button';
 import { Input } from '../../ui-kit/Input';
+import { Avatar } from '../../ui-kit/Avatar';
 import { getElapsedDays } from '../../utils/helpers';
 import { Comment as CommentType } from '../../utils/types';
 
@@ -72,13 +73,7 @@ export const Comment: FC<CommentProps> = ({ comment, editedCommentId, onSetEdite
   return (
     <div className={clsx(styles.Comment, !isVisible ? styles.deleted : '')}>
       <div className={styles.Comment__header}>
-        <img
-          src="https://fikiwiki.com/uploads/posts/2022-02/1644827473_48-fikiwiki-com-p-kartinki-smeshnie-krasivie-i-milie-pro-kot-53.jpg"
-          alt="Commentator's avatar"
-          height="32"
-          width="32"
-          className={styles['Comment__header-avatar']}
-        />
+        <Avatar avatarUrl={comment.author.user.avatar_url} width={32}></Avatar>
         <span className={styles['Comment__header-info']}>
           {comment.author.user.name} commented {getElapsedDays(new Date(comment.creation_date))} days ago
         </span>

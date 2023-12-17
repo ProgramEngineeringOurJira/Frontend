@@ -7,44 +7,24 @@ import { usePutRequest } from '../../hooks/usePutRequest';
 import { Icon } from '../../ui-kit/Icon';
 import { priorityTypes, State } from '../../utils/constants';
 import { Label } from '../../ui-kit/Label/Label';
+import { Avatar } from '../../ui-kit/Avatar'
 import { formatDateForCard } from '../../utils/helpers';
-import { UserAssignedWorkplace } from '../../utils/types';
+import { Issue } from '../../utils/types';
 import { paths } from '../../utils/paths';
 
-import styles from './styles.module.scss';
+import styles from './styles.module.scss';;
 
 type CardProps = {
-  id: string;
-  className?: string;
-  description?: string;
-  header: string;
-  date: string;
-  priority: string;
-  label: string;
-  state: State;
+  issue: Issue;
   draggedIssue: { id: string | null; state: State | null };
   onSetDraggedIssueCallback: (value: { id: string | null; state: State | null }) => void;
-  documentsCount?: number;
-  implementers: UserAssignedWorkplace[];
   isVisible: boolean;
 };
 
-export const Card: FC<CardProps> = ({
-  id,
-  className,
-  description,
-  header,
-  date,
-  priority,
-  label,
-  state,
-  draggedIssue,
-  onSetDraggedIssueCallback,
-  isVisible,
-  documentsCount = 0,
-  implementers
-}) => {
+export const Card: FC<CardProps> = ({ issue, draggedIssue, onSetDraggedIssueCallback, isVisible }) => {
   const { idBoard, idSprint } = useParams();
+
+  const documentsCount = issue.files.length;
 
   function getIconName(priority: string) {
     if (priority === priorityTypes.HIGH || priority === priorityTypes.URGRENT) {
@@ -65,7 +45,7 @@ export const Card: FC<CardProps> = ({
   }, [draggedIssue]);
 
   const onDragged = () => {
-    if (draggedIssue.id == id && draggedIssue.state != null && draggedIssue.state != state) {
+    if (draggedIssue.id == issue.id && draggedIssue.state != null && draggedIssue.state != issue.state) {
       const issueData = {
         state: draggedIssue.state
       };
@@ -78,11 +58,11 @@ export const Card: FC<CardProps> = ({
   };
 
   return (
-    <Link to={`${paths.board}/${idBoard}${paths.sprint}/${idSprint}${paths.ticket}/${id}`}>
-      <div className={clsx(styles.Card, className, !isVisible ? styles.hide : '')}>
-        <h3 className={styles.Card__header}>{header}</h3>
-        <p className={styles.Card__description}>{description}</p>
-        <Label text={label} />
+    <Link to={`${paths.board}/${idBoard}${paths.sprint}/${idSprint}${paths.ticket}/${issue.id}`}>
+      <div className={clsx(styles.Card, !isVisible ? styles.hide : '')}>
+        <h3 className={styles.Card__header}>{issue.name}</h3>
+        <p className={styles.Card__description}>{issue.text}</p>
+        <Label text={issue.label} />
         <div className={styles.Card__line} />
         <div className={styles.Card__bottom}>
           <div className={styles['Card__bottom-icons']}>
@@ -91,25 +71,17 @@ export const Card: FC<CardProps> = ({
               {documentsCount > 0 && <span className={styles.Card__bottom_documentsCount}>{documentsCount}</span>}
             </div>
 
-            <Icon iconName="flag" color={getIconName(priority)} />
+            <Icon iconName="flag" color={getIconName(issue.priority)} />
 
             <div className={styles.Card_time_wrapper}>
               <Icon className={styles.Card_time_clock_icon} iconName="clock" />
-              <div className={styles.Card_time_date}>{formatDateForCard(date)}</div>
+              <div className={styles.Card_time_date}>{formatDateForCard(issue.end_date)}</div>
             </div>
           </div>
           <div className={styles.Card__participants}>
-            {!!implementers.length &&
-              implementers.map((el, index) => (
-                <img
-                  key={index}
-                  //  TODO дождаться пока будет реализовано на бэке. Всьавить путь к картинке
-                  //src={el.user.}
-                  alt="User's avatar"
-                  height="24"
-                  width="24"
-                  className={styles['Card__participants-avatar']}
-                />
+            {issue.implementers.length > 0 &&
+              issue.implementers.map((el, index) => (
+                <Avatar key={index} avatarUrl={el.user.avatar_url} width={24}></Avatar>
               ))}
           </div>
         </div>
