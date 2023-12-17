@@ -44,7 +44,7 @@ export const CreateProject: FC = () => {
 
   return (
     <div>
-      <Header isInformationVisible={false} />
+      <Header isInformationVisible={false} isCreateSprintVisible={false} />
       <PageLayout>
         <>
           <form onSubmit={onSubmit} className={styles.CreateProject}>

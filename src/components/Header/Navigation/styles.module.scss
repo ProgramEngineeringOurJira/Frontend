@@ -15,6 +15,7 @@
     font-weight: 400;
     font-size: 45px;
     color: var(--white);
+    cursor: pointer;
   }
 
   &__container {
@@ -25,4 +26,8 @@
   &__logout {
     color: var(--white);
   }
+}
+
+.hide {
+  display: none;
 }

@@ -9,7 +9,11 @@ import { paths } from '../../../utils/paths';
 
 import styles from './styles.module.scss';
 
-export const Navigation: FC = () => {
+type NavigationProps = {
+  isCreateSprintVisible?: boolean;
+};
+
+export const Navigation: FC<NavigationProps> = ({ isCreateSprintVisible = true }) => {
   const { isShown, toggle } = useModal();
   const { clearAll, user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -19,14 +23,20 @@ export const Navigation: FC = () => {
     navigate(paths.login);
   };
 
+  const onKristiClick = () => {
+    navigate(paths.home);
+  };
+
   return (
     <>
       <div className={styles.Navigation}>
         <div className={styles.Navigation__container}>
-          <Button text="+ New Sprint" type="header" onClick={toggle} />
-          <Button text="+ New Project" type="header" to="/createProject" />
+          {isCreateSprintVisible ? <Button text="+ New Sprint" type="header" onClick={toggle} /> : <></>}
+          <Button text="+ New Project" type="header" to={paths.createProject} />
         </div>
-        <span className={styles.Navigation__name}>Kristi</span>
+        <div className={styles.Navigation__name} onClick={onKristiClick}>
+          Kristi
+        </div>
         <Button
           className={styles.Navigation__logout}
           to="/login"
