@@ -18,7 +18,7 @@ export const FileComponent: FC<FileProps> = ({ file }) => {
   const { idBoard, idTicket } = useParams();
   const [isVisible, setIsVisible] = useState(true);
   const dispatch = useDispatch();
-  const endpoint = import.meta.env.VITE_API_ENDPOINT
+  const endpoint = import.meta.env.VITE_API_ENDPOINT;
 
   const issue = useSelector((state: RootState) => state.ticket.value);
 
@@ -39,19 +39,19 @@ export const FileComponent: FC<FileProps> = ({ file }) => {
 
   const ref = useRef<HTMLAnchorElement | null>(null);
   const onClickedFile = () => {
-    ref.current?.click()
+    ref.current?.click();
   };
 
   return (
     <div className={clsx(styles.FileComponent, !isVisible ? styles.deleted : '')}>
       <div className={styles.FileComponent__header} onClick={onClickedFile}>
         <div className={styles['FileComponent__header-avatar']}>
-          <FileIcon filename={file} width="40" className={styles['FileComponent__header-avatar']}/>
+          <FileIcon filename={file} className={styles['FileComponent__header-avatar']} />
         </div>
         <div className={styles['FileComponent__header-container']}>
           <div className={styles['FileComponent__header-container-text']}>{file.split('/').at(-1)}</div>
           <div className={styles['FileComponent__header-container-text']}>{'.' + file.split('.').at(-1)}</div>
-          <a href={ endpoint + "/v1"+file} ref={ref} target="_blank" className={styles.hidden}/>
+          <a href={endpoint + '/v1' + file} ref={ref} target="_blank" className={styles.hidden} />
         </div>
       </div>
       <div className={styles.FileComponent__delete}>

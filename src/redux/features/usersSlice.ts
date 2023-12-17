@@ -1,14 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UserAssignedWorkplace } from '../../utils/types';
+import { Role } from '../../utils/constants';
 
 interface UsersState {
-  value: UserAssignedWorkplace[];
-  activeUser?: UserAssignedWorkplace;
+  value: { users: UserAssignedWorkplace[]; activeUser: UserAssignedWorkplace };
 }
 
 const initialState: UsersState = {
-  value: [],
-  activeUser: undefined
+  value: {
+    users: [],
+    activeUser: {
+      id: '',
+      user: {
+        email: '',
+        name: '',
+        id: '',
+        avatar_url: ''
+      },
+      role: Role.GUEST
+    }
+  }
 };
 
 export const usersSlice = createSlice({
@@ -16,7 +27,7 @@ export const usersSlice = createSlice({
   initialState,
   reducers: {
     setUsers: (state, action) => {
-      state.value = action.payload;
+      state.value.users = action.payload;
     }
   }
 });

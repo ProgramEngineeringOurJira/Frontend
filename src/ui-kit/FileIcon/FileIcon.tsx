@@ -15,7 +15,7 @@ export interface IconProps {
 }
 
 export const FileIcon: FC<IconProps> = ({ filename, className }): JSX.Element | null => {
-  const getIcon = (filename) => {
+  const getIcon = () => {
     if (/\.(jpe?g|png|gif|bmp|tiff|psd|raw|cr2|nef|orf|sr2)$/i.test(filename)) return 'image';
     if (/\.(pdf|djvu)$/i.test(filename)) return 'pdf';
     if (/\.(mp3|wav|wma|aac|flac|ogg|m4a|aiff|alac|amr|ape|au|mpc|tta|wv|opus)$/i.test(filename)) return 'audio';
@@ -31,6 +31,6 @@ export const FileIcon: FC<IconProps> = ({ filename, className }): JSX.Element | 
     return 'text';
   };
 
-  const Glyph = icons[getIcon(filename)];
+  const Glyph = icons[getIcon()];
   return <Glyph className={clsx([className, styles.Icon])} />;
 };

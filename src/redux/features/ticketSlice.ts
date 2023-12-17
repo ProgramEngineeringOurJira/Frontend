@@ -22,7 +22,8 @@ const initialState: TicketState = {
       user: {
         email: '',
         name: '',
-        id: ''
+        id: '',
+        avatar_url: ''
       }
     },
     implementers: [],
