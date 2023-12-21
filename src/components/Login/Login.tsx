@@ -57,27 +57,29 @@ const _Login: FC = () => {
       ) : (
         <>
           <form onSubmit={onSubmit} className={styles.LoginForm}>
-            <FormElementWrapper>
-              <TextForm text="Email" />
-              <Input
-                type="text"
-                value={email}
-                onChange={(e: any) => {
-                  setEmail(e.target.value);
-                }}
-              />
-            </FormElementWrapper>
+            <div className={styles.LoginForm__wrapper}>
+              <FormElementWrapper>
+                <TextForm text="Email" />
+                <Input
+                  type="text"
+                  value={email}
+                  onChange={(e: any) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </FormElementWrapper>
 
-            <FormElementWrapper>
-              <TextForm text="Password" />
-              <Input
-                type="password"
-                value={password}
-                onChange={(e: any) => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </FormElementWrapper>
+              <FormElementWrapper>
+                <TextForm text="Password" />
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={(e: any) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </FormElementWrapper>
+            </div>
 
             <Button text="Sign in" type="primary" typeButton="submit" />
           </form>

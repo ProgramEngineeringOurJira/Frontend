@@ -6,6 +6,10 @@
   &-primary {
     height: 40px;
     padding: 0px 15px;
+    &:hover {
+      background-color: var(--button-primary-hover);
+      transition: background-color 0.15s;
+    }
   }
 
   &-add {
@@ -29,6 +33,11 @@
     height: 40px;
 
     background-color: var(--button-header);
+
+    &:hover {
+      background-color: var(--button-header-hover);
+      transition: background-color 0.15s;
+    }
   }
 
   &-new-member {
@@ -40,5 +49,9 @@
     font-weight: 500;
     font-size: 14px;
     background-color: var(--button-disabled);
+
+    &:hover {
+      color: var(--button-primary-hover);
+    }
   }
 }

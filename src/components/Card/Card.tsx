@@ -7,12 +7,12 @@ import { usePutRequest } from '../../hooks/usePutRequest';
 import { Icon } from '../../ui-kit/Icon';
 import { priorityTypes, State } from '../../utils/constants';
 import { Label } from '../../ui-kit/Label/Label';
-import { Avatar } from '../../ui-kit/Avatar'
+import { Avatar } from '../../ui-kit/Avatar';
 import { formatDateForCard } from '../../utils/helpers';
 import { Issue } from '../../utils/types';
 import { paths } from '../../utils/paths';
 
-import styles from './styles.module.scss';;
+import styles from './styles.module.scss';
 
 type CardProps = {
   issue: Issue;
@@ -67,14 +67,14 @@ export const Card: FC<CardProps> = ({ issue, draggedIssue, onSetDraggedIssueCall
         <div className={styles.Card__bottom}>
           <div className={styles['Card__bottom-icons']}>
             <div className={styles.Card__bottom_documentsWrapper}>
-              <Icon iconName="paper_clip" color={documentsCount > 0 ? '#1D2D35' : '#C4C4C4'} />
+              <Icon iconName="paper_clip" color={documentsCount > 0 ? '#1D2D35' : '#C4C4C4'} width={11} height={22} />
               {documentsCount > 0 && <span className={styles.Card__bottom_documentsCount}>{documentsCount}</span>}
             </div>
 
-            <Icon iconName="flag" color={getIconName(issue.priority)} />
+            <Icon iconName="flag" color={getIconName(issue.priority)} width={15} height={17} />
 
             <div className={styles.Card_time_wrapper}>
-              <Icon className={styles.Card_time_clock_icon} iconName="clock" />
+              <Icon className={styles.Card_time_clock_icon} iconName="clock" width={20} height={20} />
               <div className={styles.Card_time_date}>{formatDateForCard(issue.end_date)}</div>
             </div>
           </div>

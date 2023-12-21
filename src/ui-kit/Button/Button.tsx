@@ -1,4 +1,4 @@
-import { FC, MouseEventHandler } from 'react';
+import { FC, MouseEventHandler, PropsWithChildren } from 'react';
 import clsx from 'clsx';
 
 import styles from './styles.module.scss';
@@ -10,13 +10,24 @@ export interface ButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
   disabled?: boolean;
   className?: string;
-  text: string;
+  text?: string;
   type: ButtonType;
   to?: string;
   typeButton?: 'button' | 'submit' | 'reset';
+  backgroundColor?: string;
 }
 
-export const Button: FC<ButtonProps> = ({ onClick, disabled, className, text, type, to, typeButton }) => {
+export const Button: FC<PropsWithChildren<ButtonProps>> = ({
+  onClick,
+  disabled,
+  className,
+  text,
+  type,
+  to,
+  typeButton,
+  children,
+  backgroundColor
+}) => {
   if (to)
     return (
       <Link to={to}>
@@ -26,6 +37,7 @@ export const Button: FC<ButtonProps> = ({ onClick, disabled, className, text, ty
           onMouseDown={(ev) => ev.preventDefault()}
           type={typeButton}
         >
+          {children}
           {text}
         </button>
       </Link>
@@ -37,7 +49,9 @@ export const Button: FC<ButtonProps> = ({ onClick, disabled, className, text, ty
         onClick={onClick}
         onMouseDown={(ev) => ev.preventDefault()}
         type={typeButton}
+        style={{ backgroundColor: backgroundColor }}
       >
+        {children}
         {text}
       </button>
     );

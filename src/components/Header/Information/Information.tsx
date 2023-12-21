@@ -124,7 +124,6 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
     <>
       <div className={clsx(styles.Information, !isVisible ? styles.hide : '')}>
         <div className={styles.Information__sprint}>
-          <span className={styles['Information__sprint-name']}>{activeBoard?.name}</span>
           {boards.length > 0 && !idTicket && (
             <Select placeholder={boards[boards.length - 1]?.name}>
               {isWorkplacesLoading ? (

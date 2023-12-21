@@ -67,49 +67,51 @@ const _Registration: FC = () => {
       ) : (
         <>
           <form onSubmit={onSubmit} className={styles.RegistrationForm}>
-            <FormElementWrapper>
-              <TextForm text="Email" />
-              <Input
-                type="text"
-                value={email}
-                onChange={(e: any) => {
-                  setEmail(e.target.value);
-                }}
-              />
-            </FormElementWrapper>
+            <div className={styles.RegistrationForm__wrapper}>
+              <FormElementWrapper>
+                <TextForm text="Email" />
+                <Input
+                  type="text"
+                  value={email}
+                  onChange={(e: any) => {
+                    setEmail(e.target.value);
+                  }}
+                />
+              </FormElementWrapper>
 
-            <FormElementWrapper>
-              <TextForm text="Name" />
-              <Input
-                type="text"
-                value={name}
-                onChange={(e: any) => {
-                  setName(e.target.value);
-                }}
-              />
-            </FormElementWrapper>
+              <FormElementWrapper>
+                <TextForm text="Name" />
+                <Input
+                  type="text"
+                  value={name}
+                  onChange={(e: any) => {
+                    setName(e.target.value);
+                  }}
+                />
+              </FormElementWrapper>
 
-            <FormElementWrapper>
-              <TextForm text="Password" />
-              <Input
-                type="password"
-                value={password}
-                onChange={(e: any) => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </FormElementWrapper>
+              <FormElementWrapper>
+                <TextForm text="Password" />
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={(e: any) => {
+                    setPassword(e.target.value);
+                  }}
+                />
+              </FormElementWrapper>
 
-            <FormElementWrapper>
-              <TextForm text="confirmPassword" />
-              <Input
-                type="password"
-                value={confirmPassword}
-                onChange={(e: any) => {
-                  setConfirmPassword(e.target.value);
-                }}
-              />
-            </FormElementWrapper>
+              <FormElementWrapper>
+                <TextForm text="confirmPassword" />
+                <Input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e: any) => {
+                    setConfirmPassword(e.target.value);
+                  }}
+                />
+              </FormElementWrapper>
+            </div>
 
             <Button text="Sign up" type="primary" typeButton="submit" />
           </form>
