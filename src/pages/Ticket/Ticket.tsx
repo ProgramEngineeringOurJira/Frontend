@@ -48,7 +48,6 @@ export const Ticket: FC = () => {
               <span className={styles['Ticket__top-projectName']}>Project name</span>
             </div>
             <div className={styles['Ticket__top-controls']}>
-              <Button text="Edit" type="primary" />
               <Button text="Add comment" type="primary" onClick={toggleComment} />
               <IconButton text="" type="icon" iconPath="paper_clip" iconColor={'#FFFFFF'} onClick={toggleFile} />
             </div>

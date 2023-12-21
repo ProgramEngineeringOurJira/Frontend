@@ -10,6 +10,7 @@ import styles from './styles.module.scss';
 import { Icon } from '../../ui-kit/Icon';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import clsx from 'clsx';
 
 export const Board: FC = () => {
   const { isShown, toggle } = useModal();
@@ -18,7 +19,6 @@ export const Board: FC = () => {
   const sprint = useSelector((state: RootState) => state.currSprint.value);
 
   const onInputChange = (e: any) => {
-    // TODO добавить debounce
     setInputValue(e.target.value);
   };
 
@@ -37,11 +37,28 @@ export const Board: FC = () => {
     <>
       <div className={styles.Board__header}>
         <div className={styles['Board__header-search']}>
-          <Input placeholder="Search items" type="text" value={inputValue} onChange={onInputChange} />
-          <Button text="Search" type="primary" onClick={onSearchButtonClicked} />
-          <Button text="Cancel" type="primary" onClick={onCancelButtonClicked} />
+          <div className={styles['Board__header-search-input']}>
+            <Input placeholder="Search items" type="text" value={inputValue} onChange={onInputChange} />
+            <Button
+              type="new-member"
+              onClick={onSearchButtonClicked}
+              backgroundColor="#fff"
+              className={styles.centerIcon}
+            >
+              <Icon iconName="search" />
+            </Button>
+
+            <Button
+              type="new-member"
+              onClick={onCancelButtonClicked}
+              backgroundColor="#fff"
+              className={clsx(styles.centerIcon, styles.btnCancel)}
+            >
+              <Icon iconName="cancel" />
+            </Button>
+          </div>
           <div className={styles.calendar}>
-            <Icon iconName="calendar" iconSize={25} />
+            <Icon iconName="calendar" width={25} height={25} />
             <span>
               {sprint.start_date.split('T')[0]} - {sprint.end_date.split('T')[0]}
             </span>

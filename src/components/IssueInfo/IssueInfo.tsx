@@ -2,8 +2,6 @@ import { FC } from 'react';
 import { Issue } from '../../utils/types';
 import clsx from 'clsx';
 
-import { SubIssue } from '../SubIssue';
-
 import { Label } from '../../ui-kit/Label';
 import { Avatar } from '../../ui-kit/Avatar';
 import { getElapsedDays } from '../../utils/helpers';
@@ -18,9 +16,16 @@ export const IssueInfo: FC<Issue> = (issue) => {
           <Avatar avatarUrl={issue.author.user.avatar_url} width={56}></Avatar>
           <div className={styles['IssueInfo__header-info']}>
             <span className={styles['IssueInfo__header-title']}>{issue.name}</span>
-            <span className={styles['IssueInfo__header-history']}>
-              Added by {issue.author.user.name} {getElapsedDays(new Date(issue.creation_date))} days ago.
-            </span>
+            {issue.author.user.name ? (
+              <span className={styles['IssueInfo__header-history']}>
+                Added by {issue.author.user.name}{' '}
+                {issue.creation_date ? getElapsedDays(new Date(issue.creation_date)) : 0} days ago.
+              </span>
+            ) : issue.creation_date ? (
+              <span>Added {getElapsedDays(new Date(issue.creation_date))} days ago.</span>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
         <div className={styles.IssueInfo__mainInfo}>
@@ -53,10 +58,10 @@ export const IssueInfo: FC<Issue> = (issue) => {
             <div className={styles['flex-column']}>
               <Label text={issue.label} />
               <span className={styles['IssueInfo__infoBlock-element']}>
-                {new Date(issue.creation_date).toLocaleDateString()}
+                {issue.creation_date ? new Date(issue.creation_date).toLocaleDateString() : '-'}
               </span>
               <span className={styles['IssueInfo__infoBlock-element']}>
-                {new Date(issue.end_date).toLocaleDateString()}
+                {issue.end_date ? new Date(issue.end_date).toLocaleDateString() : '-'}
               </span>
             </div>
           </div>

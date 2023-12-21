@@ -12,7 +12,12 @@
     &-search {
       display: flex;
       align-items: center;
-      gap: var(--space-m);
+      gap: 40px;
+
+      &-input {
+        display: flex;
+        align-items: center;
+      }
     }
   }
 }
@@ -22,4 +27,14 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+.centerIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnCancel {
+  border-radius: 50%;
 }

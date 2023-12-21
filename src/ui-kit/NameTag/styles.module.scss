@@ -8,11 +8,18 @@
   line-height: 1.2;
   user-select: none;
   cursor: pointer;
+  transition: background-color 0.15s;
+  &:hover {
+    background-color: var(--text-gray);
+  }
 }
 
 .NameTagClicked {
-  background-color: var(--button-primary);
+  background-color: var(--button-primary-hover);
   color: var(--white);
+  &:hover {
+    background-color: var(--button-primary-hover);
+  }
 }
 
 .NameTagText {

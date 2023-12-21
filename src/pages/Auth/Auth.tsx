@@ -14,7 +14,7 @@ export const Auth: FC = () => {
         <span className={styles.Auth__title}>{isLogin ? 'Login' : 'Registration'}</span>
         <div>{isLogin ? <Login /> : <Registration />}</div>
         <span onClick={() => setIsLogin((prev) => !prev)} className={styles.Auth__switch}>
-          {isLogin ? 'Sign up' : 'Sign in'}
+          {isLogin ? 'Create an account' : 'Already have an account? Sign in'}
         </span>
       </div>
     </PageLayout>

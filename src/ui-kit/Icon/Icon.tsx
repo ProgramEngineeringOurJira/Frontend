@@ -9,12 +9,13 @@ export type IconName = keyof typeof icons;
 
 export interface IconProps {
   iconName: IconName;
-  iconSize?: number;
+  width?: number;
+  height?: number;
   className?: string;
   color?: string;
 }
 
-export const Icon: FC<IconProps> = ({ iconName, className, color, iconSize }): JSX.Element | null => {
+export const Icon: FC<IconProps> = ({ iconName, className, color, width, height }): JSX.Element | null => {
   const Glyph = icons[iconName];
-  return <Glyph className={clsx([className, styles.Icon])} color={color} width={iconSize ?? 15} height={iconSize} />;
+  return <Glyph className={clsx([className, styles.Icon])} color={color} width={width ?? 20} height={height ?? 20} />;
 };
