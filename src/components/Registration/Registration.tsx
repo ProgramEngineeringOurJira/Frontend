@@ -102,7 +102,7 @@ const _Registration: FC = () => {
               </FormElementWrapper>
 
               <FormElementWrapper>
-                <TextForm text="confirmPassword" />
+                <TextForm text="Confirm Password" />
                 <Input
                   type="password"
                   value={confirmPassword}
