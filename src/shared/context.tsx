@@ -1,3 +1,4 @@
+import axios from '../api/http-common.ts';
 import { createContext, FC, PropsWithChildren, useCallback, useState } from 'react';
 import { User } from '../utils/types';
 
@@ -29,6 +30,7 @@ export const LogInProvider: FC<PropsWithChildren> = ({ children }) => {
   const setTokenAccess = (token: string) => {
     setToken(token);
     window.localStorage.setItem('access_token', token);
+    axios.defaults.headers.common['Authorization'] = `Bearer ${window.localStorage.getItem('access_token')}`;
   };
 
   const setNewUser = useCallback((newUser: User) => {
