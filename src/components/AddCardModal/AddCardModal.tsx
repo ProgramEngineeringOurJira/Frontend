@@ -16,6 +16,7 @@ import { labelTypes, priorityTypes, stateTypes } from '../../utils/constants';
 
 import styles from './styles.module.scss';
 import { Loader } from '../../ui-kit/Loader';
+import { Textarea } from '../../ui-kit/Textarea';
 
 type AddCardModalProps = {
   hide: () => void;
@@ -29,15 +30,13 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
   const [priority, setPriority] = useState('');
   const [state, setState] = useState('');
   const [label, setLabel] = useState('');
+  const [personId, setPersonId] = useState('');
   const { idBoard, idSprint } = useParams();
   const currSprint = useSelector((state: RootState) => state.currSprint.value);
-  const [id, setId] = useState('');
+  const users = useSelector((state: RootState) => state.users.value);
+  const [endDate, setEndDate] = useState('');
 
   const postIssue = (data: any) => {
-    console.log(data);
-    setId(data.id);
-    console.log('CHECK', sendRequest, queryResult);
-
     const issueData = {
       name: name,
       text: text,
@@ -45,26 +44,26 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
       state: state,
       label: label,
       sprint_id: idSprint,
-      implementers: []
+      implementers: [personId],
+      end_date: endDate ? new Date(endDate) : null
     };
 
-    const newData = currSprint.columns.map((column) => {
-      if (column.name === issueData.state) {
-        return {
-          ...column,
-          issues: [...column.issues, { ...issueData, id: data.id }]
-        } as ColumnType;
-      }
-      return column;
-    });
-    console.log(newData);
-    console.log(id);
-    dispatch(currSprintActions.setSprint({ ...currSprint, columns: newData }));
-
-    hide();
+    if (name.length > 0 && text.length > 0) {
+      const newData = currSprint.columns.map((column) => {
+        if (column.name === issueData.state) {
+          return {
+            ...column,
+            issues: [...column.issues, { ...issueData, id: data.id }]
+          } as ColumnType;
+        }
+        return column;
+      });
+      dispatch(currSprintActions.setSprint({ ...currSprint, columns: newData }));
+      hide();
+    }
   };
 
-  const { sendRequest, isError, isLoading, queryResult } = useSendRequest(postIssue, `${idBoard}/issues`);
+  const { sendRequest, isError, isLoading } = useSendRequest(postIssue, `${idBoard}/issues`);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -75,28 +74,12 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
       state: state,
       label: label,
       sprint_id: idSprint,
-      implementers: []
+      implementers: [personId],
+      end_date: endDate ? new Date(endDate) : null
     };
 
     if (name.length > 0) {
       sendRequest(issueData);
-      setValidationError('');
-      setName('');
-      setText('');
-      setPriority('');
-      setState('');
-      setLabel('');
-
-      const newData = currSprint.columns.map((column) => {
-        if (column.name === issueData.state) {
-          return {
-            ...column,
-            issues: [...column.issues, issueData]
-          } as ColumnType;
-        }
-        return column;
-      });
-      dispatch(currSprintActions.setSprint({ ...currSprint, columns: newData }));
     } else {
       setValidationError('Oooops, something went wrong!');
     }
@@ -120,7 +103,7 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
 
           <FormElementWrapper>
             <TextForm text="Description" />
-            <Input placeholder="Description" type="text" value={text} onChange={(e: any) => setText(e.target.value)} />
+            <Textarea placeholder="Description" value={text} onChange={(e: any) => setText(e.target.value)} />
           </FormElementWrapper>
 
           <FormElementWrapper>
@@ -146,6 +129,17 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
           </FormElementWrapper>
 
           <FormElementWrapper>
+            <TextForm text="Implementer" />
+            <Select placeholder="Choose implementer" className={styles.AddCardModal__label}>
+              {users.users.map((el) => (
+                <Option key={el.id} value={el.user.name} onClick={() => setPersonId(el.id)}>
+                  {el.user.name}
+                </Option>
+              ))}
+            </Select>
+          </FormElementWrapper>
+
+          <FormElementWrapper>
             <TextForm text="Priority" />
             <Select placeholder="Choose priority" className={styles.AddCardModal__label}>
               {Object.entries(priorityTypes).map(([key]) => (
@@ -154,6 +148,16 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
                 </Option>
               ))}
             </Select>
+          </FormElementWrapper>
+
+          <FormElementWrapper>
+            <TextForm text="End date" />
+            <Input
+              placeholder="End date"
+              type="date"
+              value={endDate}
+              onChange={(e: any) => setEndDate(e.target.value)}
+            />
           </FormElementWrapper>
         </div>
         <div className={styles['AddCardModal__button-submit']}>

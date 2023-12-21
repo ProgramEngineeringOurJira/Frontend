@@ -36,6 +36,7 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
           onClick={onClick}
           onMouseDown={(ev) => ev.preventDefault()}
           type={typeButton}
+          disabled={disabled}
         >
           {children}
           {text}
@@ -50,6 +51,7 @@ export const Button: FC<PropsWithChildren<ButtonProps>> = ({
         onMouseDown={(ev) => ev.preventDefault()}
         type={typeButton}
         style={{ backgroundColor: backgroundColor }}
+        disabled={disabled}
       >
         {children}
         {text}

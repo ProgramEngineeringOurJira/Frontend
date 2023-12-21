@@ -24,7 +24,7 @@ type CardProps = {
 export const Card: FC<CardProps> = ({ issue, draggedIssue, onSetDraggedIssueCallback, isVisible }) => {
   const { idBoard, idSprint } = useParams();
 
-  const documentsCount = issue.files.length;
+  const documentsCount = issue?.files?.length;
 
   function getIconName(priority: string) {
     if (priority === priorityTypes.HIGH || priority === priorityTypes.URGRENT) {
@@ -81,7 +81,7 @@ export const Card: FC<CardProps> = ({ issue, draggedIssue, onSetDraggedIssueCall
           <div className={styles.Card__participants}>
             {issue.implementers.length > 0 &&
               issue.implementers.map((el, index) => (
-                <Avatar key={index} avatarUrl={el.user.avatar_url} width={24}></Avatar>
+                <Avatar key={index} avatarUrl={el?.user?.avatar_url} width={24}></Avatar>
               ))}
           </div>
         </div>

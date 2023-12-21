@@ -8,4 +8,9 @@
   &::placeholder {
     color: var(--light-gray);
   }
+
+  &:hover, &:focus, &:active {
+    border: 2px solid var(--button-primary);
+    transition: border-color 0.15s;
+  }
 }

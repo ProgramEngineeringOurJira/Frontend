@@ -11,12 +11,15 @@ import { Icon } from '../../ui-kit/Icon';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import clsx from 'clsx';
+import { useParams } from 'react-router-dom';
 
 export const Board: FC = () => {
   const { isShown, toggle } = useModal();
   const [inputValue, setInputValue] = useState(''); // строка введённая в компоненте input
   const [searchValue, setSearchValue] = useState(''); // строка, по которой происходит фильрация задач (компонентов Card)
   const sprint = useSelector((state: RootState) => state.currSprint.value);
+  const { idSprint } = useParams();
+  const { idBoard } = useParams();
 
   const onInputChange = (e: any) => {
     setInputValue(e.target.value);
@@ -64,7 +67,7 @@ export const Board: FC = () => {
             </span>
           </div>
         </div>
-        <Button text="New Item" type="primary" onClick={toggle} />
+        <Button text="New Item" type="primary" onClick={toggle} disabled={!idSprint || !idBoard} />
       </div>
       <Columns searchValue={searchValue} />
       <Modal isShown={isShown} hide={toggle} modalContent={<AddCardModal hide={toggle} />} headerText="Add task" />
