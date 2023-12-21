@@ -107,7 +107,7 @@ export const Columns: FC<ColumnsProps> = ({ searchValue }) => {
                               onSetDraggedIssueCallback={setDraggedIssue}
                               isVisible={
                                 task.name.toLowerCase().includes(searchValue.toLowerCase()) &&
-                                (!!task?.implementers.filter((el) => el.user.name === users.activeUserName).length ||
+                                (!!task?.implementers.filter((el) => el.user?.name === users.activeUserName).length ||
                                   users.activeUserName === '')
                               }
                             />

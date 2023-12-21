@@ -52,7 +52,6 @@ export enum Role {
 type VES = 'HIGH' | 'NORMAL' | 'LOW' | 'URGRENT';
 type VES_API = 'HIGH' | 'NORMAL' | 'LOW' | 'URGRENT';
 
-// TODO удалить
 export enum State {
   Backlog = 'Backlog',
   ToDo = 'To do',
@@ -63,10 +62,10 @@ export enum State {
 }
 
 export const priorityTypes: Record<VES, VES_API> = {
+  URGRENT: 'URGRENT',
   HIGH: 'HIGH',
   NORMAL: 'NORMAL',
   LOW: 'LOW',
-  URGRENT: 'URGRENT'
 };
 
 type StateLabels = 'BACKLOG' | 'TODO' | 'INPROGRESS' | 'INREVIEW' | 'QA' | 'DONE';
