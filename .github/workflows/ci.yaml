@@ -1,0 +1,21 @@
+name: Workflow для main ветки
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: andyshintar637
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build the Docker image
+        run: docker build . -t engenering-programm/frontend:$(git rev-parse --short "$GITHUB_SHA")
+      - name: Push the Docker image
+        run: docker push engenering-programm/frontend:$(git rev-parse --short "$GITHUB_SHA")
