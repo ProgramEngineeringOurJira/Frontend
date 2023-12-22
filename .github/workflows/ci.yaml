@@ -13,6 +13,6 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u "andyshintar637" -p "${{ secrets.DOCKERHUB_TOKEN }}" docker.io
       - name: Build the Docker image
-        run: docker build . -t engenering-programm/frontend:$(git rev-parse --short "$GITHUB_SHA")
+        run: docker build . -t andyshintar637/frontend:$(git rev-parse --short "$GITHUB_SHA")
       - name: Push the Docker image
-        run: docker push engenering-programm/frontend:$(git rev-parse --short "$GITHUB_SHA")
+        run: docker push andyshintar637/frontend:$(git rev-parse --short "$GITHUB_SHA")
