@@ -31,8 +31,6 @@ jobs:
         run: echo "${{ secrets.ENV_CONTENTS}}" > .env
       - name: Update docker tag
         run: echo "IMAGE_TAG=$(git rev-parse --short "$GITHUB_SHA")" >> .env
-      - name: check
-        run: cat .env
       - name: Kill previous krista-dev
         run: DOCKER_HOST=ssh://${{ steps.ssh-context.outputs.SERVER }} docker-compose -p krista-dev stop frontend
       - name: Recreate krista-dev
