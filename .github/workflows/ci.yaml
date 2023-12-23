@@ -24,7 +24,7 @@ jobs:
         with:
           SSH_HOST: ${{ secrets.HOST }}
           SSH_USER: ${{ secrets.USERNAME }}
-          SSH_PASSWORD: ${{ secrets.PASSWORD }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
       - name: Login to Docker Hub
         run: docker login -u "andyshintar637" -p "${{ secrets.DOCKERHUB_TOKEN }}" docker.io
       - name: Update docker tag
