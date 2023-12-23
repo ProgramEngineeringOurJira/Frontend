@@ -27,13 +27,9 @@ jobs:
           SSH_PASSWORD: ${{ secrets.PASSWORD }}
       - name: Login to Docker Hub
         run: docker login -u "andyshintar637" -p "${{ secrets.DOCKERHUB_TOKEN }}" docker.io
-      - name: check
-        run: DOCKER_HOST=ssh://${{ steps.ssh-context.outputs.SERVER }} pwd
-      - name: check2
-        run: DOCKER_HOST=ssh://${{ steps.ssh-context.outputs.SERVER }} ls
       - name: Update docker tag
         run: echo "IMAGE_TAG=$(git rev-parse --short "$GITHUB_SHA")" >> .env
-      - name: Kill previous deployment
-        run: DOCKER_HOST=ssh://${{ steps.ssh-context.outputs.SERVER }} docker-compose -f Frontend/docker-compose.yaml -p deployment stop frontend
-      - name: Recreate deployment
-        run: DOCKER_HOST=ssh://${{ steps.ssh-context.outputs.SERVER }} docker-compose -f Frontend/docker-compose.yaml -p deployment up -d frontend
+      - name: Kill previous krista-dev
+        run: DOCKER_HOST=ssh://${{ steps.ssh-context.outputs.SERVER }} docker-compose -p krista-dev stop frontend
+      - name: Recreate krista-dev
+        run: DOCKER_HOST=ssh://${{ steps.ssh-context.outputs.SERVER }} docker-compose  -p krista-dev up -d frontend
