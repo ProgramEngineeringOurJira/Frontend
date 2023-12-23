@@ -6,6 +6,8 @@ services:
       - '3000:3000'
     networks:
       - krista-dev
+    env_file:
+      - .env
 
 networks:
   krista-dev:
