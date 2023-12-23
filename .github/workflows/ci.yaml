@@ -22,11 +22,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: ssh-context
-        uses: appleboy/ssh-action@v1.0.0
+        uses: invi5H/ssh-action@v1
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          SSH_HOST: ${{ secrets.HOST }}
+          SSH_USER: ${{ secrets.USERNAME }}
+          SSH_PASSWORD: ${{ secrets.PASSWORD }}
       - name: Login to Docker Hub
         run: docker login -u "andyshintar637" -p "${{ secrets.DOCKERHUB_TOKEN }}" docker.io
       - name: Go to Folder Frontend
