@@ -4,7 +4,7 @@ services:
     image: andyshintar637/frontend:${IMAGE_TAG}
     ports:      
       - '3000:3000'
-  networks:
+    networks:
       - krista-dev
 
 networks:
