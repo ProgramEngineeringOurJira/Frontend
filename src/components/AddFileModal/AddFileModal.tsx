@@ -34,7 +34,7 @@ export const AddFileModal: FC<AddFileModalProps> = ({ hide }) => {
     hide();
   };
 
-  const { sendRequest, isError } = useSendRequest(postFile, `workplaces/${idBoard}/file`, true);
+  const { sendRequest, isError, queryResult } = useSendRequest(postFile, `workplaces/${idBoard}/file`, true);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -58,15 +58,15 @@ export const AddFileModal: FC<AddFileModalProps> = ({ hide }) => {
       <form onSubmit={onSubmit}>
         <div className={styles.AddFileModal}>
           <FormElementWrapper>
-            <InputFile type="file" onChange={onChange} />
+            <InputFile onChange={onChange} />
           </FormElementWrapper>
+          {validationError && <span className={styles.error}>{validationError}</span>}
+          {isError && !validationError && <span className={styles.error}>{queryResult}</span>}
         </div>
         <div className={styles['AddFileModal__button-submit']}>
           <Button text="Add File" type="primary" />
         </div>
       </form>
-      {isError && !validationError && <span className={styles.error}>Invalid data format</span>}
-      {validationError && <span className={styles.error}>{validationError}</span>}
     </>
   );
 };

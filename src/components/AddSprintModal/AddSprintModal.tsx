@@ -45,7 +45,7 @@ export const AddSprintModal: FC<AddCardModalProps> = ({ hide }) => {
     navigate(`/board/${idBoard}/sprint/${data.id}`);
   };
 
-  const { sendRequest, isError, isLoading } = useSendRequest(postSprint, `${idBoard}/sprints`);
+  const { sendRequest, isError, isLoading, queryResult } = useSendRequest(postSprint, `${idBoard}/sprints`);
   const { data: currentSprintData, isLoading: isCurrentSprintLoading } = useGetRequest(
     `${idBoard}/sprints/${idSprint}/issues`
   );
@@ -64,14 +64,12 @@ export const AddSprintModal: FC<AddCardModalProps> = ({ hide }) => {
       end_date: new Date(endDate)
     };
 
-    if (name.length > 0 && startDate.length > 0 && endDate.length > 0) {
+    if (!name) setValidationError('Sprint title must be non-empty');
+    else if (!startDate) setValidationError('Start date is not specified');
+    else if (!endDate) setValidationError('End date is not specified');
+    else {
       sendRequest(issueData);
       setValidationError('');
-      setName('');
-      setStartDate('');
-      setEndDate('');
-    } else {
-      setValidationError('Oooops, something went wrong!');
     }
   };
 
@@ -110,14 +108,14 @@ export const AddSprintModal: FC<AddCardModalProps> = ({ hide }) => {
               onChange={(e: any) => setEndDate(e.target.value)}
             />
           </FormElementWrapper>
+          {validationError && <span className={styles.error}>{validationError}</span>}
+          {isError && !validationError && <span className={styles.error}>{queryResult}</span>}
         </div>
         <div className={styles['AddCardModal__button-submit']}>
           <Button text="Add Sprint" type="primary" />
         </div>
       </form>
       <div className={styles.AddCardModal__loader}>{isLoading && <Loader />}</div>
-      {isError && <span className={styles.error}>Invalid data format</span>}
-      {validationError && <span className={styles.error}>{validationError}</span>}
     </>
   );
 };

@@ -13,9 +13,8 @@
       justify-content: center;
     }
   }
+}
 
-  &__input{
-    width: 400px;
-
-  }
+.error {
+  color: var(--error-color);
 }

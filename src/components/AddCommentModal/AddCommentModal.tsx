@@ -40,7 +40,7 @@ export const AddCommentModal: FC<AddCommentModalProps> = ({ hide }) => {
     hide();
   };
 
-  const { sendRequest, isError } = useSendRequest(postComment, `${idBoard}/issues/${idTicket}/comments`);
+  const { sendRequest, isError, queryResult } = useSendRequest(postComment, `${idBoard}/issues/${idTicket}/comments`);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -52,7 +52,6 @@ export const AddCommentModal: FC<AddCommentModalProps> = ({ hide }) => {
     if (text.length > 0) {
       sendRequest(commentData);
       setValidationError('');
-      // setText('');
     } else {
       setValidationError('Comment text must be non-empty');
     }
@@ -66,13 +65,13 @@ export const AddCommentModal: FC<AddCommentModalProps> = ({ hide }) => {
             <TextForm text="Comment" />
             <Textarea placeholder="Comment" value={text} onChange={(e: any) => setText(e.target.value)} />
           </FormElementWrapper>
+          {validationError && <span className={styles.error}>{validationError}</span>}
+          {isError && !validationError && <span className={styles.error}>{queryResult}</span>}
         </div>
         <div className={styles['AddCommentModal__button-submit']}>
           <Button text="Add Comment" type="primary" />
         </div>
       </form>
-      {isError && !validationError && <span className={styles.error}>Invalid data format</span>}
-      {validationError && <span className={styles.error}>{validationError}</span>}
     </>
   );
 };
