@@ -62,9 +62,11 @@ export const Board: FC = () => {
           </div>
           <div className={styles.calendar}>
             <Icon iconName="calendar" width={25} height={25} />
-            <span>
-              {sprint.start_date.split('T')[0]} - {sprint.end_date.split('T')[0]}
-            </span>
+            {sprint && (
+              <span>
+                {sprint.start_date?.split('T')[0]} - {sprint.end_date?.split('T')[0]}
+              </span>
+            )}
           </div>
         </div>
         <Button text="New Item" type="primary" onClick={toggle} disabled={!idSprint || !idBoard} />
