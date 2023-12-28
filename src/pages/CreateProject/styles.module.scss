@@ -13,17 +13,8 @@
     font-weight: 700;
     font-size: 18px;
   }
-
-  &__button {
-    &-submit {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  }
 }
 
 .error {
-  display: block;
-  color: red;
+  color: var(--error-color);
 }
