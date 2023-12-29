@@ -45,7 +45,7 @@ export const AddSprintModal: FC<AddCardModalProps> = ({ hide }) => {
     navigate(`/board/${idBoard}/sprint/${data.id}`);
   };
 
-  const { sendRequest, isError, isLoading, queryResult } = useSendRequest(postSprint, `${idBoard}/sprints`);
+  const { sendRequest, isError, isLoading } = useSendRequest(postSprint, `${idBoard}/sprints`);
   const { data: currentSprintData, isLoading: isCurrentSprintLoading } = useGetRequest(
     `${idBoard}/sprints/${idSprint}/issues`
   );
@@ -109,7 +109,7 @@ export const AddSprintModal: FC<AddCardModalProps> = ({ hide }) => {
             />
           </FormElementWrapper>
           {validationError && <span className={styles.error}>{validationError}</span>}
-          {isError && !validationError && <span className={styles.error}>{queryResult}</span>}
+          {isError && !validationError && <span className={styles.error}>Enter the correct dates!</span>}
         </div>
         <div className={styles['AddCardModal__button-submit']}>
           <Button text="Add Sprint" type="primary" />

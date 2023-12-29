@@ -63,7 +63,7 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
     }
   };
 
-  const { sendRequest, isError, isLoading, queryResult } = useSendRequest(postIssue, `${idBoard}/issues`);
+  const { sendRequest, isError, isLoading } = useSendRequest(postIssue, `${idBoard}/issues`);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -164,7 +164,7 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
             />
           </FormElementWrapper>
           {validationError && <span className={styles.error}>{validationError}</span>}
-          {isError && !validationError && <span className={styles.error}>{queryResult}</span>}
+          {isError && !validationError && <span className={styles.error}>Enter the correct end date!</span>}
         </div>
         <div className={styles['AddCardModal__button-submit']}>
           <Button text="Add Task" type="primary" />
