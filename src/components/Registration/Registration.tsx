@@ -33,7 +33,7 @@ const _Registration: FC<RegistrationProps> = ({ onSetIsLoginCallback }) => {
     }
   };
 
-  const { sendRequest, isError, isLoading, queryResult, isSuccess } = useSendRequest(submitCallback, 'register');
+  const { sendRequest, isError, isLoading, isSuccess } = useSendRequest(submitCallback, 'register');
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -107,7 +107,7 @@ const _Registration: FC<RegistrationProps> = ({ onSetIsLoginCallback }) => {
                 />
               </FormElementWrapper>
               {validationError && <span className={styles.error}>{validationError}</span>}
-              {isError && !validationError && <span>{queryResult}</span>}
+              {isError && !validationError && <span className={styles.error}>Invalid data format</span>}
             </div>
 
             <Button text="Sign up" type="primary" typeButton="submit" />

@@ -38,15 +38,13 @@ const _Login: FC = () => {
       email: email,
       password: password
     };
-    if (password.length > 0 && email.length > 0 && validateEmail(email)) {
+
+    if (!email) setValidationError('Enter the email');
+    else if (!validateEmail(email)) setValidationError('Enter the correct email');
+    else if (!password) setValidationError('Enter the password');
+    else {
       sendRequest(sendObject);
       setValidationError('');
-      setEmail('');
-      setPassword('');
-    } else {
-      setValidationError('Oooops, something went wrong!');
-      setEmail('');
-      setPassword('');
     }
   };
 
@@ -79,12 +77,11 @@ const _Login: FC = () => {
                   }}
                 />
               </FormElementWrapper>
+              {validationError && <span className={styles.error}>{validationError}</span>}
+              {isError && !validationError && <span className={styles.error}>Invalid email or password, try again</span>}
             </div>
-
             <Button text="Sign in" type="primary" typeButton="submit" />
           </form>
-          {isError && <span>{queryResult}</span>}
-          {validationError && <span className={styles.error}>{validationError}</span>}
         </>
       )}
     </>
