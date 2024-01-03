@@ -157,7 +157,7 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
             />
           )}
         </div>
-        {idBoard && <div className={styles.Information__members}>
+        <div className={styles.Information__members}>
           {!idTicket && !isWorkplaceUsersLoading && (
             <div className={styles['Information__members-avatars']}>
               {workplaceUsers.users
@@ -172,7 +172,7 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
           )}
           <div className={clsx(styles.divider, !activeBoard ? styles.hide : '')} />
           <Button text="+ New Member" type="new-member" onClick={toggle} className={!activeBoard ? styles.hide : ''} />
-        </div>}
+        </div>
       </div>
       <Modal
         isShown={isShown}
