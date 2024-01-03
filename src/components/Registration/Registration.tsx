@@ -1,9 +1,9 @@
 import { FC, FormEvent, memo, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 import { useSendRequest } from '../../hooks/useSendRequest';
-import { paths } from '../../utils/paths';
-import { AuthContext } from '../../shared/context';
+// import { paths } from '../../utils/paths';
+// import { AuthContext } from '../../shared/context';
 import { Button } from '../../ui-kit/Button';
 import { FormElementWrapper } from '../../ui-kit/FormElementWrapper';
 import { TextForm } from '../../ui-kit/TextForm';
@@ -12,23 +12,28 @@ import styles from './styles.module.scss';
 import { Input } from '../../ui-kit/Input';
 import { validateEmail } from '../../utils/helpers';
 
-const _Registration: FC = () => {
-  const authContext = useContext(AuthContext);
+type RegistrationProps = {
+  onSetIsLoginCallback: (value: boolean) => void;
+};
+
+const _Registration: FC<RegistrationProps> = ({ onSetIsLoginCallback }) => {
+  // const authContext = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [validationError, setValidationError] = useState('');
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const submitCallback = () => {
-    if (isSuccess) {
-      authContext?.setIsAuth(true);
-      navigate(paths.home);
+    if (!isError) {
+      // authContext?.setIsAuth(true);
+      // navigate(paths.home);
+      onSetIsLoginCallback(true);
     }
   };
 
-  const { sendRequest, isError, isLoading, queryResult, isSuccess } = useSendRequest(submitCallback, 'register');
+  const { sendRequest, isError, isLoading, isSuccess } = useSendRequest(submitCallback, 'register');
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -38,25 +43,15 @@ const _Registration: FC = () => {
       password: password
     };
 
-    if (
-      password.length > 0 &&
-      confirmPassword.length > 0 &&
-      email.length > 0 &&
-      password === confirmPassword &&
-      validateEmail(email)
-    ) {
+    if (!email.length || !validateEmail(email)) setValidationError('Enter the correct email');
+    else if (!name) setValidationError('Name must be non-empty');
+    else if (name.length > 20) setValidationError('Name must not exceed 20 characters');
+    else if (!password) setValidationError('Password must be non-empty');
+    else if (!confirmPassword) setValidationError('Confirm Password must be non-empty');
+    else if (password !== confirmPassword) setValidationError('Entered passwords are different!');
+    else {
       sendRequest(sendObject);
       setValidationError('');
-      setEmail('');
-      setName('');
-      setPassword('');
-      setConfirmPassword('');
-    } else {
-      setValidationError('Oooops, something went wrong!');
-      setEmail('');
-      setName('');
-      setPassword('');
-      setConfirmPassword('');
     }
   };
 
@@ -111,12 +106,12 @@ const _Registration: FC = () => {
                   }}
                 />
               </FormElementWrapper>
+              {validationError && <span className={styles.error}>{validationError}</span>}
+              {isError && !validationError && <span className={styles.error}>Invalid data format</span>}
             </div>
 
             <Button text="Sign up" type="primary" typeButton="submit" />
           </form>
-          {isError && <span>{queryResult}</span>}
-          {validationError && <span className={styles.error}>{validationError}</span>}
         </>
       )}
     </>

@@ -1,0 +1,14 @@
+version: '3.8'
+services:  
+  frontend:   
+    image: andyshintar637/frontend:${IMAGE_TAG}
+    ports:      
+      - '3000:3000'
+    networks:
+      - krista-dev
+    env_file:
+      - .env
+
+networks:
+  krista-dev:
+    external: true

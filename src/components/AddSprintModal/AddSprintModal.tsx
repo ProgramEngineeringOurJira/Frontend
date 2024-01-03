@@ -64,14 +64,12 @@ export const AddSprintModal: FC<AddCardModalProps> = ({ hide }) => {
       end_date: new Date(endDate)
     };
 
-    if (name.length > 0 && startDate.length > 0 && endDate.length > 0) {
+    if (!name) setValidationError('Sprint title must be non-empty');
+    else if (!startDate) setValidationError('Start date is not specified');
+    else if (!endDate) setValidationError('End date is not specified');
+    else {
       sendRequest(issueData);
       setValidationError('');
-      setName('');
-      setStartDate('');
-      setEndDate('');
-    } else {
-      setValidationError('Oooops, something went wrong!');
     }
   };
 
@@ -110,14 +108,14 @@ export const AddSprintModal: FC<AddCardModalProps> = ({ hide }) => {
               onChange={(e: any) => setEndDate(e.target.value)}
             />
           </FormElementWrapper>
+          {validationError && <span className={styles.error}>{validationError}</span>}
+          {isError && !validationError && <span className={styles.error}>Enter the correct dates!</span>}
         </div>
         <div className={styles['AddCardModal__button-submit']}>
           <Button text="Add Sprint" type="primary" />
         </div>
       </form>
       <div className={styles.AddCardModal__loader}>{isLoading && <Loader />}</div>
-      {isError && <span className={styles.error}>Invalid data format</span>}
-      {validationError && <span className={styles.error}>{validationError}</span>}
     </>
   );
 };

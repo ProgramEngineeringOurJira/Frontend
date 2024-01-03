@@ -44,7 +44,7 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
       state: state,
       label: label,
       sprint_id: idSprint,
-      implementers: [personId],
+      implementers: personId ? [personId] : [],
       end_date: endDate ? new Date(endDate) : null
     };
 
@@ -74,14 +74,18 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
       state: state,
       label: label,
       sprint_id: idSprint,
-      implementers: [personId],
+      implementers: personId ? [personId] : [],
       end_date: endDate ? new Date(endDate) : null
     };
 
-    if (name.length > 0) {
+    if (!name.length) setValidationError('Task title must be non-empty');
+    else if (!text.length) setValidationError('Task description must be non-empty');
+    else if (!state) setValidationError('State is not selected');
+    else if (!label) setValidationError('Label is not selected');
+    else if (!priority) setValidationError('Priority is not selected');
+    else {
       sendRequest(issueData);
-    } else {
-      setValidationError('Oooops, something went wrong!');
+      setValidationError('');
     }
   };
 
@@ -159,14 +163,14 @@ export const AddCardModal: FC<AddCardModalProps> = ({ hide }) => {
               onChange={(e: any) => setEndDate(e.target.value)}
             />
           </FormElementWrapper>
+          {validationError && <span className={styles.error}>{validationError}</span>}
+          {isError && !validationError && <span className={styles.error}>Enter the correct end date!</span>}
         </div>
         <div className={styles['AddCardModal__button-submit']}>
           <Button text="Add Task" type="primary" />
         </div>
       </form>
       <div className={styles.AddCardModal__loader}>{isLoading && <Loader />}</div>
-      {isError && <span className={styles.error}>Invalid data format</span>}
-      {validationError && <span className={styles.error}>{validationError}</span>}
     </>
   );
 };

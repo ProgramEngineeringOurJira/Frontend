@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, FormEvent } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import clsx from 'clsx';
@@ -14,11 +14,6 @@ import { Select } from '../../../ui-kit/Select';
 import { Option } from '../../../ui-kit/Select/Option';
 import { Loader } from '../../../ui-kit/Loader';
 import { Workplace } from '../../../utils/types';
-import { useSendRequest } from '../../../hooks/useSendRequest';
-import { TextForm } from '../../../ui-kit/TextForm';
-import { Input } from '../../../ui-kit/Input';
-import { FormElementWrapper } from '../../../ui-kit/FormElementWrapper';
-import { validateEmail } from '../../../utils/helpers';
 import { paths } from '../../../utils/paths';
 
 import styles from './styles.module.scss';
@@ -26,6 +21,7 @@ import { NameTag } from '../../../ui-kit/NameTag';
 import { usersActions } from '../../../redux/features/usersSlice';
 import { Avatar } from '../../../ui-kit/Avatar';
 import { MoreUsersAvatar } from '../../../ui-kit/MoreUsersAvatar';
+import { InviteUserModal } from '../../InviteUserModal';
 
 type InformationProps = {
   isVisible?: boolean;
@@ -34,11 +30,9 @@ type InformationProps = {
 export const Information: FC<InformationProps> = ({ isVisible = true }) => {
   const [activeBoard, setActiveBoard] = useState<Workplace>();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
   const { isShown, toggle } = useModal();
   const navigate = useNavigate();
   const { idBoard, idSprint, idTicket } = useParams();
-  const [validationError, setValidationError] = useState('');
   const [activeUserTag, setActiveUserTag] = useState<string>('');
   const shownUserAvatarsNumber = 4;
 
@@ -91,26 +85,6 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
 
   const updateActiveSprint = (id: string) => {
     navigate(`/board/${activeBoard?.id}/sprint/${id}`);
-  };
-
-  const submitCallback = () => {};
-
-  const { sendRequest, isError, queryResult } = useSendRequest(submitCallback, `workplaces/${activeBoard?.id}/invite`);
-
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const sendObject = {
-      email: email
-    };
-
-    if (email.length > 0 && validateEmail(email)) {
-      sendRequest(sendObject);
-      setValidationError('');
-      setEmail('');
-    } else {
-      setValidationError('Oooops, something went wrong!');
-      setEmail('');
-    }
   };
 
   useEffect(() => {
@@ -196,33 +170,15 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
               )}
             </div>
           )}
-          <div className={styles.divider} />
-          <Button text="+ New Member" type="new-member" onClick={toggle} />
+          <div className={clsx(styles.divider, !activeBoard ? styles.hide : '')} />
+          <Button text="+ New Member" type="new-member" onClick={toggle} className={!activeBoard ? styles.hide : ''} />
         </div>}
       </div>
       <Modal
         isShown={isShown}
         hide={toggle}
         headerText="Invite new member"
-        modalContent={
-          <>
-            <form onSubmit={onSubmit} className={styles.InviteForm}>
-              <FormElementWrapper>
-                <TextForm text="Email" />
-                <Input
-                  type="text"
-                  value={email}
-                  onChange={(e: any) => {
-                    setEmail(e.target.value);
-                  }}
-                />
-              </FormElementWrapper>
-              <Button text="Invite" type="primary" typeButton="submit" />
-            </form>
-            {isError && <span>{queryResult}</span>}
-            {validationError && <span className={styles.error}>{validationError}</span>}
-          </>
-        }
+        modalContent={<InviteUserModal hide={toggle} />}
       />
     </>
   );

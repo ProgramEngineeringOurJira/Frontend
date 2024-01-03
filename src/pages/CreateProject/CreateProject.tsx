@@ -32,13 +32,11 @@ export const CreateProject: FC = () => {
       name: name,
       description: description
     };
-    if (name.length > 0) {
+    if (name.length) {
       sendRequest(sendObject);
       setValidationError('');
-      setName('');
-      setDescription('');
     } else {
-      setValidationError('Oooops, something went wrong!');
+      setValidationError('Project name must be non-empty');
     }
   };
 
@@ -68,9 +66,9 @@ export const CreateProject: FC = () => {
                 onChange={(e: any) => setDescription(e.target.value)}
               />
             </FormElementWrapper>
-            <Button text="Create Project" type="primary" typeButton="submit" />
-            {isError && <span className={styles.error}>{queryResult}</span>}
             {validationError && <span className={styles.error}>{validationError}</span>}
+            {isError && !validationError && <span className={styles.error}>{queryResult}</span>}
+            <Button text="Create Project" type="primary" typeButton="submit" />
           </form>
         </>
       </PageLayout>
