@@ -183,7 +183,7 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
             />
           )}
         </div>
-        <div className={styles.Information__members}>
+        {idBoard && <div className={styles.Information__members}>
           {!idTicket && !isWorkplaceUsersLoading && (
             <div className={styles['Information__members-avatars']}>
               {workplaceUsers.users
@@ -198,7 +198,7 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
           )}
           <div className={styles.divider} />
           <Button text="+ New Member" type="new-member" onClick={toggle} />
-        </div>
+        </div>}
       </div>
       <Modal
         isShown={isShown}
