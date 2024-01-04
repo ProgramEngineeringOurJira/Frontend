@@ -37,7 +37,7 @@ export const Navigation: FC<NavigationProps> = ({ isCreateSprintVisible = true }
     <>
       <div className={styles.Navigation}>
         <div className={styles.Navigation__container}>
-          {isCreateSprintVisible ? <Button text="+ New Sprint" type="header" onClick={toggle} /> : <></>}
+          {isCreateSprintVisible && idBoard && <Button text="+ New Sprint" type="header" onClick={toggle}/>}
           <Button text="+ New Project" type="header" to={paths.createProject} />
         </div>
         <div className={styles.Navigation__name} onClick={onKristiClick}>

@@ -30,7 +30,6 @@ export const LogInProvider: FC<PropsWithChildren> = ({ children }) => {
   const setTokenAccess = (token: string) => {
     setToken(token);
     window.localStorage.setItem('access_token', token);
-    axios.defaults.headers.common['Authorization'] = `Bearer ${window.localStorage.getItem('access_token')}`;
   };
 
   const setNewUser = useCallback((newUser: User) => {
