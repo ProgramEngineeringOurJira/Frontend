@@ -112,7 +112,7 @@ export const Information: FC<InformationProps> = ({ isVisible = true }) => {
             </Select>
           )}
           {sprints.length > 0 && !idTicket && (
-            <Select placeholder={sprints[sprints.length - 1]?.name ?? 'sprint'}>
+            <Select placeholder={sprints[sprints?.length - 1]?.name ?? 'sprint'}>
               {isSprintsLoading ? (
                 <Loader />
               ) : (
