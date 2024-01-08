@@ -64,7 +64,7 @@ export const Board: FC = () => {
             <Icon iconName="calendar" width={25} height={25} />
             {sprint && (
               <span>
-                {sprint.start_date?.split('T')[0]} - {sprint.end_date?.split('T')[0]}
+                {sprint?.start_date?.split('T')[0]} - {sprint?.end_date?.split('T')[0]}
               </span>
             )}
           </div>
